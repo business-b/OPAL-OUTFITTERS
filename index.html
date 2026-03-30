@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPAL OUTFITTER | Est. 1920</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-green: #0a1f1c;
+            --medium-green: #1a3c34;
+            --light-green: #2d5a4e;
+            --gold: #d4af37;
+            --gold-light: #f4e4bc;
+            --gold-dark: #b8941f;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--medium-green) 100%);
+            color: var(--gold-light);
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 31, 28, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--gold);
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            animation: pulse 3s infinite;
+        }
+
+        .brand-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .brand-sub {
+            font-size: 0.7rem;
+            color: var(--gold-light);
+            letter-spacing: 5px;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-icon {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-icon:hover {
+            transform: scale(1.2);
+            color: var(--gold);
+        }
+
+        .nav-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold-light);
+            transition: fill 0.3s;
+        }
+
+        .nav-icon:hover svg {
+            fill: var(--gold);
+        }
+
+        /* Fashion Dropdown */
+        .fashion-menu {
+            position: relative;
+        }
+
+        .fashion-dropdown {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: rgba(26, 60, 52, 0.98);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .fashion-menu:hover .fashion-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fashion-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .fashion-item:hover {
+            background: var(--light-green);
+            transform: translateX(5px);
+        }
+
+        .fashion-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 90px;
+            height: 90vh;
+            background: linear-gradient(rgba(10, 31, 28, 0.7), rgba(10, 31, 28, 0.7)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%230a1f1c" width="100" height="100"/><path fill="%231a3c34" d="M0 50 Q25 30 50 50 T100 50 V100 H0 Z"/></svg>');
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            letter-spacing: 8px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--gold-light);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--gold), var(--gold-dark));
+            color: var(--dark-green);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        /* History Section */
+        .history-section {
+            padding: 80px 20px;
+            background: var(--medium-green);
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .history-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .history-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gold-light);
+        }
+
+        .history-text p {
+            margin-bottom: 20px;
+        }
+
+        .history-image {
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .history-image::after {
+            content: 'Est. 1920';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--dark-green);
+            padding: 10px 20px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 80px 20px;
+            background: var(--dark-green);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, var(--medium-green), var(--light-green));
+            border: 1px solid var(--gold);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, #1a3c34 0%, #0a1f1c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .product-card:hover .product-image::before {
+            left: 100%;
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+
+        .product-price span {
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+
+        .order-btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .order-btn:hover {
+            background: var(--gold);
+            color: var(--dark-green);
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 80px 20px;
+            background: var(--medium-green);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .review-card {
+            background: rgba(10, 31, 28, 0.6);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .review-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--gold);
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-green);
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+        }
+
+        .reviewer-info h4 {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+        }
+
+        .stars {
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 20px;
+            background: var(--dark-green);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--medium-green);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-question {
+            padding: 20px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            background: var(--light-green);
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 30px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 0 30px 20px;
+        }
+
+        .faq-answer p {
+            color: var(--gold-light);
+            line-height: 1.6;
+        }
+
+        /* Order Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeInUp 0.3s;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, var(--medium-green), var(--dark-green));
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--gold);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(10, 31, 28, 0.8);
+            border: 1px solid var(--gold);
+            border-radius: 5px;
+            color: var(--gold-light);
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .submit-order {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--gold), var(--gold-dark));
+            color: var(--dark-green);
+            border: none;
+            border-radius: 5px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .submit-order:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-float svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-green);
+            border-top: 2px solid var(--gold);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--gold-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .copyright {
+            color: var(--gold);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .history-content { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: 1fr; }
+            .nav-icon:not(.fashion-menu) { display: none; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="https://i.ibb.co/27nQ7qF/opal-logo.png" alt="OPAL OUTFITTER Logo" class="logo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle fill=%22%23d4af37%22 cx=%2250%22 cy=%2250%22 r=%2245%22/><text x=%2250%22 y=%2265%22 font-family=%22serif%22 font-size=%2240%22 fill=%22%230a1f1c%22 text-anchor=%22middle%22>O</text></svg>'">
+                <div>
+                    <div class="brand-name">OPAL OUTFITTER</div>
+                    <div class="brand-sub">Est. 1920</div>
+                </div>
+            </div>
+            
+            <nav>
+                <div class="nav-icon" onclick="window.scrollTo(0,0)" title="Home">
+                    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                </div>
+                
+                <div class="nav-icon" onclick="toggleSearch()" title="Search">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                </div>
+
+                <div class="nav-icon fashion-menu" title="Fashion">
+                    <svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11z M12 5.84L13.93 9h-3.87z M17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5z M5 21.5h8v-8H5v8z"/></svg>
+                    <div class="fashion-dropdown">
+                        <div class="fashion-item" onclick="filterCategory('dressing')">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                            <span>Dressing</span>
+                        </div>
+                        <div class="fashion-item" onclick="filterCategory('shoes')">
+                            <svg viewBox="0 0 24 24"><path d="M18 14V6h-4V4h-4v2H6v8h12z M6 16h12v2H6z"/></svg>
+                            <span>Shoes</span>
+                        </div>
+                        <div class="fashion-item" onclick="filterCategory('accessories')">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span>Accessories</span>
+                        </div>
+                        <div class="fashion-item" onclick="filterCategory('watches')">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
+                            <span>Watches</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-icon" onclick="openGmail()" title="Contact">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>OPAL OUTFITTER</h1>
+            <p>Timeless Elegance Since 1920</p>
+            <button class="cta-button" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">Explore Collection</button>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history-section">
+        <div class="container">
+            <h2 class="section-title">Our Legacy</h2>
+            <div class="history-content">
+                <div class="history-text">
+                    <p>Founded in 1920, OPAL OUTFITTER began as a small bespoke shoemaking workshop in the heart of the city. What started as a passion for craftsmanship quickly evolved into a symbol of luxury and sophistication.</p>
+                    <p>For over a century, we have been crafting exceptional footwear that combines traditional techniques with contemporary design. Each pair of shoes that leaves our atelier carries with it a legacy of excellence, attention to detail, and an unwavering commitment to quality.</p>
+                    <p>Our master artisans, trained in the old-world methods of shoemaking, ensure that every stitch, every cut, and every polish meets the highest standards of luxury footwear. From royal families to modern connoisseurs, OPAL OUTFITTER has dressed the feet of discerning clients worldwide.</p>
+                </div>
+                <div class="history-image">
+                    <div style="height: 300px; background: linear-gradient(135deg, #1a3c34, #0a1f1c); display: flex; align-items: center; justify-content: center; font-size: 5rem; color: var(--gold);">
+                        👞
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <h2 class="section-title">Exclusive Collection</h2>
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card" onclick="openProductPage('chunky-loafer')">
+                    <div class="product-image">👞</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Chunky Loafer</h3>
+                        <div class="product-price"><span>PKR</span> 6,000</div>
+                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Chunky Loafer', 6000)">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card" onclick="openProductPage('samba-shoes')">
+                    <div class="product-image">👟</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Samba Shoes</h3>
+                        <div class="product-price"><span>PKR</span> 10,000</div>
+                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Samba Shoes', 10000)">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" onclick="openProductPage('formal-shoes-1')">
+                    <div class="product-image">👠</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Classic Formal Shoes</h3>
+                        <div class="product-price"><span>PKR</span> 5,500</div>
+                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Classic Formal Shoes', 5500)">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card" onclick="openProductPage('formal-shoes-2')">
+                    <div class="product-image">🥾</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Executive Formal Shoes</h3>
+                        <div class="product-price"><span>PKR</span> 6,000</div>
+                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Executive Formal Shoes', 6000)">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">Client Testimonials</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <p class="review-text">The craftsmanship of OPAL OUTFITTER shoes is unparalleled. My Chunky Loafers have become my signature style. Worth every penny!</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">AK</div>
+                        <div class="reviewer-info">
+                            <h4>Ahmed Khan</h4>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <p class="review-text">I've been collecting luxury shoes for 15 years, and OPAL OUTFITTER stands among the best. The Samba Shoes are a perfect blend of comfort and elegance.</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">SR</div>
+                        <div class="reviewer-info">
+                            <h4>Sarah Rahman</h4>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <p class="review-text">Exceptional service and even better products. The formal shoes I ordered for my wedding were absolutely stunning. Highly recommended!</p>
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">ZJ</div>
+                        <div class="reviewer-info">
+                            <h4>Zain Javed</h4>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>What materials do you use in your shoes?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We use only the finest full-grain leather, sourced from premium tanneries in Italy and Pakistan. Our soles are crafted from genuine leather or high-quality rubber, depending on the style. Each material is carefully selected for durability, comfort, and aesthetic appeal.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>How do I care for my OPAL OUTFITTER shoes?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We recommend using a soft cloth to remove dust after each wear. Apply our signature leather conditioner monthly to maintain suppleness. Store in the provided dust bag and use shoe trees to maintain shape. Avoid prolonged exposure to water and direct sunlight.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>What is your delivery timeframe?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Standard delivery within Pakistan takes 3-5 business days. For international orders, please allow 7-14 business days. Each pair is handcrafted and undergoes rigorous quality checks before shipping. Express delivery options are available at checkout.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Do you offer custom sizing?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We offer bespoke sizing for clients with specific requirements. Please contact us via WhatsApp or email with your measurements, and our master craftsmen will create a pair tailored specifically to your feet. Additional charges may apply for custom work.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">OPAL OUTFITTER</div>
+            <div class="footer-links">
+                <a href="#" onclick="window.scrollTo(0,0)">Home</a>
+                <a href="#products">Collection</a>
+                <a href="mailto:contact@opaloutfitter.com" onclick="openGmail()">Contact</a>
+                <a href="https://wa.me/923483351028" target="_blank">WhatsApp</a>
+            </div>
+            <p class="copyright">© 1920-2026 OPAL OUTFITTER. All Rights Reserved. | Est. 1920</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/923483351028" target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.13 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <!-- Order Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeOrderModal()">×</span>
+            <h2 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px; text-align: center;">Complete Your Order</h2>
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label>Product</label>
+                    <input type="text" id="productName" readonly style="background: rgba(212, 175, 55, 0.1);">
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="text" id="productPrice" readonly style="background: rgba(212, 175, 55, 0.1);">
+                </div>
+                <div class="form-group">
+                    <label>Your Name *</label>
+                    <input type="text" id="customerName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" id="customerPhone" required placeholder="03XX-XXXXXXX" value="0348-3351028">
+                </div>
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" id="customerEmail" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Complete Address *</label>
+                    <textarea id="customerAddress" rows="3" required placeholder="House #, Street, City, Country"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Size</label>
+                    <input type="text" id="shoeSize" placeholder="e.g., 42, 43, 44">
+                </div>
+                <div class="form-group">
+                    <label>Special Instructions</label>
+                    <textarea id="specialInstructions" rows="2" placeholder="Any specific requirements..."></textarea>
+                </div>
+                <button type="submit" class="submit-order">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const allFaqs = document.querySelectorAll('.faq-item');
+            allFaqs.forEach(faq => {
+                if (faq !== element) faq.classList.remove('active');
+            });
+            element.classList.toggle('active');
+        }
+
+        // Order Modal Functions
+        function openOrderModal(productName, price) {
+            document.getElementById('productName').value = productName;
+            document.getElementById('productPrice').value = 'PKR ' + price.toLocaleString();
+            document.getElementById('orderModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Submit Order
+        function submitOrder(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const email = document.getElementById('customerEmail').value;
+            const address = document.getElementById('customerAddress').value;
+            const product = document.getElementById('productName').value;
+            const price = document.getElementById('productPrice').value;
+            const size = document.getElementById('shoeSize').value;
+            const instructions = document.getElementById('specialInstructions').value;
+
+            // Create WhatsApp message
+            const whatsappMessage = `*NEW ORDER - OPAL OUTFITTER*%0A%0A` +
+                `*Product:* ${product}%0A` +
+                `*Price:* ${price}%0A` +
+                `*Size:* ${size || 'Not specified'}%0A%0A` +
+                `*Customer Details:*%0A` +
+                `Name: ${name}%0A` +
+                `Phone: ${phone}%0A` +
+                `Email: ${email}%0A` +
+                `Address: ${address}%0A` +
+                `Instructions: ${instructions || 'None'}%0A%0A` +
+                `*Order Date:* ${new Date().toLocaleString()}`;
+
+            // Open WhatsApp
+            window.open(`https://wa.me/923483351028?text=${whatsappMessage}`, '_blank');
+
+            // Create Email
+            const emailSubject = `New Order: ${product} - OPAL OUTFITTER`;
+            const emailBody = `NEW ORDER - OPAL OUTFITTER\n\n` +
+                `Product: ${product}\n` +
+                `Price: ${price}\n` +
+                `Size: ${size || 'Not specified'}\n\n` +
+                `Customer Details:\n` +
+                `Name: ${name}\n` +
+                `Phone: ${phone}\n` +
+                `Email: ${email}\n` +
+                `Address: ${address}\n` +
+                `Instructions: ${instructions || 'None'}\n\n` +
+                `Order Date: ${new Date().toLocaleString()}`;
+
+            // Open Gmail
+            setTimeout(() => {
+                window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=contact@opaloutfitter.com&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`, '_blank');
+            }, 500);
+
+            alert('Thank you for your order! You will be redirected to WhatsApp and Email to complete your order.');
+            closeOrderModal();
+        }
+
+        // Gmail Contact
+        function openGmail() {
+            window.open('https://mail.google.com/mail/?view=cm&fs=1&to=contact@opaloutfitter.com&su=Inquiry%20from%20OPAL%20OUTFITTER%20Website', '_blank');
+        }
+
+        // Search Toggle
+        function toggleSearch() {
+            const searchTerm = prompt('Search for products (e.g., loafer, formal, samba):');
+            if (searchTerm) {
+                alert('Searching for: ' + searchTerm + '\n(In a full implementation, this would filter products)');
+            }
+        }
+
+        // Filter Category
+        function filterCategory(category) {
+            alert('Filtering by: ' + category + '\n(In a full implementation, this would show ' + category + ' products)');
+        }
+
+        // Product Page Navigation
+        function openProductPage(productId) {
+            const pages = {
+                'chunky-loafer': {
+                    name: 'Chunky Loafer',
+                    price: 6000,
+                    emoji: '👞',
+                    desc: 'A bold statement piece that combines vintage charm with modern comfort. Features premium leather upper, cushioned insole, and durable rubber sole.'
+                },
+                'samba-shoes': {
+                    name: 'Samba Shoes',
+                    price: 10000,
+                    emoji: '👟',
+                    desc: 'Inspired by classic athletic elegance. Hand-stitched leather with signature three-stripe detailing. Perfect for both casual and semi-formal occasions.'
+                },
+                'formal-shoes-1': {
+                    name: 'Classic Formal Shoes',
+                    price: 5500,
+                    emoji: '👠',
+                    desc: 'Timeless Oxford style with polished finish. Genuine leather lining, leather sole with rubber heel for grip. The epitome of professional elegance.'
+                },
+                'formal-shoes-2': {
+                    name: 'Executive Formal Shoes',
+                    price: 6000,
+                    emoji: '🥾',
+                    desc: 'Premium Derby style with brogue detailing. Hand-burnished leather creates unique patina. Ideal for business meetings and formal events.'
+                }
+            };
+
+            const product = pages[productId];
+            if (product) {
+                const newWindow = window.open('', '_blank');
+                newWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>${product.name} - OPAL OUTFITTER</title>
+                        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+                        <style>
+                            body {
+                                font-family: 'Playfair Display', serif;
+                                background: linear-gradient(135deg, #0a1f1c 0%, #1a3c34 100%);
+                                color: #f4e4bc;
+                                margin: 0;
+                                padding: 40px;
+                                min-height: 100vh;
+                            }
+                            .container { max-width: 800px; margin: 0 auto; }
+                            h1 {
+                                font-family: 'Cinzel', serif;
+                                color: #d4af37;
+                                font-size: 2.5rem;
+                                border-bottom: 2px solid #d4af37;
+                                padding-bottom: 20px;
+                            }
+                            .product-display {
+                                background: rgba(26, 60, 52, 0.8);
+                                border: 2px solid #d4af37;
+                                border-radius: 20px;
+                                padding: 40px;
+                                margin-top: 30px;
+                                text-align: center;
+                            }
+                            .emoji { font-size: 8rem; margin: 20px 0; }
+                            .price {
+                                font-size: 2rem;
+                                color: #d4af37;
+                                font-weight: 700;
+                                margin: 20px 0;
+                            }
+                            .description {
+                                font-size: 1.2rem;
+                                line-height: 1.8;
+                                margin: 30px 0;
+                                text-align: left;
+                            }
+                            .features {
+                                text-align: left;
+                                margin: 30px 0;
+                                padding: 20px;
+                                background: rgba(10, 31, 28, 0.6);
+                                border-radius: 10px;
+                            }
+                            .features h3 { color: #d4af37; font-family: 'Cinzel', serif; }
+                            .features ul { list-style: none; padding: 0; }
+                            .features li { padding: 10px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.3); }
+                            .features li:before { content: "✦ "; color: #d4af37; }
+                            .order-btn {
+                                background: linear-gradient(45deg, #d4af37, #b8941f);
+                                color: #0a1f1c;
+                                padding: 15px 50px;
+                                border: none;
+                                border-radius: 50px;
+                                font-family: 'Cinzel', serif;
+                                font-weight: 700;
+                                font-size: 1.1rem;
+                                cursor: pointer;
+                                margin-top: 20px;
+                            }
+                            .back-link {
+                                display: inline-block;
+                                margin-top: 30px;
+                                color: #d4af37;
+                                text-decoration: none;
+                                font-family: 'Cinzel', serif;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <h1>${product.name}</h1>
+                            <div class="product-display">
+                                <div class="emoji">${product.emoji}</div>
+                                <div class="price">PKR ${product.price.toLocaleString()}</div>
+                                <p class="description">${product.desc}</p>
+                                <div class="features">
+                                    <h3>Key Features:</h3>
+                                    <ul>
+                                        <li>Premium Full-Grain Leather Upper</li>
+                                        <li>Hand-Stitched Construction</li>
+                                        <li>Leather Lining for Breathability</li>
+                                        <li>Cushioned Insole for All-Day Comfort</li>
+                                        <li>Durable Leather/Rubber Sole</li>
+                                        <li>Handmade in Pakistan</li>
+                                        <li>1 Year Craftsmanship Warranty</li>
+                                    </ul>
+                                </div>
+                                <button class="order-btn" onclick="window.opener.openOrderModal('${product.name}', ${product.price}); window.close();">Order Now</button>
+                            </div>
+                            <a href="#" class="back-link" onclick="window.close()">← Back to Collection</a>
+                        </div>
+                    </body>
+                    </html>
+                `);
+            }
+        }
+
+        // Scroll Animation
+        window.addEventListener('scroll', () => {
+            const elements = document.querySelectorAll('.product-card, .review-card');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Close modal on outside click
+        document.getElementById('orderModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('orderModal')) {
+                closeOrderModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
