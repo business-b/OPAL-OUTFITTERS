@@ -312,6 +312,13 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
+        .history-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .history-image::after {
             content: 'Est. 1920';
             position: absolute;
@@ -364,6 +371,17 @@
             overflow: hidden;
         }
 
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
         .product-image::before {
             content: '';
             position: absolute;
@@ -374,6 +392,7 @@
             background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
             transform: rotate(45deg);
             transition: all 0.5s;
+            z-index: 1;
         }
 
         .product-card:hover .product-image::before {
@@ -561,6 +580,7 @@
             justify-content: center;
             align-items: center;
             backdrop-filter: blur(5px);
+            overflow-y: auto;
         }
 
         .modal.active {
@@ -577,6 +597,9 @@
             width: 90%;
             position: relative;
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            margin: 20px auto;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .close-modal {
@@ -605,7 +628,8 @@
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 12px;
             background: rgba(10, 31, 28, 0.8);
@@ -617,10 +641,46 @@
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--gold-light);
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .quantity-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            background: var(--gold);
+            color: var(--dark-green);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background: var(--gold-light);
+            transform: scale(1.1);
+        }
+
+        #quantity {
+            text-align: center;
+            font-weight: bold;
         }
 
         .submit-order {
@@ -722,9 +782,9 @@
             .history-content { grid-template-columns: 1fr; }
             .products-grid { grid-template-columns: 1fr; }
             .nav-icon:not(.fashion-menu) { display: none; }
+            .form-row { grid-template-columns: 1fr; }
         }
     </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -797,9 +857,7 @@
                     <p>Our master artisans, trained in the old-world methods of shoemaking, ensure that every stitch, every cut, and every polish meets the highest standards of luxury footwear. From royal families to modern connoisseurs, OPAL OUTFITTER has dressed the feet of discerning clients worldwide.</p>
                 </div>
                 <div class="history-image">
-                    <div style="height: 300px; background: linear-gradient(135deg, #1a3c34, #0a1f1c); display: flex; align-items: center; justify-content: center; font-size: 5rem; color: var(--gold);">
-                        👞
-                    </div>
+                    <img src="https://kimi-web-img.moonshot.cn/img/images.stockcake.com/9f075331f7e133a41d1dbbca281583683ce9fbec.jpg" alt="Vintage Artisan Shoe Workshop - Master Craftsman at Work">
                 </div>
             </div>
         </div>
@@ -810,9 +868,11 @@
         <div class="container">
             <h2 class="section-title">Exclusive Collection</h2>
             <div class="products-grid">
-                <!-- Product 1 -->
+                <!-- Product 1: Chunky Loafer -->
                 <div class="product-card" onclick="openProductPage('chunky-loafer')">
-                    <div class="product-image">👞</div>
+                    <div class="product-image">
+                        <img src="https://kimi-web-img.moonshot.cn/img/img4.dhresource.com/20efd2f3d183d18dd7f3bbe80eb34714acccf7e6.jpg" alt="Chunky Loafer - Black Leather Platform Shoes">
+                    </div>
                     <div class="product-info">
                         <h3 class="product-name">Chunky Loafer</h3>
                         <div class="product-price"><span>PKR</span> 6,000</div>
@@ -820,9 +880,11 @@
                     </div>
                 </div>
 
-                <!-- Product 2 -->
+                <!-- Product 2: Samba Shoes -->
                 <div class="product-card" onclick="openProductPage('samba-shoes')">
-                    <div class="product-image">👟</div>
+                    <div class="product-image">
+                        <img src="https://kimi-web-img.moonshot.cn/img/www.nikys-sports.com/8e11c06da3e3fedad1cb998a7c4d8328af757040.jpg" alt="Samba Classic Leather Sneakers - Black/White">
+                    </div>
                     <div class="product-info">
                         <h3 class="product-name">Samba Shoes</h3>
                         <div class="product-price"><span>PKR</span> 10,000</div>
@@ -830,9 +892,11 @@
                     </div>
                 </div>
 
-                <!-- Product 3 -->
+                <!-- Product 3: Classic Formal Shoes -->
                 <div class="product-card" onclick="openProductPage('formal-shoes-1')">
-                    <div class="product-image">👠</div>
+                    <div class="product-image">
+                        <img src="https://kimi-web-img.moonshot.cn/img/vhny.us/8ced2e68526fc171e639a1c12e56840058e5ef62.jpg" alt="Classic Oxford Formal Shoes - Black Leather">
+                    </div>
                     <div class="product-info">
                         <h3 class="product-name">Classic Formal Shoes</h3>
                         <div class="product-price"><span>PKR</span> 5,500</div>
@@ -840,9 +904,11 @@
                     </div>
                 </div>
 
-                <!-- Product 4 -->
+                <!-- Product 4: Executive Formal Shoes -->
                 <div class="product-card" onclick="openProductPage('formal-shoes-2')">
-                    <div class="product-image">🥾</div>
+                    <div class="product-image">
+                        <img src="https://kimi-web-img.moonshot.cn/img/m.media-amazon.com/74dfa25605a464dfdf70f483faa39b9590df128c.jpg" alt="Executive Brogue Formal Shoes - Brown Leather">
+                    </div>
                     <div class="product-info">
                         <h3 class="product-name">Executive Formal Shoes</h3>
                         <div class="product-price"><span>PKR</span> 6,000</div>
@@ -972,39 +1038,75 @@
                     <input type="text" id="productName" readonly style="background: rgba(212, 175, 55, 0.1);">
                 </div>
                 <div class="form-group">
-                    <label>Price</label>
+                    <label>Unit Price</label>
                     <input type="text" id="productPrice" readonly style="background: rgba(212, 175, 55, 0.1);">
                 </div>
-                <div class="form-group">
-                    <label>Your Name *</label>
-                    <input type="text" id="customerName" required placeholder="Enter your full name">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <div class="quantity-wrapper">
+                            <button type="button" class="quantity-btn" onclick="updateQuantity(-1)">-</button>
+                            <input type="number" id="quantity" value="1" min="1" max="10" readonly style="width: 60px; text-align: center;">
+                            <button type="button" class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Price</label>
+                        <input type="text" id="totalPrice" readonly style="background: rgba(212, 175, 55, 0.2); color: var(--gold); font-weight: bold;">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Phone Number *</label>
-                    <input type="tel" id="customerPhone" required placeholder="03XX-XXXXXXX" value="0348-3351028">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Size *</label>
+                        <select id="shoeSize" required>
+                            <option value="">Select Size</option>
+                            <option value="39">EU 39 / UK 6</option>
+                            <option value="40">EU 40 / UK 6.5</option>
+                            <option value="41">EU 41 / UK 7</option>
+                            <option value="42">EU 42 / UK 8</option>
+                            <option value="43">EU 43 / UK 9</option>
+                            <option value="44">EU 44 / UK 10</option>
+                            <option value="45">EU 45 / UK 11</option>
+                            <option value="46">EU 46 / UK 12</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Name *</label>
+                        <input type="text" id="customerName" required placeholder="Enter your full name">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Email Address *</label>
-                    <input type="email" id="customerEmail" required placeholder="your@email.com">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="customerPhone" required placeholder="03XX-XXXXXXX" value="0348-3351028">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="customerEmail" required placeholder="your@email.com">
+                    </div>
                 </div>
+
                 <div class="form-group">
                     <label>Complete Address *</label>
                     <textarea id="customerAddress" rows="3" required placeholder="House #, Street, City, Country"></textarea>
                 </div>
-                <div class="form-group">
-                    <label>Size</label>
-                    <input type="text" id="shoeSize" placeholder="e.g., 42, 43, 44">
-                </div>
+
                 <div class="form-group">
                     <label>Special Instructions</label>
-                    <textarea id="specialInstructions" rows="2" placeholder="Any specific requirements..."></textarea>
+                    <textarea id="specialInstructions" rows="2" placeholder="Any specific requirements (color preference, gift wrapping, delivery instructions, etc.)..."></textarea>
                 </div>
+
                 <button type="submit" class="submit-order">Place Order</button>
             </form>
         </div>
     </div>
 
     <script>
+        let currentPrice = 0;
+
         // FAQ Toggle
         function toggleFaq(element) {
             const allFaqs = document.querySelectorAll('.faq-item');
@@ -1014,10 +1116,29 @@
             element.classList.toggle('active');
         }
 
+        // Quantity Management
+        function updateQuantity(change) {
+            const quantityInput = document.getElementById('quantity');
+            let newValue = parseInt(quantityInput.value) + change;
+            if (newValue >= 1 && newValue <= 10) {
+                quantityInput.value = newValue;
+                updateTotalPrice();
+            }
+        }
+
+        function updateTotalPrice() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const total = currentPrice * quantity;
+            document.getElementById('totalPrice').value = 'PKR ' + total.toLocaleString();
+        }
+
         // Order Modal Functions
         function openOrderModal(productName, price) {
+            currentPrice = price;
             document.getElementById('productName').value = productName;
             document.getElementById('productPrice').value = 'PKR ' + price.toLocaleString();
+            document.getElementById('quantity').value = 1;
+            updateTotalPrice();
             document.getElementById('orderModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1036,15 +1157,19 @@
             const email = document.getElementById('customerEmail').value;
             const address = document.getElementById('customerAddress').value;
             const product = document.getElementById('productName').value;
-            const price = document.getElementById('productPrice').value;
+            const unitPrice = document.getElementById('productPrice').value;
+            const quantity = document.getElementById('quantity').value;
+            const totalPrice = document.getElementById('totalPrice').value;
             const size = document.getElementById('shoeSize').value;
             const instructions = document.getElementById('specialInstructions').value;
 
             // Create WhatsApp message
             const whatsappMessage = `*NEW ORDER - OPAL OUTFITTER*%0A%0A` +
                 `*Product:* ${product}%0A` +
-                `*Price:* ${price}%0A` +
-                `*Size:* ${size || 'Not specified'}%0A%0A` +
+                `*Unit Price:* ${unitPrice}%0A` +
+                `*Quantity:* ${quantity}%0A` +
+                `*Total Price:* ${totalPrice}%0A` +
+                `*Size:* EU ${size}%0A%0A` +
                 `*Customer Details:*%0A` +
                 `Name: ${name}%0A` +
                 `Phone: ${phone}%0A` +
@@ -1057,11 +1182,13 @@
             window.open(`https://wa.me/923483351028?text=${whatsappMessage}`, '_blank');
 
             // Create Email
-            const emailSubject = `New Order: ${product} - OPAL OUTFITTER`;
+            const emailSubject = `New Order: ${product} (Qty: ${quantity}) - OPAL OUTFITTER`;
             const emailBody = `NEW ORDER - OPAL OUTFITTER\n\n` +
                 `Product: ${product}\n` +
-                `Price: ${price}\n` +
-                `Size: ${size || 'Not specified'}\n\n` +
+                `Unit Price: ${unitPrice}\n` +
+                `Quantity: ${quantity}\n` +
+                `Total Price: ${totalPrice}\n` +
+                `Size: EU ${size}\n\n` +
                 `Customer Details:\n` +
                 `Name: ${name}\n` +
                 `Phone: ${phone}\n` +
@@ -1103,25 +1230,25 @@
                 'chunky-loafer': {
                     name: 'Chunky Loafer',
                     price: 6000,
-                   <img src="bloom-generated-177156404671" alt="My Shoe" width="300">
+                    image: 'https://kimi-web-img.moonshot.cn/img/img4.dhresource.com/20efd2f3d183d18dd7f3bbe80eb34714acccf7e6.jpg',
                     desc: 'A bold statement piece that combines vintage charm with modern comfort. Features premium leather upper, cushioned insole, and durable rubber sole.'
                 },
                 'samba-shoes': {
                     name: 'Samba Shoes',
                     price: 10000,
-                    <img src="samba-shoes (1).jpg" alt="My Shoe" width="300">
+                    image: 'https://kimi-web-img.moonshot.cn/img/www.nikys-sports.com/8e11c06da3e3fedad1cb998a7c4d8328af757040.jpg',
                     desc: 'Inspired by classic athletic elegance. Hand-stitched leather with signature three-stripe detailing. Perfect for both casual and semi-formal occasions.'
                 },
                 'formal-shoes-1': {
                     name: 'Classic Formal Shoes',
                     price: 5500,
-                   <img src="Gemini_Generated_Image_e2vjm" alt="My Shoe" width="300">
+                    image: 'https://kimi-web-img.moonshot.cn/img/vhny.us/8ced2e68526fc171e639a1c12e56840058e5ef62.jpg',
                     desc: 'Timeless Oxford style with polished finish. Genuine leather lining, leather sole with rubber heel for grip. The epitome of professional elegance.'
                 },
                 'formal-shoes-2': {
                     name: 'Executive Formal Shoes',
                     price: 6000,
-                    <img src="formal-shoes-1 (1).jpg" alt="My Shoe" width="300">
+                    image: 'https://kimi-web-img.moonshot.cn/img/m.media-amazon.com/74dfa25605a464dfdf70f483faa39b9590df128c.jpg',
                     desc: 'Premium Derby style with brogue detailing. Hand-burnished leather creates unique patina. Ideal for business meetings and formal events.'
                 }
             };
@@ -1160,7 +1287,14 @@
                                 margin-top: 30px;
                                 text-align: center;
                             }
-                            .emoji { font-size: 8rem; margin: 20px 0; }
+                            .product-image { 
+                                width: 100%; 
+                                max-width: 400px; 
+                                height: auto; 
+                                border-radius: 10px;
+                                margin: 20px auto;
+                                display: block;
+                            }
                             .price {
                                 font-size: 2rem;
                                 color: #d4af37;
@@ -1209,7 +1343,7 @@
                         <div class="container">
                             <h1>${product.name}</h1>
                             <div class="product-display">
-                                <div class="emoji">${product.emoji}</div>
+                                <img src="${product.image}" alt="${product.name}" class="product-image">
                                 <div class="price">PKR ${product.price.toLocaleString()}</div>
                                 <p class="description">${product.desc}</p>
                                 <div class="features">
