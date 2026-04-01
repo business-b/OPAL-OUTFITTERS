@@ -1,4 +1,399 @@
-<!DOCTYPE html>
+    <!-- Review Modal -->
+    <div class="modal" id="reviewModal">
+        <div class="modal-content review-modal-content">
+            <span class="close-modal" onclick="closeReviewModal()">×</span>
+            <h2 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px; text-align: center;">Share Your Experience</h2>
+            <form id="reviewForm" onsubmit="submitReview(event)">
+                <div class="form-group">
+                    <label>Product</label>
+                    <input type="text" id="reviewProductName" readonly style="background: rgba(212, 175, 55, 0.1);">
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Rating</label>
+                    <div class="star-rating" id="starRating">
+                        <span class="star active" onclick="setRating(1)">★</span>
+                        <span class="star active" onclick="setRating(2)">★</span>
+                        <span class="star active" onclick="setRating(3)">★</span>
+                        <span class="star active" onclick="setRating(4)">★</span>
+                        <span class="star active" onclick="setRating(5)">★</span>
+                    </div>
+                    <input type="hidden" id="ratingValue" value="5">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Your Name *</label>
+                        <input type="text" id="reviewerName" required placeholder="Enter your name" oninput="updateInitials()">
+                    </div>
+                    <div class="form-group">
+                        <label>Initials</label>
+                        <input type="text" id="reviewerInitials" readonly style="background: rgba(212, 175, 55, 0.1);">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Review *</label>
+                    <textarea id="reviewText" rows="4" required placeholder="Share your thoughts about the product..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-order">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Product Database with Order Counts
+        const products = {
+            'lp-loafer': {
+                name: 'LP Loafer',
+                price: 4300,
+                orders: 127,
+                image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=400&h=300&fit=crop',
+                description: 'The LP Loafer represents the pinnacle of casual luxury. Handcrafted from premium full-grain leather with a sophisticated slip-on design, these loafers feature a cushioned insole for all-day comfort and a durable leather sole with rubber grip. The sleek silhouette makes them perfect for both formal and smart-casual occasions. Each pair is meticulously hand-finished by our master craftsmen to ensure unparalleled quality and style.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Cushioned Leather Insole', 'Non-Slip Rubber Outsole', 'Classic Slip-On Design', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            },
+            'chunky-loafer': {
+                name: 'Chunky Loafer',
+                price: 6000,
+                orders: 89,
+                image: 'https://img4.dhresource.com/20efd2f3d183d18dd7f3bbe80eb34714acccf7e6.jpg',
+                description: 'A bold statement piece that combines vintage charm with modern comfort. Features premium leather upper, cushioned insole, and durable rubber sole.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            },
+            'samba-shoes': {
+                name: 'Samba Shoes',
+                price: 10000,
+                orders: 234,
+                image: 'https://www.nikys-sports.com/8e11c06da3e3fedad1cb998a7c4d8328af757040.jpg',
+                description: 'Inspired by classic athletic elegance. Hand-stitched leather with signature three-stripe detailing. Perfect for both casual and semi-formal occasions.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            },
+            'formal-shoes-1': {
+                name: 'Classic Formal Shoes',
+                price: 5500,
+                orders: 156,
+                image: 'https://vhny.us/8ced2e68526fc171e639a1c12e56840058e5ef62.jpg',
+                description: 'Timeless Oxford style with polished finish. Genuine leather lining, leather sole with rubber heel for grip. The epitome of professional elegance.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            },
+            'formal-shoes-2': {
+                name: 'Executive Formal Shoes',
+                price: 6000,
+                orders: 78,
+                image: 'https://m.media-amazon.com/74dfa25605a464dfdf70f483faa39b9590df128c.jpg',
+                description: 'Premium Derby style with brogue detailing. Hand-burnished leather creates unique patina. Ideal for business meetings and formal events.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            },
+            'peshawari-chappal': {
+                name: 'Peshawari Chappal',
+                price: 2800,
+                orders: 312,
+                image: 'https://saplaay.com/4cc4970a992c115212150a6dbce7e5dda4d73d94.jpg',
+                description: 'A timeless symbol of Pakistani heritage and craftsmanship. Handcrafted using centuries-old techniques passed down through generations of artisans from Charsadda. Features the iconic curled toe design and adjustable buckle strap for a perfect fit. The ultimate blend of cultural tradition and everyday comfort.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            }
+        };
+
+        let currentPrice = 0;
+        let currentProduct = '';
+        let currentRating = 5;
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const allFaqs = document.querySelectorAll('.faq-item');
+            allFaqs.forEach(faq => {
+                if (faq !== element) faq.classList.remove('active');
+            });
+            element.classList.toggle('active');
+        }
+
+        // Quantity Management
+        function updateQuantity(change) {
+            const quantityInput = document.getElementById('quantity');
+            let newValue = parseInt(quantityInput.value) + change;
+            if (newValue >= 1 && newValue <= 10) {
+                quantityInput.value = newValue;
+                updateTotalPrice();
+            }
+        }
+
+        function updateTotalPrice() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const total = currentPrice * quantity;
+            document.getElementById('totalPrice').value = 'PKR ' + total.toLocaleString();
+        }
+
+        // Order Modal Functions
+        function openOrderModal(productName, price) {
+            currentPrice = price;
+            currentProduct = productName;
+            document.getElementById('productName').value = productName;
+            document.getElementById('productPrice').value = 'PKR ' + price.toLocaleString();
+            document.getElementById('quantity').value = 1;
+            updateTotalPrice();
+            document.getElementById('orderModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Review Modal Functions
+        function openReviewModal(productName) {
+            document.getElementById('reviewProductName').value = productName;
+            document.getElementById('reviewModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            updateInitials();
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            resetRating();
+        }
+
+        function setRating(rating) {
+            currentRating = rating;
+            document.getElementById('ratingValue').value = rating;
+            const stars = document.querySelectorAll('#starRating .star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function resetRating() {
+            setRating(5);
+            document.getElementById('reviewForm').reset();
+        }
+
+        function updateInitials() {
+            const name = document.getElementById('reviewerName').value;
+            if (name) {
+                const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                document.getElementById('reviewerInitials').value = initials;
+            }
+        }
+
+        // Submit Order
+        function submitOrder(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const email = document.getElementById('customerEmail').value;
+            const address = document.getElementById('customerAddress').value;
+            const product = document.getElementById('productName').value;
+            const unitPrice = document.getElementById('productPrice').value;
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const totalPrice = document.getElementById('totalPrice').value;
+            const size = document.getElementById('shoeSize').value;
+            const instructions = document.getElementById('specialInstructions').value;
+
+            // Update order count
+            const productKey = Object.keys(products).find(key => products[key].name === product);
+            if (productKey) {
+                products[productKey].orders += quantity;
+                const orderElement = document.getElementById(productKey + '-orders');
+                if (orderElement) {
+                    orderElement.textContent = products[productKey].orders + ' orders';
+                }
+            }
+
+            // Create WhatsApp message
+           const whatsappMessage = `*NEW ORDER - OPAL OUTFITTER*%0A%0A` +
+    `*Product:* ${product}%0A` +
+    `*Unit Price:* ${unitPrice}%0A` +
+    `*Quantity:* ${quantity}%0A` +
+    `*Total Price:* ${totalPrice}%0A` +
+    `*Size:* ${size}%0A%0A` +
+    `────────────────────%0A` +
+    `*CUSTOMER DETAILS*%0A` +
+    `────────────────────%0A` +
+    `*Name:* ${name}%0A` +
+    `*Phone:* ${phone}%0A` +
+    `*Email:* ${email}%0A` +
+    `*Address:* ${address}%0A` +
+    `*Instructions:* ${instructions || 'None'}%0A%0A` +
+    `────────────────────%0A` +
+    `Order placed via OPAL OUTFITTER Website`;
+
+            // Open WhatsApp with the order details
+            window.open(`https://wa.me/923483351028?text=${whatsappMessage}`, '_blank');
+            
+            // Show success message
+            alert('Thank you for your order! We will contact you shortly.');
+            
+            // Close modal and reset form
+            closeOrderModal();
+            document.getElementById('orderForm').reset();
+        }
+
+        // Submit Review
+        function submitReview(e) {
+            e.preventDefault();
+            
+            const product = document.getElementById('reviewProductName').value;
+            const reviewerName = document.getElementById('reviewerName').value;
+            const reviewerInitials = document.getElementById('reviewerInitials').value;
+            const reviewText = document.getElementById('reviewText').value;
+            const rating = currentRating;
+            
+            // Create new review card
+            const reviewsGrid = document.getElementById('reviewsGrid');
+            const newReview = document.createElement('div');
+            newReview.className = 'review-card';
+            newReview.style.animation = 'fadeInUp 0.8s ease-out';
+            
+            let stars = '';
+            for (let i = 0; i < 5; i++) {
+                stars += i < rating ? '★' : '☆';
+            }
+            
+            newReview.innerHTML = `
+                <p class="review-text">${reviewText}</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">${reviewerInitials}</div>
+                    <div class="reviewer-info">
+                        <h4>${reviewerName}</h4>
+                        <div class="verified">✓ Verified Buyer</div>
+                        <div class="stars">${stars}</div>
+                    </div>
+                </div>
+            `;
+            
+            // Add new review at the beginning
+            reviewsGrid.insertBefore(newReview, reviewsGrid.firstChild);
+            
+            // Show success message
+            alert('Thank you for your review! Your feedback helps us improve.');
+            
+            // Close modal and reset form
+            closeReviewModal();
+        }
+
+        // Navigation Functions
+        function toggleSearch() {
+            alert('Search functionality coming soon!');
+        }
+
+        function openGmail() {
+            window.location.href = 'mailto:contact@opaloutfitter.com';
+        }
+
+        function filterCategory(category) {
+            alert(`Filtering by ${category} - This feature will be implemented soon!`);
+        }
+
+        // Product Page Modal
+        function openProductPage(productId) {
+            const product = products[productId];
+            if (!product) return;
+
+            const productPageHTML = `
+                <div class="modal active" id="productPageModal" style="display: flex;">
+                    <div class="modal-content" style="max-width: 800px;">
+                        <span class="close-modal" onclick="closeProductPage()">×</span>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <div>
+                                <img src="${product.image}" alt="${product.name}" style="width: 100%; border-radius: 10px; border: 2px solid var(--gold);">
+                            </div>
+                            <div>
+                                <h2 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.8rem; margin-bottom: 10px;">${product.name}</h2>
+                                <div class="product-stats" style="margin-bottom: 15px;">
+                                    <div class="orders-count">
+                                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: var(--gold);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                        <span>${product.orders} orders</span>
+                                    </div>
+                                    <div class="rating">★★★★★</div>
+                                </div>
+                                <div class="product-price" style="font-size: 2rem; margin-bottom: 20px;"><span>PKR</span> ${product.price.toLocaleString()}</div>
+                                <p style="color: var(--gold-light); line-height: 1.6; margin-bottom: 20px;">${product.description}</p>
+                                <h4 style="color: var(--gold); font-family: 'Cinzel', serif; margin-bottom: 10px;">Features:</h4>
+                                <ul style="list-style: none; padding: 0; margin-bottom: 25px;">
+                                    ${product.features.map(feature => `<li style="color: var(--gold-light); padding: 5px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2);">✓ ${feature}</li>`).join('')}
+                                </ul>
+                                <button class="cta-button" onclick="closeProductPage(); openOrderModal('${product.name}', ${product.price});">Order Now</button>
+                                <button class="order-btn" onclick="closeProductPage(); openReviewModal('${product.name}');" style="margin-left: 10px;">Write Review</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', productPageHTML);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductPage() {
+            const modal = document.getElementById('productPageModal');
+            if (modal) {
+                modal.remove();
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        };
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animation for elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card, .review-card, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Add active class to FAQ items on scroll
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        console.log('OPAL OUTFITTER - Luxury Footwear Est. 1920');
+        console.log('Website loaded successfully');
+    </script>
+</body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -372,89 +767,23 @@
         .product-image {
             height: 250px;
             background: linear-gradient(135deg, #1a3c34 0%, #0a1f1c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
             position: relative;
             overflow: hidden;
         }
 
-        .product-carousel {
-            position: relative;
+        .product-image img {
             width: 100%;
-            height: 100%;
-        }
-
-        .product-carousel-images {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .product-carousel-images img {
-            min-width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
+            transition: transform 0.5s ease;
         }
 
-        .carousel-nav {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            z-index: 10;
-        }
-
-        .carousel-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(212, 175, 55, 0.4);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .carousel-dot.active {
-            background: var(--gold);
-            transform: scale(1.3);
-        }
-
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(212, 175, 55, 0.8);
-            color: var(--dark-green);
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 10;
-        }
-
-        .product-card:hover .carousel-arrow {
-            opacity: 1;
-        }
-
-        .carousel-arrow:hover {
-            background: var(--gold-light);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .carousel-prev {
-            left: 10px;
-        }
-
-        .carousel-next {
-            right: 10px;
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
         }
 
         .product-image::before {
@@ -468,7 +797,6 @@
             transform: rotate(45deg);
             transition: all 0.5s;
             z-index: 1;
-            pointer-events: none;
         }
 
         .product-card:hover .product-image::before {
@@ -888,7 +1216,8 @@
             gap: 30px;
             margin-bottom: 20px;
         }
-                .footer-links a {
+
+        .footer-links a {
             color: var(--gold-light);
             text-decoration: none;
             transition: color 0.3s;
@@ -997,26 +1326,11 @@
             <h2 class="section-title">Exclusive Collection</h2>
             <div class="products-grid">
                 
-                <!-- LP LOAFER - NEW PRODUCT WITH 4 IMAGES -->
+                <!-- LP LOAFER - NEW PRODUCT -->
                 <div class="product-card" onclick="openProductPage('lp-loafer')">
                     <div class="product-badge">NEW</div>
                     <div class="product-image">
-                        <div class="product-carousel">
-                            <div class="product-carousel-images" id="carousel-lp-loafer">
-                                <img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=400&h=300&fit=crop" alt="LP Loafer - Premium Leather Slip-On Front View">
-                                <img src="https://images.unsplash.com/photo-1628253747716-0c4f5c90fdda?w=400&h=300&fit=crop" alt="LP Loafer - Premium Leather Slip-On Side View">
-                                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop" alt="LP Loafer - Premium Leather Slip-On Detail View">
-                                <img src="https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16?w=400&h=300&fit=crop" alt="LP Loafer - Premium Leather Slip-On Lifestyle View">
-                            </div>
-                            <div class="carousel-nav" id="nav-lp-loafer">
-                                <div class="carousel-dot active" onclick="goToSlide('lp-loafer', 0)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('lp-loafer', 1)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('lp-loafer', 2)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('lp-loafer', 3)"></div>
-                            </div>
-                            <button class="carousel-arrow carousel-prev" onclick="prevSlide('lp-loafer')">&#10094;</button>
-                            <button class="carousel-arrow carousel-next" onclick="nextSlide('lp-loafer')">&#10095;</button>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=400&h=300&fit=crop" alt="LP Loafer - Premium Leather Slip-On">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">LP Loafer</h3>
@@ -1032,25 +1346,10 @@
                     </div>
                 </div>
 
-                <!-- CHUNKY LOAFER - 4 IMAGES -->
+                <!-- Existing Products -->
                 <div class="product-card" onclick="openProductPage('chunky-loafer')">
                     <div class="product-image">
-                        <div class="product-carousel">
-                            <div class="product-carousel-images" id="carousel-chunky-loafer">
-                                <img src="https://img4.dhresource.com/20efd2f3d183d18dd7f3bbe80eb34714acccf7e6.jpg" alt="Chunky Loafer - Black Leather Platform Front View">
-                                <img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=400&h=300&fit=crop" alt="Chunky Loafer - Black Leather Platform Side View">
-                                <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&h=300&fit=crop" alt="Chunky Loafer - Black Leather Platform Detail View">
-                                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=300&fit=crop" alt="Chunky Loafer - Black Leather Platform Lifestyle View">
-                            </div>
-                            <div class="carousel-nav" id="nav-chunky-loafer">
-                                <div class="carousel-dot active" onclick="goToSlide('chunky-loafer', 0)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('chunky-loafer', 1)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('chunky-loafer', 2)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('chunky-loafer', 3)"></div>
-                            </div>
-                            <button class="carousel-arrow carousel-prev" onclick="prevSlide('chunky-loafer')">&#10094;</button>
-                            <button class="carousel-arrow carousel-next" onclick="nextSlide('chunky-loafer')">&#10095;</button>
-                        </div>
+                        <img src="https://img4.dhresource.com/20efd2f3d183d18dd7f3bbe80eb34714acccf7e6.jpg" alt="Chunky Loafer - Black Leather Platform Shoes">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Chunky Loafer</h3>
@@ -1066,25 +1365,9 @@
                     </div>
                 </div>
 
-                <!-- SAMBA SHOES - 4 IMAGES -->
                 <div class="product-card" onclick="openProductPage('samba-shoes')">
                     <div class="product-image">
-                        <div class="product-carousel">
-                            <div class="product-carousel-images" id="carousel-samba-shoes">
-                                <img src="https://www.nikys-sports.com/8e11c06da3e3fedad1cb998a7c4d8328af757040.jpg" alt="Samba Classic Leather Sneakers Front View">
-                                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=300&fit=crop" alt="Samba Classic Leather Sneakers Side View">
-                                <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=300&fit=crop" alt="Samba Classic Leather Sneakers Detail View">
-                                <img src="https://images.unsplash.com/photo-1552346154-21d32cc40560?w=400&h=300&fit=crop" alt="Samba Classic Leather Sneakers Lifestyle View">
-                            </div>
-                            <div class="carousel-nav" id="nav-samba-shoes">
-                                <div class="carousel-dot active" onclick="goToSlide('samba-shoes', 0)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('samba-shoes', 1)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('samba-shoes', 2)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('samba-shoes', 3)"></div>
-                            </div>
-                            <button class="carousel-arrow carousel-prev" onclick="prevSlide('samba-shoes')">&#10094;</button>
-                            <button class="carousel-arrow carousel-next" onclick="nextSlide('samba-shoes')">&#10095;</button>
-                        </div>
+                        <img src="https://www.nikys-sports.com/8e11c06da3e3fedad1cb998a7c4d8328af757040.jpg" alt="Samba Classic Leather Sneakers - Black/White">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Samba Shoes</h3>
@@ -1100,25 +1383,9 @@
                     </div>
                 </div>
 
-                <!-- CLASSIC FORMAL SHOES - 4 IMAGES -->
                 <div class="product-card" onclick="openProductPage('formal-shoes-1')">
                     <div class="product-image">
-                        <div class="product-carousel">
-                            <div class="product-carousel-images" id="carousel-formal-shoes-1">
-                                <img src="https://vhny.us/8ced2e68526fc171e639a1c12e56840058e5ef62.jpg" alt="Classic Oxford Formal Shoes Front View">
-                                <img src="https://images.unsplash.com/photo-1621839672933-277c652fe486?w=400&h=300&fit=crop" alt="Classic Oxford Formal Shoes Side View">
-                                <img src="https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=400&h=300&fit=crop" alt="Classic Oxford Formal Shoes Detail View">
-                                <img src="https://images.unsplash.com/photo-1505935428862-770b6f24f629?w=400&h=300&fit=crop" alt="Classic Oxford Formal Shoes Lifestyle View">
-                            </div>
-                            <div class="carousel-nav" id="nav-formal-shoes-1">
-                                <div class="carousel-dot active" onclick="goToSlide('formal-shoes-1', 0)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('formal-shoes-1', 1)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('formal-shoes-1', 2)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('formal-shoes-1', 3)"></div>
-                            </div>
-                            <button class="carousel-arrow carousel-prev" onclick="prevSlide('formal-shoes-1')">&#10094;</button>
-                            <button class="carousel-arrow carousel-next" onclick="nextSlide('formal-shoes-1')">&#10095;</button>
-                        </div>
+                        <img src="https://vhny.us/8ced2e68526fc171e639a1c12e56840058e5ef62.jpg" alt="Classic Oxford Formal Shoes - Black Leather">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Classic Formal Shoes</h3>
@@ -1127,33 +1394,16 @@
                                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
                                 <span id="formal-shoes-1-orders">156 orders</span>
                             </div>
-                            <div class
-                                    <div class="rating">★★★★☆</div>
+                            <div class="rating">★★★★☆</div>
                         </div>
                         <div class="product-price"><span>PKR</span> 5,500</div>
                         <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Classic Formal Shoes', 5500)">Order Now</button>
                     </div>
                 </div>
 
-                <!-- EXECUTIVE FORMAL SHOES - 4 IMAGES -->
                 <div class="product-card" onclick="openProductPage('formal-shoes-2')">
                     <div class="product-image">
-                        <div class="product-carousel">
-                            <div class="product-carousel-images" id="carousel-formal-shoes-2">
-                                <img src="https://m.media-amazon.com/74dfa25605a464dfdf70f483faa39b9590df128c.jpg" alt="Executive Brogue Formal Shoes Front View">
-                                <img src="https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16?w=400&h=300&fit=crop" alt="Executive Brogue Formal Shoes Side View">
-                                <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=400&h=300&fit=crop" alt="Executive Brogue Formal Shoes Detail View">
-                                <img src="https://images.unsplash.com/photo-1505628346881-b72b27e84530?w=400&h=300&fit=crop" alt="Executive Brogue Formal Shoes Lifestyle View">
-                            </div>
-                            <div class="carousel-nav" id="nav-formal-shoes-2">
-                                <div class="carousel-dot active" onclick="goToSlide('formal-shoes-2', 0)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('formal-shoes-2', 1)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('formal-shoes-2', 2)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('formal-shoes-2', 3)"></div>
-                            </div>
-                            <button class="carousel-arrow carousel-prev" onclick="prevSlide('formal-shoes-2')">&#10094;</button>
-                            <button class="carousel-arrow carousel-next" onclick="nextSlide('formal-shoes-2')">&#10095;</button>
-                        </div>
+                        <img src="https://m.media-amazon.com/74dfa25605a464dfdf70f483faa39b9590df128c.jpg" alt="Executive Brogue Formal Shoes - Brown Leather">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Executive Formal Shoes</h3>
@@ -1169,25 +1419,9 @@
                     </div>
                 </div>
 
-                <!-- PESHAWARI CHAPPAL - 4 IMAGES -->
                 <div class="product-card" onclick="openProductPage('peshawari-chappal')">
                     <div class="product-image">
-                        <div class="product-carousel">
-                            <div class="product-carousel-images" id="carousel-peshawari-chappal">
-                                <img src="https://saplaay.com/4cc4970a992c115212150a6dbce7e5dda4d73d94.jpg" alt="Traditional Peshawari Chappal Front View">
-                                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=300&fit=crop" alt="Traditional Peshawari Chappal Side View">
-                                <img src="https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16?w=400&h=300&fit=crop" alt="Traditional Peshawari Chappal Detail View">
-                                <img src="https://images.unsplash.com/photo-1608256246300-c42f8e273a39?w=400&h=300&fit=crop" alt="Traditional Peshawari Chappal Lifestyle View">
-                            </div>
-                            <div class="carousel-nav" id="nav-peshawari-chappal">
-                                <div class="carousel-dot active" onclick="goToSlide('peshawari-chappal', 0)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('peshawari-chappal', 1)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('peshawari-chappal', 2)"></div>
-                                <div class="carousel-dot" onclick="goToSlide('peshawari-chappal', 3)"></div>
-                            </div>
-                            <button class="carousel-arrow carousel-prev" onclick="prevSlide('peshawari-chappal')">&#10094;</button>
-                            <button class="carousel-arrow carousel-next" onclick="nextSlide('peshawari-chappal')">&#10095;</button>
-                        </div>
+                        <img src="https://saplaay.com/4cc4970a992c115212150a6dbce7e5dda4d73d94.jpg" alt="Traditional Peshawari Chappal - Premium Black Leather">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Peshawari Chappal</h3>
@@ -1430,102 +1664,300 @@
         </div>
     </div>
 
-    <!-- Review Modal -->
-    <div class="modal" id="reviewModal">
-        <div class="modal-content review-modal-content">
-            <span class="close-modal" onclick="closeReviewModal()">×</span>
-            <h2 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px; text-align: center;">Share Your Experience</h2>
-            <form id="reviewForm" onsubmit="submitReview(event)">
-                <div class="form-group">
-                    <label>Product</label>
-                    <input type="text" id="reviewProductName" readonly style="background: rgba(212, 175, 55, 0.1);">
+    <!-- Review Modal (Unchanged) -->
+<div class="modal" id="reviewModal">
+    <div class="modal-content review-modal-content">
+        <span class="close-modal" onclick="closeReviewModal()">×</span>
+        <h2 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px; text-align: center;">Share Your Experience</h2>
+        <form id="reviewForm" onsubmit="submitReview(event)">
+            <div class="form-group">
+                <label>Product</label>
+                <input type="text" id="reviewProductName" readonly style="background: rgba(212, 175, 55, 0.1);">
+            </div>
+            
+            <div class="form-group">
+                <label>Your Rating</label>
+                <div class="star-rating" id="starRating">
+                    <span class="star active" onclick="setRating(1)">★</span>
+                    <span class="star active" onclick="setRating(2)">★</span>
+                    <span class="star active" onclick="setRating(3)">★</span>
+                    <span class="star active" onclick="setRating(4)">★</span>
+                    <span class="star active" onclick="setRating(5)">★</span>
                 </div>
-                
-                <div class="form-group">
-                    <label>Your Rating</label>
-                    <div class="star-rating" id="starRating">
-                        <span class="star active" onclick="setRating(1)">★</span>
-                        <span class="star active" onclick="setRating(2)">★</span>
-                        <span class="star active" onclick="setRating(3)">★</span>
-                        <span class="star active" onclick="setRating(4)">★</span>
-                        <span class="star active" onclick="setRating(5)">★</span>
-                    </div>
-                    <input type="hidden" id="ratingValue" value="5">
-                </div>
+                <input type="hidden" id="ratingValue" value="5">
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Your Name *</label>
-                        <input type="text" id="reviewerName" required placeholder="Enter your name" oninput="updateInitials()">
-                    </div>
-                    <div class="form-group">
-                        <label>Initials</label>
-                        <input type="text" id="reviewerInitials" readonly style="background: rgba(212, 175, 55, 0.1);">
-                    </div>
-                </div>
-
+            <div class="form-row">
                 <div class="form-group">
-                    <label>Your Review *</label>
-                    <textarea id="reviewText" rows="4" required placeholder="Share your thoughts about the product..."></textarea>
+                    <label>Your Name *</label>
+                    <input type="text" id="reviewerName" required placeholder="Enter your name" oninput="updateInitials()">
                 </div>
+                <div class="form-group">
+                    <label>Initials</label>
+                    <input type="text" id="reviewerInitials" readonly style="background: rgba(212, 175, 55, 0.1);">
+                </div>
+            </div>
 
-                <button type="submit" class="submit-order">Submit Review</button>
-            </form>
-        </div>
+            <div class="form-group">
+                <label>Your Review *</label>
+                <textarea id="reviewText" rows="4" required placeholder="Share your thoughts about the product..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-order">Submit Review</button>
+        </form>
     </div>
+</div>
 
-    <script>
-        // Product Database with Order Counts
-        const products = {
-            'lp-loafer': {
-                name: 'LP Loafer',
-                price: 4300,
-                orders: 127,
-                image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=400&h=300&fit=crop',
-                description: 'The LP Loafer represents the pinnacle of casual luxury. Handcrafted from premium full-grain leather with a sophisticated slip-on design, these loafers feature a cushioned insole for all-day comfort and a durable leather sole with rubber grip. The sleek silhouette makes them perfect for both formal and smart-casual occasions. Each pair is meticulously hand-finished by our master craftsmen to ensure unparalleled quality and style.',
-                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Cushioned Leather Insole', 'Non-Slip Rubber Outsole', 'Classic Slip-On Design', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-            },
-            'chunky-loafer': {
-                name: 'Chunky Loafer',
-                price: 6000,
-                orders: 89,
-                image: 'https://img4.dhresource.com/20efd2f3d183d18dd7f3bbe80eb34714acccf7e6.jpg',
-                description: 'A bold statement piece that combines vintage charm with modern comfort. Features premium leather upper, cushioned insole, and durable rubber sole.',
-                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-            },
-            'samba-shoes': {
-                name: 'Samba Shoes',
-                price: 10000,
-                orders: 234,
-                image: 'https://www.nikys-sports.com/8e11c06da3e3fedad1cb998a7c4d8328af757040.jpg',
-                description: 'Inspired by classic athletic elegance. Hand-stitched leather with signature three-stripe detailing. Perfect for both casual and semi-formal occasions.',
-                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-            },
-            'formal-shoes-1': {
-                name: 'Classic Formal Shoes',
-                price: 5500,
-                orders: 156,
-                image: 'https://vhny.us/8ced2e68526fc171e639a1c12e56840058e5ef62.jpg',
-                description: 'Timeless Oxford style with polished finish. Genuine leather lining, leather sole with rubber heel for grip. The epitome of professional elegance.',
-                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-            },
-            'formal-shoes-2': {
-                name: 'Executive Formal Shoes',
-                price: 6000,
-                orders: 78,
-                image: 'https://m.media-amazon.com/74dfa25605a464dfdf70f483faa39b9590df128c.jpg',
-                description: 'Premium Derby style with brogue detailing. Hand-burnished leather creates unique patina. Ideal for business meetings and formal events.',
-                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-            },
-            'peshawari-chappal': {
-                name: 'Peshawari Chappal',
-                price: 2800,
-                orders: 312,
-                image: 'https://saplaay.com/4cc4970a992c115212150a6dbce7e5dda4d73d94.jpg',
-                description: 'A timeless symbol of Pakistani heritage and craftsmanship. Handcrafted using centuries-old techniques passed down through generations of artisans from Charsadda. Features the iconic curled toe design and adjustable buckle strap for a perfect fit. The ultimate blend of cultural tradition and everyday comfort.',
-                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-            }
-        };
+<!-- NEW: Image Slider Section -->
+<style>
+    /* Slider Container Styles */
+    .product-slider-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        height: 400px;
+        margin: 50px auto;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        background-color: #1a1a1a;
+    }
+
+    .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+        transform: translateX(100%); /* Start off-screen to the right */
+    }
+
+    .slide.active {
+        opacity: 1;
+        transform: translateX(0); /* Slide into center */
+    }
+
+    .slide.prev {
+        transform: translateX(-100%); /* Slide off to the left */
+        opacity: 0;
+    }
+
+    .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Optional: Slider Dots */
+    .slider-dots {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .dot.active {
+        background-color: var(--gold, #D4AF37);
+    }
+</style>
+
+<!-- HTML for the Slider -->
+<div class="product-slider-container" id="mainProductSlider">
+    <!-- Slides will be injected here by JavaScript -->
+    <div class="slider-dots" id="sliderDots"></div>
+</div>
+
+<script>
+    // Product Database with 3 Images per Product
+    const products = {
+        'lp-loafer': {
+            name: 'LP Loafer',
+            price: 4300,
+            orders: 127,
+            // Added 3 images for the slider
+            images: [
+                'https://placehold.co/600x400/2a2a2a/D4AF37?text=LP+Loafer+Front+View',
+                'https://placehold.co/600x400/2a2a2a/D4AF37?text=LP+Loafer+Side+Profile',
+                'https://placehold.co/600x400/2a2a2a/D4AF37?text=LP+Loafer+Top+Detail'
+            ],
+            description: 'The LP Loafer represents the pinnacle of casual luxury. Handcrafted from premium full-grain leather with a sophisticated slip-on design.',
+            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Cushioned Leather Insole', 'Non-Slip Rubber Outsole', 'Classic Slip-On Design', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+        },
+        'chunky-loafer': {
+            name: 'Chunky Loafer',
+            price: 6000,
+            orders: 89,
+            images: [
+                'https://placehold.co/600x400/3a3a3a/D4AF37?text=Chunky+Loafer+Front',
+                'https://placehold.co/600x400/3a3a3a/D4AF37?text=Chunky+Loafer+Side',
+                'https://placehold.co/600x400/3a3a3a/D4AF37?text=Chunky+Loafer+Sole'
+            ],
+            description: 'A bold statement piece that combines vintage charm with modern comfort.',
+            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+        },
+        'samba-shoes': {
+            name: 'Samba Shoes',
+            price: 10000,
+            orders: 234,
+            images: [
+                'https://placehold.co/600x400/444/D4AF37?text=Samba+Shoes+Front',
+                'https://placehold.co/600x400/444/D4AF37?text=Samba+Shoes+Side',
+                'https://placehold.co/600x400/444/D4AF37?text=Samba+Shoes+Detail'
+            ],
+            description: 'Inspired by classic athletic elegance. Hand-stitched leather with signature three-stripe detailing.',
+            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+        },
+        'formal-shoes-1': {
+            name: 'Classic Formal Shoes',
+            price: 5500,
+            orders: 156,
+            images: [
+                'https://placehold.co/600x400/222/D4AF37?text=Formal+Shoes+Front',
+                'https://placehold.co/600x400/222/D4AF37?text=Formal+Shoes+Side',
+                'https://placehold.co/600x400/222/D4AF37?text=Formal+Shoes+Back'
+            ],
+            description: 'Timeless Oxford style with polished finish. Genuine leather lining.',
+            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+        },
+        'formal-shoes-2': {
+            name: 'Executive Formal Shoes',
+            price: 6000,
+            orders: 78,
+            images: [
+                'https://placehold.co/600x400/333/D4AF37?text=Executive+Formal+Front',
+                'https://placehold.co/600x400/333/D4AF37?text=Executive+Formal+Angle',
+                'https://placehold.co/600x400/333/D4AF37?text=Executive+Formal+Top'
+            ],
+            description: 'Premium Derby style with brogue detailing. Hand-burnished leather creates unique patina.',
+            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+        },
+        'peshawari-chappal': {
+            name: 'Peshawari Chappal',
+            price: 2800,
+            orders: 312,
+            images: [
+                'https://placehold.co/600x400/555/D4AF37?text=Peshawari+Front',
+                'https://placehold.co/600x400/555/D4AF37?text=Peshawari+Side',
+                'https://placehold.co/600x400/555/D4AF37?text=Peshawari+Top'
+            ],
+            description: 'A timeless symbol of Pakistani heritage and craftsmanship. Handcrafted using centuries-old techniques.',
+            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+        }
+    };
+
+    // --- Image Slider Logic ---
+    let sliderInterval;
+
+    function initProductSlider(productId) {
+        const container = document.getElementById('mainProductSlider');
+        const dotsContainer = document.getElementById('sliderDots');
+        const product = products[productId];
+        
+        if (!product || !product.images) return;
+
+        // Clear previous content (keep dots container)
+        const oldSlides = container.querySelectorAll('.slide');
+        oldSlides.forEach(s => s.remove());
+        dotsContainer.innerHTML = '';
+
+        // Create Slides
+        product.images.forEach((imgSrc, index) => {
+            // Create Image Slide
+            const slide = document.createElement('div');
+            slide.className = 'slide' + (index === 0 ? ' active' : '');
+            slide.innerHTML = `<img src="${imgSrc}" alt="${product.name}">`;
+            container.insertBefore(slide, dotsContainer);
+
+            // Create Dot
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (index === 0 ? ' active' : '');
+            dot.onclick = () => { setSlide(index); };
+            dotsContainer.appendChild(dot);
+        });
+
+        let currentIndex = 0;
+        const slides = container.querySelectorAll('.slide');
+        const dots = dotsContainer.querySelectorAll('.dot');
+        const totalSlides = slides.length;
+
+        // Function to switch to specific slide
+        function setSlide(index) {
+            // Reset interval
+            clearInterval(sliderInterval);
+            
+            // Update Classes for Sliding Effect
+            // 1. Current active becomes 'prev' (moves left)
+            slides[currentIndex].classList.remove('active');
+            slides[currentIndex].classList.add('prev');
+            
+            // 2. New index becomes 'active' (moves to center)
+            slides[index].classList.remove('prev'); // Ensure it's not stuck in left
+            slides[index].classList.add('active');
+
+            // Update Dots
+            dots[currentIndex].classList.remove('active');
+            dots[index].classList.add('active');
+
+            // Reset the old slide (that is now on the left) after animation finishes
+            setTimeout(() => {
+                slides[currentIndex].classList.remove('prev');
+            }, 800);
+
+            currentIndex = index;
+
+            // Restart Interval
+            sliderInterval = setInterval(nextSlide, 5000);
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentIndex + 1) % totalSlides;
+            setSlide(nextIndex);
+        }
+
+        // Start Automatic Sliding
+        sliderInterval = setInterval(nextSlide, 5000);
+    }
+
+    // Initialize the slider for the first product (LP Loafer) on page load
+    window.onload = function() {
+        initProductSlider('lp-loafer');
+    };
+
+    // Existing Modal Functions (Placeholders)
+    function closeReviewModal() {
+        document.getElementById('reviewModal').style.display = 'none';
+    }
+    
+    function submitReview(event) {
+        event.preventDefault();
+        alert('Review Submitted!');
+    }
+    
+    function setRating(rating) {
+        document.getElementById('ratingValue').value = rating;
+        // Add visual update logic for stars here
+    }
+
+    function updateInitials() {
+        const name = document.getElementById('reviewerName').value;
+        const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        document.getElementById('reviewerInitials').value = initials;
+    }
+</script>
 
         let currentPrice = 0;
         let currentProduct = '';
