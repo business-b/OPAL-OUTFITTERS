@@ -1664,300 +1664,102 @@
         </div>
     </div>
 
-    <!-- Review Modal (Unchanged) -->
-<div class="modal" id="reviewModal">
-    <div class="modal-content review-modal-content">
-        <span class="close-modal" onclick="closeReviewModal()">×</span>
-        <h2 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px; text-align: center;">Share Your Experience</h2>
-        <form id="reviewForm" onsubmit="submitReview(event)">
-            <div class="form-group">
-                <label>Product</label>
-                <input type="text" id="reviewProductName" readonly style="background: rgba(212, 175, 55, 0.1);">
-            </div>
-            
-            <div class="form-group">
-                <label>Your Rating</label>
-                <div class="star-rating" id="starRating">
-                    <span class="star active" onclick="setRating(1)">★</span>
-                    <span class="star active" onclick="setRating(2)">★</span>
-                    <span class="star active" onclick="setRating(3)">★</span>
-                    <span class="star active" onclick="setRating(4)">★</span>
-                    <span class="star active" onclick="setRating(5)">★</span>
-                </div>
-                <input type="hidden" id="ratingValue" value="5">
-            </div>
-
-            <div class="form-row">
+    <!-- Review Modal -->
+    <div class="modal" id="reviewModal">
+        <div class="modal-content review-modal-content">
+            <span class="close-modal" onclick="closeReviewModal()">×</span>
+            <h2 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px; text-align: center;">Share Your Experience</h2>
+            <form id="reviewForm" onsubmit="submitReview(event)">
                 <div class="form-group">
-                    <label>Your Name *</label>
-                    <input type="text" id="reviewerName" required placeholder="Enter your name" oninput="updateInitials()">
+                    <label>Product</label>
+                    <input type="text" id="reviewProductName" readonly style="background: rgba(212, 175, 55, 0.1);">
                 </div>
+                
                 <div class="form-group">
-                    <label>Initials</label>
-                    <input type="text" id="reviewerInitials" readonly style="background: rgba(212, 175, 55, 0.1);">
+                    <label>Your Rating</label>
+                    <div class="star-rating" id="starRating">
+                        <span class="star active" onclick="setRating(1)">★</span>
+                        <span class="star active" onclick="setRating(2)">★</span>
+                        <span class="star active" onclick="setRating(3)">★</span>
+                        <span class="star active" onclick="setRating(4)">★</span>
+                        <span class="star active" onclick="setRating(5)">★</span>
+                    </div>
+                    <input type="hidden" id="ratingValue" value="5">
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>Your Review *</label>
-                <textarea id="reviewText" rows="4" required placeholder="Share your thoughts about the product..."></textarea>
-            </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Your Name *</label>
+                        <input type="text" id="reviewerName" required placeholder="Enter your name" oninput="updateInitials()">
+                    </div>
+                    <div class="form-group">
+                        <label>Initials</label>
+                        <input type="text" id="reviewerInitials" readonly style="background: rgba(212, 175, 55, 0.1);">
+                    </div>
+                </div>
 
-            <button type="submit" class="submit-order">Submit Review</button>
-        </form>
+                <div class="form-group">
+                    <label>Your Review *</label>
+                    <textarea id="reviewText" rows="4" required placeholder="Share your thoughts about the product..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-order">Submit Review</button>
+            </form>
+        </div>
     </div>
-</div>
 
-<!-- NEW: Image Slider Section -->
-<style>
-    /* Slider Container Styles */
-    .product-slider-container {
-        position: relative;
-        width: 100%;
-        max-width: 600px;
-        height: 400px;
-        margin: 50px auto;
-        overflow: hidden;
-        border-radius: 10px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        background-color: #1a1a1a;
-    }
-
-    .slide {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-        transform: translateX(100%); /* Start off-screen to the right */
-    }
-
-    .slide.active {
-        opacity: 1;
-        transform: translateX(0); /* Slide into center */
-    }
-
-    .slide.prev {
-        transform: translateX(-100%); /* Slide off to the left */
-        opacity: 0;
-    }
-
-    .slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    /* Optional: Slider Dots */
-    .slider-dots {
-        position: absolute;
-        bottom: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 10px;
-        z-index: 10;
-    }
-
-    .dot {
-        width: 10px;
-        height: 10px;
-        background-color: rgba(255, 255, 255, 0.5);
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .dot.active {
-        background-color: var(--gold, #D4AF37);
-    }
-</style>
-
-<!-- HTML for the Slider -->
-<div class="product-slider-container" id="mainProductSlider">
-    <!-- Slides will be injected here by JavaScript -->
-    <div class="slider-dots" id="sliderDots"></div>
-</div>
-
-<script>
-    // Product Database with 3 Images per Product
-    const products = {
-        'lp-loafer': {
-            name: 'LP Loafer',
-            price: 4300,
-            orders: 127,
-            // Added 3 images for the slider
-            images: [
-                'https://placehold.co/600x400/2a2a2a/D4AF37?text=LP+Loafer+Front+View',
-                'https://placehold.co/600x400/2a2a2a/D4AF37?text=LP+Loafer+Side+Profile',
-                'https://placehold.co/600x400/2a2a2a/D4AF37?text=LP+Loafer+Top+Detail'
-            ],
-            description: 'The LP Loafer represents the pinnacle of casual luxury. Handcrafted from premium full-grain leather with a sophisticated slip-on design.',
-            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Cushioned Leather Insole', 'Non-Slip Rubber Outsole', 'Classic Slip-On Design', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-        },
-        'chunky-loafer': {
-            name: 'Chunky Loafer',
-            price: 6000,
-            orders: 89,
-            images: [
-                'https://placehold.co/600x400/3a3a3a/D4AF37?text=Chunky+Loafer+Front',
-                'https://placehold.co/600x400/3a3a3a/D4AF37?text=Chunky+Loafer+Side',
-                'https://placehold.co/600x400/3a3a3a/D4AF37?text=Chunky+Loafer+Sole'
-            ],
-            description: 'A bold statement piece that combines vintage charm with modern comfort.',
-            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-        },
-        'samba-shoes': {
-            name: 'Samba Shoes',
-            price: 10000,
-            orders: 234,
-            images: [
-                'https://placehold.co/600x400/444/D4AF37?text=Samba+Shoes+Front',
-                'https://placehold.co/600x400/444/D4AF37?text=Samba+Shoes+Side',
-                'https://placehold.co/600x400/444/D4AF37?text=Samba+Shoes+Detail'
-            ],
-            description: 'Inspired by classic athletic elegance. Hand-stitched leather with signature three-stripe detailing.',
-            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-        },
-        'formal-shoes-1': {
-            name: 'Classic Formal Shoes',
-            price: 5500,
-            orders: 156,
-            images: [
-                'https://placehold.co/600x400/222/D4AF37?text=Formal+Shoes+Front',
-                'https://placehold.co/600x400/222/D4AF37?text=Formal+Shoes+Side',
-                'https://placehold.co/600x400/222/D4AF37?text=Formal+Shoes+Back'
-            ],
-            description: 'Timeless Oxford style with polished finish. Genuine leather lining.',
-            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-        },
-        'formal-shoes-2': {
-            name: 'Executive Formal Shoes',
-            price: 6000,
-            orders: 78,
-            images: [
-                'https://placehold.co/600x400/333/D4AF37?text=Executive+Formal+Front',
-                'https://placehold.co/600x400/333/D4AF37?text=Executive+Formal+Angle',
-                'https://placehold.co/600x400/333/D4AF37?text=Executive+Formal+Top'
-            ],
-            description: 'Premium Derby style with brogue detailing. Hand-burnished leather creates unique patina.',
-            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-        },
-        'peshawari-chappal': {
-            name: 'Peshawari Chappal',
-            price: 2800,
-            orders: 312,
-            images: [
-                'https://placehold.co/600x400/555/D4AF37?text=Peshawari+Front',
-                'https://placehold.co/600x400/555/D4AF37?text=Peshawari+Side',
-                'https://placehold.co/600x400/555/D4AF37?text=Peshawari+Top'
-            ],
-            description: 'A timeless symbol of Pakistani heritage and craftsmanship. Handcrafted using centuries-old techniques.',
-            features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
-        }
-    };
-
-    // --- Image Slider Logic ---
-    let sliderInterval;
-
-    function initProductSlider(productId) {
-        const container = document.getElementById('mainProductSlider');
-        const dotsContainer = document.getElementById('sliderDots');
-        const product = products[productId];
-        
-        if (!product || !product.images) return;
-
-        // Clear previous content (keep dots container)
-        const oldSlides = container.querySelectorAll('.slide');
-        oldSlides.forEach(s => s.remove());
-        dotsContainer.innerHTML = '';
-
-        // Create Slides
-        product.images.forEach((imgSrc, index) => {
-            // Create Image Slide
-            const slide = document.createElement('div');
-            slide.className = 'slide' + (index === 0 ? ' active' : '');
-            slide.innerHTML = `<img src="${imgSrc}" alt="${product.name}">`;
-            container.insertBefore(slide, dotsContainer);
-
-            // Create Dot
-            const dot = document.createElement('div');
-            dot.className = 'dot' + (index === 0 ? ' active' : '');
-            dot.onclick = () => { setSlide(index); };
-            dotsContainer.appendChild(dot);
-        });
-
-        let currentIndex = 0;
-        const slides = container.querySelectorAll('.slide');
-        const dots = dotsContainer.querySelectorAll('.dot');
-        const totalSlides = slides.length;
-
-        // Function to switch to specific slide
-        function setSlide(index) {
-            // Reset interval
-            clearInterval(sliderInterval);
-            
-            // Update Classes for Sliding Effect
-            // 1. Current active becomes 'prev' (moves left)
-            slides[currentIndex].classList.remove('active');
-            slides[currentIndex].classList.add('prev');
-            
-            // 2. New index becomes 'active' (moves to center)
-            slides[index].classList.remove('prev'); // Ensure it's not stuck in left
-            slides[index].classList.add('active');
-
-            // Update Dots
-            dots[currentIndex].classList.remove('active');
-            dots[index].classList.add('active');
-
-            // Reset the old slide (that is now on the left) after animation finishes
-            setTimeout(() => {
-                slides[currentIndex].classList.remove('prev');
-            }, 800);
-
-            currentIndex = index;
-
-            // Restart Interval
-            sliderInterval = setInterval(nextSlide, 5000);
-        }
-
-        function nextSlide() {
-            const nextIndex = (currentIndex + 1) % totalSlides;
-            setSlide(nextIndex);
-        }
-
-        // Start Automatic Sliding
-        sliderInterval = setInterval(nextSlide, 5000);
-    }
-
-    // Initialize the slider for the first product (LP Loafer) on page load
-    window.onload = function() {
-        initProductSlider('lp-loafer');
-    };
-
-    // Existing Modal Functions (Placeholders)
-    function closeReviewModal() {
-        document.getElementById('reviewModal').style.display = 'none';
-    }
-    
-    function submitReview(event) {
-        event.preventDefault();
-        alert('Review Submitted!');
-    }
-    
-    function setRating(rating) {
-        document.getElementById('ratingValue').value = rating;
-        // Add visual update logic for stars here
-    }
-
-    function updateInitials() {
-        const name = document.getElementById('reviewerName').value;
-        const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-        document.getElementById('reviewerInitials').value = initials;
-    }
-</script>
+    <script>
+        // Product Database with Order Counts
+        const products = {
+            'lp-loafer': {
+                name: 'LP Loafer',
+                price: 4300,
+                orders: 127,
+                image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=400&h=300&fit=crop',
+                description: 'The LP Loafer represents the pinnacle of casual luxury. Handcrafted from premium full-grain leather with a sophisticated slip-on design, these loafers feature a cushioned insole for all-day comfort and a durable leather sole with rubber grip. The sleek silhouette makes them perfect for both formal and smart-casual occasions. Each pair is meticulously hand-finished by our master craftsmen to ensure unparalleled quality and style.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Cushioned Leather Insole', 'Non-Slip Rubber Outsole', 'Classic Slip-On Design', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            },
+            'chunky-loafer': {
+                name: 'Chunky Loafer',
+                price: 6000,
+                orders: 89,
+                image: 'https://img4.dhresource.com/20efd2f3d183d18dd7f3bbe80eb34714acccf7e6.jpg',
+                description: 'A bold statement piece that combines vintage charm with modern comfort. Features premium leather upper, cushioned insole, and durable rubber sole.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            },
+            'samba-shoes': {
+                name: 'Samba Shoes',
+                price: 10000,
+                orders: 234,
+                image: 'https://www.nikys-sports.com/8e11c06da3e3fedad1cb998a7c4d8328af757040.jpg',
+                description: 'Inspired by classic athletic elegance. Hand-stitched leather with signature three-stripe detailing. Perfect for both casual and semi-formal occasions.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            },
+            'formal-shoes-1': {
+                name: 'Classic Formal Shoes',
+                price: 5500,
+                orders: 156,
+                image: 'https://vhny.us/8ced2e68526fc171e639a1c12e56840058e5ef62.jpg',
+                description: 'Timeless Oxford style with polished finish. Genuine leather lining, leather sole with rubber heel for grip. The epitome of professional elegance.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            },
+            'formal-shoes-2': {
+                name: 'Executive Formal Shoes',
+                price: 6000,
+                orders: 78,
+                image: 'https://m.media-amazon.com/74dfa25605a464dfdf70f483faa39b9590df128c.jpg',
+                description: 'Premium Derby style with brogue detailing. Hand-burnished leather creates unique patina. Ideal for business meetings and formal events.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            },
+            'peshawari-chappal': {
+                name: 'Peshawari Chappal',
+                price: 2800,
+                orders: 312,
+                image: 'https://saplaay.com/4cc4970a992c115212150a6dbce7e5dda4d73d94.jpg',
+                description: 'A timeless symbol of Pakistani heritage and craftsmanship. Handcrafted using centuries-old techniques passed down through generations of artisans from Charsadda. Features the iconic curled toe design and adjustable buckle strap for a perfect fit. The ultimate blend of cultural tradition and everyday comfort.',
+                features: ['Premium Full-Grain Leather Upper', 'Hand-Stitched Construction', 'Leather Lining for Breathability', 'Cushioned Insole for All-Day Comfort', 'Durable Leather/Rubber Sole', 'Handmade in Pakistan', '1 Year Craftsmanship Warranty']
+            }
+        };
 
         let currentPrice = 0;
         let currentProduct = '';
