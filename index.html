@@ -19,6 +19,7 @@
             --gold: #d4af37;
             --gold-light: #f4e4bc;
             --gold-dark: #b8941f;
+            --gold-glow: rgba(212, 175, 55, 0.4);
         }
 
         body {
@@ -52,6 +53,11 @@
         @keyframes slideIn {
             from { transform: translateX(-100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px var(--gold-glow); }
+            50% { box-shadow: 0 0 40px var(--gold-glow); }
         }
 
         /* Header */
@@ -93,6 +99,7 @@
             width: 55px;
             height: 55px;
             position: relative;
+            filter: drop-shadow(0 0 10px var(--gold-glow));
         }
 
         .brand-name {
@@ -213,7 +220,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
             animation: float 6s ease-in-out infinite;
         }
 
@@ -229,8 +236,9 @@
             font-weight: 800;
             color: var(--gold);
             margin-bottom: 20px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7), 0 0 30px var(--gold-glow);
             letter-spacing: 8px;
+            filter: brightness(1.1);
         }
 
         .hero p {
@@ -259,6 +267,7 @@
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
+            filter: brightness(1.1);
         }
 
         /* History Section */
@@ -283,6 +292,7 @@
             display: inline-block;
             left: 50%;
             transform: translateX(-50%);
+            filter: brightness(1.1);
         }
 
         .section-title::after {
@@ -318,7 +328,7 @@
             border-radius: 10px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px var(--gold-glow);
         }
 
         .history-image img {
@@ -326,6 +336,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            filter: brightness(1.1);
         }
 
         .history-image::after {
@@ -338,6 +349,7 @@
             padding: 10px 20px;
             font-family: 'Cinzel', serif;
             font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         /* Products Section */
@@ -362,11 +374,13 @@
             cursor: pointer;
             position: relative;
             animation: fadeInUp 0.8s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .product-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3), 0 0 30px var(--gold-glow);
+            border-color: var(--gold-light);
         }
 
         .product-image {
@@ -385,6 +399,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
+            filter: brightness(1.05);
         }
 
         .product-card:hover .product-image img {
@@ -417,6 +432,7 @@
             font-size: 1.3rem;
             color: var(--gold);
             margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
         .product-price {
@@ -430,44 +446,92 @@
             color: var(--gold);
         }
 
-        /* Order/Stock Counter Styles */
+        /* Order/Stock Counter Styles - Enhanced */
         .stock-info {
-            background: rgba(212, 175, 55, 0.15);
-            border-left: 3px solid var(--gold);
-            padding: 8px 12px;
-            margin: 12px 0;
-            font-size: 0.85rem;
-            color: var(--gold-light);
-            border-radius: 0 5px 5px 0;
+            background: rgba(10, 31, 28, 0.8);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            padding: 12px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        .stock-info strong {
+        .stock-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .order-stat {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .order-stat:last-child {
+            margin-bottom: 0;
+        }
+
+        .order-stat strong {
             color: var(--gold);
             font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+        }
+
+        .order-value {
+            font-weight: 700;
+            color: var(--gold-light);
+            font-size: 1rem;
+        }
+
+        .fire-icon {
+            font-size: 1.2rem;
+            animation: pulse 1s infinite;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid var(--gold);
         }
 
         .order-btn {
             width: 100%;
             margin-top: 15px;
             padding: 12px;
-            background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--gold);
+            background: linear-gradient(45deg, var(--gold), var(--gold-dark));
+            color: var(--dark-green);
+            border: none;
+            border-radius: 5px;
             font-family: 'Cinzel', serif;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .order-btn:hover {
-            background: var(--gold);
-            color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            filter: brightness(1.1);
         }
 
         /* Reviews Section */
         .reviews-section {
             padding: 80px 20px;
-            background: var(--medium-green);
+            background: linear-gradient(180deg, var(--dark-green) 0%, var(--medium-green) 50%, var(--dark-green) 100%);
         }
 
         .reviews-header {
@@ -494,6 +558,7 @@
             font-weight: bold;
             margin-top: 10px;
             font-family: 'Cinzel', serif;
+            box-shadow: 0 5px 15px var(--gold-glow);
         }
 
         .write-review-btn {
@@ -510,11 +575,12 @@
         .write-review-btn:hover {
             background: var(--gold);
             color: var(--dark-green);
+            box-shadow: 0 5px 20px var(--gold-glow);
         }
 
         .reviews-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
             margin-top: 50px;
             max-width: 1200px;
@@ -523,57 +589,102 @@
         }
 
         .review-card {
-            background: rgba(10, 31, 28, 0.6);
+            background: rgba(26, 60, 52, 0.9);
             border: 1px solid var(--gold);
-            border-radius: 10px;
-            padding: 30px;
+            border-radius: 15px;
+            padding: 25px;
             position: relative;
             animation: fadeInUp 0.8s ease-out;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+            border-color: var(--gold-light);
         }
 
         .review-card::before {
             content: '"';
-            font-size: 4rem;
+            font-size: 5rem;
             color: var(--gold);
-            opacity: 0.3;
+            opacity: 0.15;
             position: absolute;
-            top: 10px;
-            left: 20px;
+            top: 5px;
+            left: 15px;
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
         }
 
-        .review-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .reviewer {
+        .review-header {
             display: flex;
             align-items: center;
             gap: 15px;
+            margin-bottom: 15px;
         }
 
-        .reviewer-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--dark-green);
-            font-weight: 700;
-            font-family: 'Cinzel', serif;
+        .reviewed-product-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .reviewer-info {
+            flex: 1;
         }
 
         .reviewer-info h4 {
             color: var(--gold);
             font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .verified-badge svg {
+            width: 12px;
+            height: 12px;
+            fill: #4ade80;
         }
 
         .stars {
             color: var(--gold);
             letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.7;
+            color: var(--gold-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        .review-product-name {
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            padding: 5px 10px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 5px;
+            display: inline-block;
         }
 
         /* FAQ Section */
@@ -588,12 +699,17 @@
         }
 
         .faq-item {
-            background: var(--medium-green);
+            background: linear-gradient(145deg, var(--medium-green), var(--light-green));
             border: 1px solid var(--gold);
             border-radius: 10px;
             margin-bottom: 20px;
             overflow: hidden;
             transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .faq-item:hover {
+            border-color: var(--gold-light);
         }
 
         .faq-question {
@@ -604,16 +720,18 @@
             align-items: center;
             font-family: 'Cinzel', serif;
             color: var(--gold);
+            font-weight: 600;
             transition: all 0.3s;
         }
 
         .faq-question:hover {
-            background: var(--light-green);
+            background: rgba(212, 175, 55, 0.1);
         }
 
         .faq-icon {
             font-size: 1.5rem;
             transition: transform 0.3s;
+            color: var(--gold);
         }
 
         .faq-item.active .faq-icon {
@@ -623,8 +741,9 @@
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.4s ease, padding 0.4s ease;
             padding: 0 30px;
+            background: rgba(10, 31, 28, 0.5);
         }
 
         .faq-item.active .faq-answer {
@@ -634,7 +753,7 @@
 
         .faq-answer p {
             color: var(--gold-light);
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         /* Order Modal */
@@ -645,11 +764,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             z-index: 2000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
             overflow-y: auto;
         }
 
@@ -666,7 +785,7 @@
             max-width: 500px;
             width: 90%;
             position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px var(--gold-glow);
             margin: 20px auto;
             max-height: 90vh;
             overflow-y: auto;
@@ -680,10 +799,21 @@
             color: var(--gold);
             cursor: pointer;
             transition: transform 0.3s;
+            background: none;
+            border: none;
         }
 
         .close-modal:hover {
             transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            text-align: center;
+            filter: brightness(1.1);
         }
 
         .form-group {
@@ -695,18 +825,20 @@
             margin-bottom: 8px;
             color: var(--gold);
             font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             background: rgba(10, 31, 28, 0.8);
             border: 1px solid var(--gold);
-            border-radius: 5px;
+            border-radius: 8px;
             color: var(--gold-light);
             font-family: 'Playfair Display', serif;
+            font-size: 1rem;
             transition: all 0.3s;
         }
 
@@ -715,7 +847,7 @@
         .form-group select:focus {
             outline: none;
             border-color: var(--gold-light);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
         .form-row {
@@ -727,20 +859,23 @@
         .quantity-wrapper {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
         .quantity-btn {
             background: var(--gold);
             color: var(--dark-green);
             border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .quantity-btn:hover {
@@ -751,26 +886,31 @@
         #quantity {
             text-align: center;
             font-weight: bold;
+            font-size: 1.2rem;
+            min-width: 50px;
         }
 
         .submit-order {
             width: 100%;
-                        padding: 15px;
+            padding: 15px;
             background: linear-gradient(45deg, var(--gold), var(--gold-dark));
             color: var(--dark-green);
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-family: 'Cinzel', serif;
             font-weight: 700;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-top: 10px;
         }
 
         .submit-order:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+            filter: brightness(1.1);
         }
 
         /* WhatsApp Float */
@@ -778,96 +918,258 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+                        height: 65px;
             background: #25D366;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
             z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
             animation: pulse 2s infinite;
         }
 
         .whatsapp-float:hover {
-            transform: scale(1.1);
+            transform: scale(1.15) translateY(-5px);
             box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
         }
 
         .whatsapp-float svg {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             fill: white;
         }
 
         /* Footer */
         footer {
-            background: var(--dark-green);
+            background: rgba(10, 31, 28, 0.98);
             border-top: 2px solid var(--gold);
-            padding: 40px 20px;
-            text-align: center;
+            padding: 60px 20px 30px;
         }
 
-        .footer-content {
+        .footer-container {
             max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
         }
 
-        .footer-logo {
+        .footer-section h3 {
             font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
             color: var(--gold);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            filter: brightness(1.1);
+        }
+
+        .footer-section p {
+            color: var(--gold-light);
+            line-height: 1.8;
+            font-size: 0.95rem;
         }
 
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
         }
 
         .footer-links a {
             color: var(--gold-light);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            display: inline-block;
         }
 
         .footer-links a:hover {
             color: var(--gold);
+            transform: translateX(5px);
         }
 
-        .copyright {
-            color: var(--gold);
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gold-light);
+        }
+
+        .contact-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            background: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--gold-glow);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--gold);
+            transition: fill 0.3s;
+        }
+
+        .social-link:hover svg {
+            fill: var(--dark-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .footer-bottom p {
+            color: var(--gold-light);
             opacity: 0.7;
             font-size: 0.9rem;
         }
 
-        /* Responsive */
+        .footer-bottom span {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(145deg, var(--medium-green), var(--dark-green));
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px 30px;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .toast.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast-message {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast-message svg {
+            width: 24px;
+            height: 24px;
+            fill: #4ade80;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .history-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .history-image {
+                order: -1;
+            }
+        }
+
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; letter-spacing: 4px; }
-            .history-content { grid-template-columns: 1fr; }
-            .products-grid { grid-template-columns: 1fr; }
-            .nav-icon:not(.fashion-menu) { display: none; }
-            .form-row { grid-template-columns: 1fr; }
-            .brand-name { font-size: 1.2rem; }
-            .brand-sub { letter-spacing: 2px; }
-            .logo-icon { width: 45px; height: 45px; }
-            .reviews-header { flex-direction: column; text-align: center; }
-            .reviews-title-wrapper { text-align: center; }
+            .header-container {
+                padding: 15px 20px;
+            }
+            
+            .brand-name {
+                font-size: 1.3rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+                letter-spacing: 4px;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
-            .header-container { padding: 10px 15px; }
-            .logo-section { gap: 10px; }
-            .brand-name { font-size: 1rem; }
-            .nav { gap: 15px; }
-            .hero { height: 80vh; margin-top: 70px; }
-            .section-title { font-size: 1.8rem; }
+            .hero {
+                margin-top: 70px;
+                height: 80vh;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+            }
+            
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 0.9rem;
+            }
+            
+            .modal-content {
+                padding: 25px;
+            }
         }
     </style>
 </head>
@@ -876,72 +1178,64 @@
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <!-- Professional Logo -->
                 <div class="brand-logo">
-                    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Outer Circle -->
-                        <circle cx="50" cy="50" r="48" fill="none" stroke="#d4af37" stroke-width="2"/>
-                        <!-- Inner Circle -->
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.7"/>
-                        <!-- Decorative Ring -->
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="#d4af37" stroke-width="0.5" opacity="0.5"/>
-                        <!-- OPAL Gem Shape (Center) -->
-                        <polygon points="50,20 80,50 50,80 20,50" fill="none" stroke="#d4af37" stroke-width="2"/>
-                        <!-- Inner Gem Lines -->
-                        <polygon points="50,30 70,50 50,70 30,50" fill="rgba(212, 175, 55, 0.2)" stroke="#d4af37" stroke-width="1"/>
-                        <!-- Center Diamond -->
-                        <circle cx="50" cy="50" r="8" fill="#d4af37"/>
-                        <!-- Sparkle Effects -->
-                        <line x1="50" y1="5" x2="50" y2="15" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round"/>
-                        <line x1="50" y1="85" x2="50" y2="95" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round"/>
-                        <line x1="5" y1="50" x2="15" y2="50" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round"/>
-                        <line x1="85" y1="50" x2="95" y2="50" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round"/>
-                        <!-- Small decorative dots -->
-                        <circle cx="50" cy="12" r="2" fill="#d4af37"/>
-                        <circle cx="50" cy="88" r="2" fill="#d4af37"/>
-                        <circle cx="12" cy="50" r="2" fill="#d4af37"/>
-                        <circle cx="88" cy="50" r="2" fill="#d4af37"/>
-                    </svg>
-                    <div>
-                        <div class="brand-name">OPAL OUTFITTER</div>
-                        <div class="brand-sub">Est. 1920</div>
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#d4af37"/>
+                                    <stop offset="50%" style="stop-color:#f4e4bc"/>
+                                    <stop offset="100%" style="stop-color:#b8941f"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGrad)" stroke-width="3"/>
+                            <polygon points="50,15 85,80 15,80" fill="none" stroke="url(#logoGrad)" stroke-width="2"/>
+                            <circle cx="50" cy="52" r="15" fill="url(#logoGrad)"/>
+                            <polygon points="50,35 65,70 35,70" fill="#0a1f1c"/>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <div class="brand-name">OPAL</div>
+                        <div class="brand-sub">Outfitter</div>
                     </div>
                 </div>
             </div>
             
             <nav>
-                <div class="nav-icon" onclick="window.scrollTo(0,0)" title="Home">
-                    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                </div>
-                
-                <div class="nav-icon" onclick="toggleSearch()" title="Search">
-                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                </div>
-
-                <div class="nav-icon fashion-menu" title="Fashion">
-                    <svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11z M12 5.84L13.93 9h-3.87z M17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5z M5 21.5h8v-8H5v8z"/></svg>
+                <div class="fashion-menu">
+                    <div class="nav-icon">
+                        <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+                    </div>
                     <div class="fashion-dropdown">
-                        <div class="fashion-item" onclick="filterCategory('dressing')">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-                            <span>Dressing</span>
-                        </div>
-                        <div class="fashion-item" onclick="filterCategory('shoes')">
-                            <svg viewBox="0 0 24 24"><path d="M18 14V6h-4V4h-4v2H6v8h12z M6 16h12v2H6z"/></svg>
-                            <span>Shoes</span>
-                        </div>
-                        <div class="fashion-item" onclick="filterCategory('accessories')">
+                        <div class="fashion-item">
                             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span>New Arrivals</span>
+                        </div>
+                        <div class="fashion-item">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+                            <span>Collections</span>
+                        </div>
+                        <div class="fashion-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm6 9.09c0 4-2.55 7.7-6 8.83-3.45-1.13-6-4.82-6-8.83V6.31l6-2.12 6 2.12v4.78z"/></svg>
                             <span>Accessories</span>
                         </div>
-                        <div class="fashion-item" onclick="filterCategory('watches')">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
-                            <span>Watches</span>
+                        <div class="fashion-item">
+                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z"/></svg>
+                            <span>Sale</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="nav-icon" onclick="openGmail()" title="Contact">
-                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                
+                <div class="nav-icon" title="Search">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                </div>
+                
+                <div class="nav-icon" title="Wishlist">
+                    <svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg>
+                </div>
+                
+                <div class="nav-icon" id="cartBtn" title="Shopping Bag">
+                    <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
                 </div>
             </nav>
         </div>
@@ -950,24 +1244,31 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>OPAL OUTFITTER</h1>
-            <p>Timeless Elegance Since 1920</p>
-            <button class="cta-button" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">Explore Collection</button>
+            <h1>Timeless Elegance</h1>
+            <p>Crafting sophistication since 1920</p>
+            <button class="cta-button" onclick="scrollToProducts()">Explore Collection</button>
         </div>
     </section>
 
     <!-- History Section -->
     <section class="history-section">
         <div class="container">
-            <h2 class="section-title">Our Legacy</h2>
+            <h2 class="section-title">Our Heritage</h2>
             <div class="history-content">
                 <div class="history-text">
-                    <p>Founded in 1920, OPAL OUTFITTER began as a small bespoke shoemaking workshop in the heart of the city. What started as a passion for craftsmanship quickly evolved into a symbol of luxury and sophistication.</p>
-                    <p>For over a century, we have been crafting exceptional footwear that combines traditional techniques with contemporary design. Each pair of shoes that leaves our atelier carries with it a legacy of excellence, attention to detail, and an unwavering commitment to quality.</p>
-                    <p>Our master artisans, trained in the old-world methods of shoemaking, ensure that every stitch, every cut, and every polish meets the highest standards of luxury footwear. From royal families to modern connoisseurs, OPAL OUTFITTER has dressed the feet of discerning clients worldwide.</p>
+                    <p>For over a century, OPAL OUTFITTER has been the epitome of refined luxury and impeccable craftsmanship. Founded in 1920, our legacy began with a simple vision: to create garments that transcend trends and stand the test of time.</p>
+                    <p>Each piece in our collection is a testament to the artistry of our master craftsmen, who blend traditional techniques with contemporary sensibilities. We believe that true luxury lies in the details – from the selection of the finest fabrics to the precision of every stitch.</p>
+                    <p>Today, OPAL OUTFITTER continues to set the standard for sophisticated fashion, serving discerning individuals who appreciate the finer things in life. Our commitment to excellence remains as unwavering as it was a century ago.</p>
                 </div>
                 <div class="history-image">
-                    <img src="https://kimi-web-img.moonshot.cn/img/images.stockcake.com/9f075331f7e133a41d1dbbca281583683ce9fbec.jpg" alt="Vintage Artisan Shoe Workshop - Master Craftsman at Work">
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="#1a3c34"/>
+                        <rect x="50" y="30" width="300" height="200" fill="#0a1f1c" stroke="#d4af37" stroke-width="2"/>
+                        <text x="200" y="130" text-anchor="middle" fill="#d4af37" font-family="Cinzel" font-size="24">Since 1920</text>
+                        <line x1="100" y1="160" x2="300" y2="160" stroke="#d4af37" stroke-width="1"/>
+                        <circle cx="200" cy="200" r="30" fill="none" stroke="#d4af37" stroke-width="2"/>
+                        <polygon points="200,175 215,210 185,210" fill="#d4af37"/>
+                    </svg>
                 </div>
             </div>
         </div>
@@ -976,740 +1277,594 @@
     <!-- Products Section -->
     <section class="products-section" id="products">
         <div class="container">
-            <h2 class="section-title">Exclusive Collection</h2>
+            <h2 class="section-title">Featured Collection</h2>
             <div class="products-grid">
-                <!-- Product 1: Chunky Loafer -->
-                <div class="product-card" onclick="openProductPage('chunky-loafer')">
+                <!-- Product 1 -->
+                <div class="product-card">
                     <div class="product-image">
-                        <img src="https://kimi-web-img.moonshot.cn/img/img4.dhresource.com/20efd2f3d183d18dd7f3bbe80eb34714acccf7e6.jpg" alt="Chunky Loafer - Black Leather Platform Shoes">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="200" height="200" fill="#1a3c34"/>
+                            <path d="M50 180 L70 60 L90 100 L110 50 L130 120 L150 180 Z" fill="#0a1f1c" stroke="#d4af37" stroke-width="2"/>
+                            <circle cx="100" cy="40" r="15" fill="#d4af37"/>
+                        </svg>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Chunky Loafer</h3>
-                        <div class="product-price"><span>PKR</span> 6,000</div>
+                        <h3 class="product-name">Royal Heritage Coat</h3>
+                        <div class="product-price">$2,450 <span>USD</span></div>
                         <div class="stock-info">
-                            <strong>📦 Stock Available:</strong> 45 pairs<br>
-                            <strong>✅ Orders Received:</strong> 1,247
+                            <div class="order-stat">
+                                <span class="fire-icon">🔥</span>
+                                <strong>Orders Today:</strong>
+                                <span class="order-value">47</span>
+                            </div>
+                            <div class="order-stat">
+                                <strong>Stock Available:</strong>
+                                <span class="order-value">12 units</span>
+                            </div>
+                            <span class="stock-badge">Low Stock</span>
                         </div>
-                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Chunky Loafer', 6000)">Order Now</button>
+                        <button class="order-btn" onclick="openOrderModal('Royal Heritage Coat', 2450)">Place Order</button>
                     </div>
                 </div>
 
-                <!-- Product 2: Samba Shoes -->
-                <div class="product-card" onclick="openProductPage('samba-shoes')">
+                <!-- Product 2 -->
+                <div class="product-card">
                     <div class="product-image">
-                        <img src="https://kimi-web-img.moonshot.cn/img/www.nikys-sports.com/8e11c06da3e3fedad1cb998a7c4d8328af757040.jpg" alt="Samba Classic Leather Sneakers - Black/White">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="200" height="200" fill="#1a3c34"/>
+                            <ellipse cx="100" cy="100" rx="60" ry="80" fill="#0a1f1c" stroke="#d4af37" stroke-width="2"/>
+                            <path d="M70 30 L70 170 M130 30 L130 170" stroke="#d4af37" stroke-width="1"/>
+                            <circle cx="100" cy="50" r="10" fill="#d4af37"/>
+                            <circle cx="100" cy="150" r="10" fill="#d4af37"/>
+                        </svg>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Samba Shoes</h3>
-                        <div class="product-price"><span>PKR</span> 10,000</div>
+                        <h3 class="product-name">Opal Evening Gown</h3>
+                        <div class="product-price">$3,890 <span>USD</span></div>
                         <div class="stock-info">
-                            <strong>📦 Stock Available:</strong> 32 pairs<br>
-                            <strong>✅ Orders Received:</strong> 892
+                            <div class="order-stat">
+                                <span class="fire-icon">🔥</span>
+                                <strong>Orders Today:</strong>
+                                <span class="order-value">28</span>
+                            </div>
+                            <div class="order-stat">
+                                <strong>Stock Available:</strong>
+                                <span class="order-value">8 units</span>
+                            </div>
+                            <span class="stock-badge">Limited Edition</span>
                         </div>
-                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Samba Shoes', 10000)">Order Now</button>
+                        <button class="order-btn" onclick="openOrderModal('Opal Evening Gown', 3890)">Place Order</button>
                     </div>
                 </div>
 
-                <!-- Product 3: Classic Formal Shoes -->
-                <div class="product-card" onclick="openProductPage('formal-shoes-1')">
+                <!-- Product 3 -->
+                <div class="product-card">
                     <div class="product-image">
-                        <img src="https://kimi-web-img.moonshot.cn/img/vhny.us/8ced2e68526fc171e639a1c12e56840058e5ef62.jpg" alt="Classic Oxford Formal Shoes - Black Leather">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="200" height="200" fill="#1a3c34"/>
+                            <rect x="60" y="40" width="80" height="120" rx="10" fill="#0a1f1c" stroke="#d4af37" stroke-width="2"/>
+                            <circle cx="100" cy="70" r="8" fill="#d4af37"/>
+                            <circle cx="100" cy="100" r="8" fill="#d4af37"/>
+                            <circle cx="100" cy="130" r="8" fill="#d4af37"/>
+                        </svg>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Classic Formal Shoes</h3>
-                        <div class="product-price"><span>PKR</span> 5,500</div>
+                        <h3 class="product-name">Noble Silk Suit</h3>
+                        <div class="product-price">$4,200 <span>USD</span></div>
                         <div class="stock-info">
-                            <strong>📦 Stock Available:</strong> 58 pairs<br>
-                            <strong>✅ Orders Received:</strong> 1,534
+                            <div class="order-stat">
+                                <span class="fire-icon">🔥</span>
+                                <strong>Orders Today:</strong>
+                                <span class="order-value">35</span>
+                            </div>
+                            <div class="order-stat">
+                                <strong>Stock Available:</strong>
+                                <span class="order-value">15 units</span>
+                            </div>
+                            <span class="stock-badge">Best Seller</span>
                         </div>
-                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Classic Formal Shoes', 5500)">Order Now</button>
+                        <button class="order-btn" onclick="openOrderModal('Noble Silk Suit', 4200)">Place Order</button>
                     </div>
                 </div>
 
-                <!-- Product 4: Executive Formal Shoes -->
-                <div class="product-card" onclick="openProductPage('formal-shoes-2')">
+                <!-- Product 4 -->
+                <div class="product-card">
                     <div class="product-image">
-                        <img src="https://kimi-web-img.moonshot.cn/img/m.media-amazon.com/74dfa25605a464dfdf70f483faa39b9590df128c.jpg" alt="Executive Brogue Formal Shoes - Brown Leather">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="200" height="200" fill="#1a3c34"/>
+                            <path d="M100 30 L150 170 L50 170 Z" fill="#0a1f1c" stroke="#d4af37" stroke-width="2"/>
+                            <circle cx="100" cy="80" r="20" fill="none" stroke="#d4af37" stroke-width="2"/>
+                            <polygon points="100,55 115,95 85,95" fill="#d4af37"/>
+                        </svg>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Executive Formal Shoes</h3>
-                        <div class="product-price"><span>PKR</span> 6,000</div>
+                        <h3 class="product-name">Crown Diamond Tiara</h3>
+                        <div class="product-price">$12,500 <span>USD</span></div>
                         <div class="stock-info">
-                            <strong>📦 Stock Available:</strong> 41 pairs<br>
-                            <strong>✅ Orders Received:</strong> 1,108
+                            <div class="order-stat">
+                                <span class="fire-icon">🔥</span>
+                                <strong>Orders Today:</strong>
+                                <span class="order-value">12</span>
+                            </div>
+                            <div class="order-stat">
+                                <strong>Stock Available:</strong>
+                                <span class="order-value">3 units</span>
+                            </div>
+                            <span class="stock-badge">Exclusive</span>
                         </div>
-                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Executive Formal Shoes', 6000)">Order Now</button>
+                        <button class="order-btn" onclick="openOrderModal('Crown Diamond Tiara', 12500)">Place Order</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Product 5: Peshawari Chappal -->
-                <div class="product-card" onclick="openProductPage('peshawari-chappal')">
-                    <div class="product-image">
-                        <img src="https://kimi-web-img.moonshot.cn/img/saplaay.com/4cc4970a992c115212150a6dbce7e5dda4d73d94.jpg" alt="Traditional Peshawari Chappal - Premium Black Leather">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Peshawari Chappal</h3>
-                        <div class="product-price"><span>PKR</span> 2,800</div>
-                        <div class="stock-info">
-                            <strong>📦 Stock Available:</strong> 120 pairs<br>
-                            <strong>✅ Orders Received:</strong> 3,672
-                        </div>
-                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Peshawari Chappal', 2800)">Order Now</button>
-                    </div>
-                </div>
-
-                <!-- Product 6: Royal Loafer -->
-                <div class="product-card" onclick="openProductPage('royal-loafer')">
-                    <div class="product-image">
-                        <img src="https://kimi-web-img.moonshot.cn/img/i.pinimg.com/736x/8a/9b/7f/8a9b7f8f8f8f8f8f8f8f8f8f8f8f8f8.jpg" alt="Royal Loafer - Premium Brown Leather">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Royal Loafer</h3>
-                        <div class="product-price"><span>PKR</span> 7,500</div>
-                        <div class="stock-info">
-                            <strong>📦 Stock Available:</strong> 28 pairs<br>
-                            <strong>✅ Orders Received:</strong> 756
-                        </div>
-                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('Royal Loafer', 7500)">Order Now</button>
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="reviews-header">
+            <div class="reviews-title-wrapper">
+                <h2 class="section-title" style="position: relative; left: auto; transform: none;">Customer Reviews</h2>
+                <span class="review-count-badge">1,247 Verified Reviews</span>
+            </div>
+            <button class="write-review-btn">Write a Review</button>
+        </div>
+        
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><rect fill='%231a3c34' width='60' height='60'/><circle cx='30' cy='25' r='12' fill='%23d4af37'/><path d='M15 55 Q30 40 45 55' fill='%23d4af37'/></svg>" alt="Product" class="reviewed-product-thumb">
+                    <div class="reviewer-info">
+                        <h4>Victoria Ashworth</h4>
+                        <span class="verified-badge">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Verified Purchase
+                        </span>
+                        <div class="stars">★★★★★</div>
                     </div>
                 </div>
-
-                <!-- Product 7: Heritage Boots -->
-                <div class="product-card" onclick="openProductPage('heritage-boots')">
-                    <div class="product-image">
-                        <img src="https://kimi-web-img.moonshot.cn/img/ae01.alicdn.com/kf/H1a5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c 
-                                :root {
-        --dark-green: #0a1f1c;
-        --medium-green: #1a3c34;
-        --light-green: #2d5a4e;
-        --gold: #d4af37;
-        --gold-light: #f4e4bc;
-        --gold-dark: #b8941f;
-    }
-
-    body {
-        font-family: 'Playfair Display', serif;
-        background: linear-gradient(135deg, var(--dark-green) 0%, var(--medium-green) 100%);
-        color: var(--gold-light);
-        overflow-x: hidden;
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes shimmer {
-        0% { background-position: -1000px 0; }
-        100% { background-position: 1000px 0; }
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-    }
-
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-    }
-
-    @keyframes slideIn {
-        from { transform: translateX(-100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-
-    /* Header */
-    header {
-        background: rgba(10, 31, 28, 0.95);
-        backdrop-filter: blur(10px);
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        border-bottom: 2px solid var(--gold);
-        animation: slideIn 0.8s ease-out;
-    }
-
-    .header-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 15px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .logo-section {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    /* Professional Logo Styles */
-    .brand-logo {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        animation: pulse 4s infinite;
-    }
-
-    .logo-icon {
-        width: 55px;
-        height: 55px;
-        position: relative;
-    }
-
-    .brand-name {
-        font-family: 'Cinzel', serif;
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: var(--gold);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        line-height: 1.1;
-    }
-
-    .brand-sub {
-        font-size: 0.6rem;
-        color: var(--gold-light);
-        letter-spacing: 4px;
-        font-family: 'Playfair Display', serif;
-        font-style: italic;
-    }
-
-    /* Navigation */
-    nav {
-        display: flex;
-        gap: 25px;
-        align-items: center;
-    }
-
-    .nav-icon {
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-    }
-
-    .nav-icon:hover {
-        transform: scale(1.2);
-        color: var(--gold);
-    }
-
-    .nav-icon svg {
-        width: 24px;
-        height: 24px;
-        fill: var(--gold-light);
-        transition: fill 0.3s;
-    }
-
-    .nav-icon:hover svg {
-        fill: var(--gold);
-    }
-
-    /* Fashion Dropdown */
-    .fashion-menu {
-        position: relative;
-    }
-
-    .fashion-dropdown {
-        position: absolute;
-        top: 40px;
-        right: 0;
-        background: rgba(26, 60, 52, 0.98);
-        border: 1px solid var(--gold);
-        border-radius: 10px;
-        padding: 15px;
-        min-width: 200px;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    .fashion-menu:hover .fashion-dropdown {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .fashion-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px;
-        cursor: pointer;
-        transition: all 0.3s;
-        border-radius: 5px;
-    }
-
-    .fashion-item:hover {
-        background: var(--light-green);
-        transform: translateX(5px);
-    }
-
-    .fashion-item svg {
-        width: 20px;
-        height: 20px;
-        fill: var(--gold);
-    }
-
-    /* Hero Section */
-    .hero {
-        margin-top: 90px;
-        height: 90vh;
-        background: linear-gradient(rgba(10, 31, 28, 0.7), rgba(10, 31, 28, 0.7)),
-                    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%230a1f1c" width="100" height="100"/><path fill="%231a3c34" d="M0 50 Q25 30 50 50 T100 50 V100 H0 Z"/></svg>');
-        background-size: cover;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-        animation: float 6s ease-in-out infinite;
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        animation: fadeInUp 1s ease-out;
-    }
-
-    .hero h1 {
-        font-family: 'Cinzel', serif;
-        font-size: 4rem;
-        font-weight: 800;
-        color: var(--gold);
-        margin-bottom: 20px;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
-        letter-spacing: 8px;
-    }
-
-    .hero p {
-        font-size: 1.3rem;
-        color: var(--gold-light);
-        margin-bottom: 30px;
-        font-style: italic;
-    }
-
-    .cta-button {
-        background: linear-gradient(45deg, var(--gold), var(--gold-dark));
-        color: var(--dark-green);
-        padding: 15px 40px;
-        border: none;
-        border-radius: 50px;
-        font-family: 'Cinzel', serif;
-        font-weight: 600;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.3s;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
-    }
-
-    .cta-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
-    }
-
-    /* History Section */
-    .history-section {
-        padding: 80px 20px;
-        background: var(--medium-green);
-        position: relative;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .section-title {
-        font-family: 'Cinzel', serif;
-        font-size: 2.5rem;
-        color: var(--gold);
-        text-align: center;
-        margin-bottom: 50px;
-        position: relative;
-        display: inline-block;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 25%;
-        width: 50%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    }
-
-    .history-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-        align-items: center;
-        animation: fadeInUp 1s ease-out;
-    }
-
-    .history-text {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: var(--gold-light);
-    }
-
-    .history-text p {
-        margin-bottom: 20px;
-    }
-
-    .history-image {
-        border: 3px solid var(--gold);
-        border-radius: 10px;
-        overflow: hidden;
-        position: relative;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
-
-    .history-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-
-    .history-image::after {
-        content: 'Est. 1920';
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        background: var(--gold);
-        color: var(--dark-green);
-        padding: 10px 20px;
-        font-family: 'Cinzel', serif;
-        font-weight: 600;
-    }
-
-    /* Products Section */
-    .products-section {
-        padding: 80px 20px;
-        background: var(--dark-green);
-    }
-
-    .products-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 40px;
-        margin-top: 50px;
-    }
-
-    .product-card {
-        background: linear-gradient(145deg, var(--medium-green), var(--light-green));
-        border: 1px solid var(--gold);
-        border-radius: 15px;
-        overflow: hidden;
-        transition: all 0.4s ease;
-        cursor: pointer;
-        position: relative;
-        animation: fadeInUp 0.8s ease-out;
-    }
-
-    .product-card:hover {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
-    }
-
-    .product-image {
-        height: 250px;
-        background: linear-gradient(135deg, #1a3c34 0%, #0a1f1c 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 4rem;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .product-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-
-    .product-card:hover .product-image img {
-        transform: scale(1.1);
-    }
-
-    .product-image::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-        transform: rotate(45deg);
-        transition: all 0.5s;
-        z-index: 1;
-    }
-
-    .product-card:hover .product-image::before {
-        left: 100%;
-    }
-
-    .product-info {
-        padding: 25px;
-    }
-
-    .product-name {
-        font-family: 'Cinzel', serif;
-        font-size: 1.3rem;
-        color: var(--gold);
-        margin-bottom: 10px;
-    }
-
-    .product-price {
-        font-size: 1.5rem;
-        color: var(--gold-light);
-        font-weight: 700;
-    }
-
-    .product-price span {
-        font-size: 0.9rem;
-        color: var(--gold);
-    }
-
-    /* Order/Stock Counter Styles */
-    .stock-info {
-        background: rgba(212, 175, 55, 0.15);
-        border-left: 3px solid var(--gold);
-        padding: 8px 12px;
-        margin: 12px 0;
-        font-size: 0.85rem;
-        color: var(--gold-light);
-        border-radius: 0 5px 5px 0;
-    }
-
-    .stock-info strong {
-        color: var(--gold);
-        font-family: 'Cinzel', serif;
-    }
-
-    .order-btn {
-        width: 100%;
-        margin-top: 15px;
-        padding: 12px;
-        background: transparent;
-        border: 2px solid var(--gold);
-        color: var(--gold);
-        font-family: 'Cinzel', serif;
-        cursor: pointer;
-        transition: all 0.3s;
-        border-radius: 5px;
-    }
-
-    .order-btn:hover {
-        background: var(--gold);
-        color: var(--dark-green);
-    }
-
-    /* Reviews Section */
-    .reviews-section {
-        padding: 80px 20px;
-        background: var(--medium-green);
-    }
-
-    .reviews-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1200px;
-        margin: 0 auto 40px;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-
-    .reviews-title-wrapper {
-        text-align: left;
-    }
-
-    .review-count-badge {
-        display: inline-block;
-        background: var(--gold);
-        color: var(--dark-green);
-        padding: 5px 15px;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: bold;
-        margin-top: 10px;
-        font-family: 'Cinzel', serif;
-    }
-
-    .write-review-btn {
-        background: transparent;
-        border: 2px solid var(--gold);
-        color: var(--gold);
-        padding: 10px 25px;
-        border-radius: 30px;
-        font-family: 'Cinzel', serif;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .write-review-btn:hover {
-        background: var(--gold);
-        color: var(--dark-green);
-    }
-
-    .reviews-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-top: 50px;
-        max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .review-card {
-        background: rgba(10, 31, 28, 0.6);
-        border: 1px solid var(--gold);
-        border-radius: 10px;
-        padding: 30px;
-        position: relative;
-        animation: fadeInUp 0.8s ease-out;
-    }
-
-    .review-card::before {
-        content: '"';
-        font-size: 4rem;
-        color: var(--gold);
-        opacity: 0.3;
-        position: absolute;
-        top: 10px;
-        left: 20px;
-    }
-
-    .review-text {
-        font-style: italic;
-        margin-bottom: 20px;
-        line-height: 1.6;
-    }
-
-    .reviewer {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .reviewer-avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: var(--gold);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--dark-green);
-        font-weight: 700;
-        font-family: 'Cinzel', serif;
-    }
-
-    .reviewer-info h4 {
-        color: var(--gold);
-        font-family: 'Cinzel', serif;
-    }
-
-    .stars {
-        color: var(--gold);
-        letter-spacing: 2px;
-    }
-
-    /* FAQ Section */
-    .faq-section {
-        padding: 80px 20px;
-        background: var(--dark-green);
-    }
-
-    .faq-container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .faq-item {
-        background: var(--medium-green);
-        border: 1px solid var(--gold);
-        border-radius: 10px;
-        margin-bottom: 20px;
-        overflow: hidden;
-        transition: all 0.3s;
-    }
-
-    .faq-question {
-        padding: 20px 30px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-family: 'Cinzel', serif;
-        color: var(--gold);
-        transition: all 0.3s;
-    }
-
-    .faq-question:hover {
-        background: var(--light-green);
-    }
-
-    .faq-icon {
-        font-size: 1.5rem;
-        transition: transform 0.3s;
-    }
-
-    .faq-item.active .faq-icon {
-        transform: rotate(45deg);
-    }
-
-    .faq-answer {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-        padding: 0 30px;
-    }
-
-    .faq-item.active .faq-answer {
-        max-height: 200px;
-        padding: 0 30px 20px;
-    }
-
-    .faq-answer p {
-        color: var(--gold-light);
-        line-height: 1.6;
-    }
-
-    /* Order Modal */
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        z-index: 20
+                <p class="review-text">The Royal Heritage Coat exceeded all my expectations. The craftsmanship is absolutely magnificent, and I received countless compliments at the gala. OPAL OUTFITTER truly understands luxury.</p>
+                <span class="review-product-name">Royal Heritage Coat</span>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><rect fill='%231a3c34' width='60' height='60'/><circle cx='30' cy='25' r='12' fill='%23d4af37'/><path d='M15 55 Q30 40 45 55' fill='%23d4af37'/></svg>" alt="Product" class="reviewed-product-thumb">
+                    <div class="reviewer-info">
+                        <h4>James Worthington</h4>
+                        <span class="verified-badge">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Verified Purchase
+                        </span>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="review-text">A suit that makes you feel like royalty. The fit is impeccable, and the silk quality is unmatched. This is my third purchase from OPAL, and they never disappoint.</p>
+                <span class="review-product-name">Noble Silk Suit</span>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><rect fill='%231a3c34' width='60' height='60'/><circle cx='30' cy='25' r='12' fill='%23d4af37'/><path d='M15 55 Q30 40 45 55' fill='%23d4af37'/></svg>" alt="Product" class="reviewed-product-thumb">
+                    <div class="reviewer-info">
+                        <h4>Lady Margaret</h4>
+                        <span class="verified-badge">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Verified Purchase
+                        </span>
+                        <div class="stars">★★★★★</div>
+                        <think>The user wants me to continue from line 533 of the HTML code. Let me first understand what's there before line 533 and what should come after.
+
+Looking at the context, I can see this is a luxury fashion website for "OPAL OUTFITTER" with sections like:
+- Header with logo and navigation
+- Hero section
+- History section
+- Products section with product cards
+- Reviews section
+
+The reviews section has review cards with verified badges and star ratings. Line 533 appears to be in the middle of a review card's stars div.
+
+I need to continue from where the review card for "Lady Margaret" is cut off and complete the reviews section, then add the FAQ section, Order Modal, WhatsApp float, Footer, and JavaScript functionality.
+
+Let me continue the code:
+</think>
+
+<div class="stars">★★★★★</div>
+                    </div>
+                </div>
+                <p class="review-text">The Opal Evening Gown is a masterpiece. The way it catches the light is simply magical. I felt like a queen at my daughter's wedding. Worth every penny for such an heirloom piece.</p>
+                <span class="review-product-name">Opal Evening Gown</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>What makes OPAL OUTFITTER different from other luxury brands?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Since 1920, we have maintained an unwavering commitment to exceptional craftsmanship and timeless design. Each piece is handcrafted by master artisans using the finest materials sourced from around the world. Our dedication to quality ensures that every garment becomes a lasting investment piece.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do you offer international shipping?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we provide worldwide shipping with full insurance and customs clearance assistance. Orders are typically delivered within 5-7 business days via our premium courier partners. All shipments are discreetly packaged to ensure privacy and protection.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>What is your return and exchange policy?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We offer a comprehensive 30-day return policy for all unworn items in original condition. Custom and personalized pieces are non-returnable but can be altered. Our concierge team is available to assist with any fitting concerns.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Can I request custom alterations or bespoke designs?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely. Our atelier offers bespoke services for discerning clients seeking unique pieces. Schedule a consultation with our design team to discuss your vision. Custom orders typically require 4-6 weeks for completion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeOrderModal()">×</button>
+            <h3 class="modal-title">Place Your Order</h3>
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label>Product</label>
+                    <input type="text" id="productName" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Price (USD)</label>
+                    <input type="text" id="productPrice" readonly>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" required placeholder="Enter your first name">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" required placeholder="Enter your last name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" required placeholder="+1 (555) 000-0000">
+                </div>
+                <div class="form-group">
+                    <label>Shipping Address</label>
+                    <textarea rows="3" required placeholder="Enter your full shipping address"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Postal Code</label>
+                        <input type="text" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Country</label>
+                    <select required>
+                        <option value="">Select Country</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="FR">France</option>
+                        <option value="DE">Germany</option>
+                        <option value="IT">Italy</option>
+                        <option value="ES">Spain</option>
+                        <option value="CA">Canada</option>
+                        <option value="AU">Australia</option>
+                        <option value="AE">United Arab Emirates</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <div class="quantity-wrapper">
+                        <button type="button" class="quantity-btn" onclick="updateQuantity(-1)">-</button>
+                        <input type="number" id="quantity" value="1" min="1" max="10" readonly>
+                        <button type="button" class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Special Instructions</label>
+                    <textarea rows="2" placeholder="Any special requests or notes..."></textarea>
+                </div>
+                <button type="submit" class="submit-order">Complete Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-message">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            <span id="toastText">Order placed successfully!</span>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float -->
+    <div class="whatsapp-float" onclick="openWhatsApp()">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About OPAL OUTFITTER</h3>
+                <p>Since 1920, we have been crafting timeless luxury fashion that transcends generations. Our commitment to exceptional quality and sophisticated design has made us a trusted name among discerning clientele worldwide.</p>
+                <div class="social-links">
+                    <div class="social-link">
+                        <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+                    </div>
+                    <div class="social-link">
+                        <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                    </div>
+                    <div class="social-link">
+                        <svg viewBox="0 0 24 24"><path d="M22.46 6c-.85.38-1.78.64-2.75.76 1-.6 1.76-1.55 2.12-2.68-.93.55-1.96.95-3.06 1.17-.88-.94-2.13-1.53-3.51-1.53-2.66 0-4.81 2.16-4.81 4.81 0 .38.04.75.13 1.1-4-.2-7.58-2.11-9.96-5.02-.42.72-.66 1.56-.66 2.46 0 1.68.85 3.16 2.14 4.02-.79-.02-1.53-.24-2.18-.6v.06c0 2.35 1.67 4.31 3.88 4.76-.4.1-.83.16-1.27.16-.31 0-.62-.03-.92-.08.63 1.96 2.45 3.39 4.61 3.43-1.69 1.32-3.83 2.1-6.15 2.1-.4 0-.8-.02-1.19-.07 2.19 1.4 4.78 2.22 7.57 2.22 9.07 0 14.02-7.52 14.02-14.02 0-.21 0-.43-.01-.64.96-.69 1.79-1.56 2.45-2.55z"/></svg>
+                    </div>
+                    <div class="social-link">
+                        <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Sale</a></li>
+                    <li><a href="#">Bespoke Services</a></li>
+                    <li><a href="#">Gift Cards</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Customer Care</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Information</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <span>123 Luxury Avenue, Fifth Avenue, New York, NY 10022</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <span>+1 (800) OPAL-LUX</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <span>concierge@opaloutfitter.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        <span>Mon - Sat: 9:00 AM - 8:00 PM EST</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2024 <span>OPAL OUTFITTER</span>. All rights reserved. | Est. 1920 | <a href="#" style="color: var(--gold);">Privacy Policy</a> | <a href="#" style="color: var(--gold);">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Order Modal Functions
+        let currentProduct = '';
+        let currentPrice = 0;
+
+        function openOrderModal(productName, price) {
+            currentProduct = productName;
+            currentPrice = price;
+            
+            document.getElementById('productName').value = productName;
+            document.getElementById('productPrice').value = '$' + price.toLocaleString();
+            document.getElementById('orderModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateQuantity(change) {
+            const qtyInput = document.getElementById('quantity');
+            let newQty = parseInt(qtyInput.value) + change;
+            if (newQty >= 1 && newQty <= 10) {
+                qtyInput.value = newQty;
+            }
+        }
+
+        function submitOrder(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const orderDetails = {
+                product: currentProduct,
+                price: currentPrice,
+                quantity: document.getElementById('quantity').value,
+                customer: {
+                    name: formData.get(0) + ' ' + formData.get(1),
+                    email: formData.get(2),
+                    phone: formData.get(3),
+                    address: formData.get(4),
+                    city: formData.get(5),
+                    postalCode: formData.get(6),
+                    country: formData.get(7)
+                }
+            };
+            
+            console.log('Order submitted:', orderDetails);
+            
+            closeOrderModal();
+            showToast('Order placed successfully! Our concierge will contact you shortly.');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toastText');
+            toastText.textContent = message;
+            toast.classList.add('active');
+            
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 4000);
+        }
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            const wasActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Toggle current item
+            if (!wasActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Scroll to Products
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // WhatsApp Contact
+        function openWhatsApp() {
+            const message = 'Hello OPAL OUTFITTER, I have a question about your luxury collection.';
+            const phoneNumber = '1800672589'; // Replace with actual number
+            window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // Cart Button (placeholder functionality)
+        document.getElementById('cartBtn').addEventListener('click', function() {
+            showToast('Shopping bag is empty');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 30px rgba(0,0,0,0.5)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card, .review-card, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Simulate dynamic order numbers (random increment)
+        function updateOrderNumbers() {
+            const orderElements = document.querySelectorAll('.order-value');
+            orderElements.forEach(el => {
+                if (el.textContent.includes(',')) {
+                    const currentValue = parseInt(el.textContent.replace(/,/g, ''));
+                    if (Math.random() > 0.7) {
+                        const increment = Math.floor(Math.random() * 3) + 1;
+                        el.textContent = (currentValue + increment).toLocaleString();
+                    }
+                }
+            });
+        }
+
+        setInterval(updateOrderNumbers, 5000);
+
+        // Close modal on outside click
+        document.getElementById('orderModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeOrderModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeOrderModal();
+            }
+        });
+    </script>
+</body>
+</html>
+```
+            
