@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPAL OUTFITTER | Est. 1920</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>LUXE BOUTIQUE | Premium Fashion House</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,19 +13,21 @@
         }
 
         :root {
-            --dark-green: #0a1f1c;
-            --medium-green: #1a3c34;
-            --light-green: #2d5a4e;
-            --gold: #d4af37;
-            --gold-light: #f4e4bc;
-            --gold-dark: #b8941f;
-            --gold-glow: rgba(212, 175, 55, 0.4);
+            --primary-dark: #1a1a2e;
+            --secondary-dark: #16213e;
+            --accent-gold: #c9a227;
+            --accent-gold-light: #e8d5a3;
+            --accent-gold-dark: #9a7b1a;
+            --text-light: #f5f5f5;
+            --text-muted: #b0b0b0;
+            --success-green: #2ecc71;
+            --error-red: #e74c3c;
         }
 
         body {
-            font-family: 'Playfair Display', serif;
-            background: linear-gradient(135deg, var(--dark-green) 0%, var(--medium-green) 100%);
-            color: var(--gold-light);
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--text-light);
             overflow-x: hidden;
         }
 
@@ -56,26 +58,31 @@
         }
 
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px var(--gold-glow); }
-            50% { box-shadow: 0 0 40px var(--gold-glow); }
+            0%, 100% { box-shadow: 0 0 20px rgba(201, 162, 39, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(201, 162, 39, 0.6); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* Header */
         header {
-            background: rgba(10, 31, 28, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(26, 26, 46, 0.98);
+            backdrop-filter: blur(15px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 2px solid var(--gold);
+            border-bottom: 2px solid var(--accent-gold);
             animation: slideIn 0.8s ease-out;
         }
 
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 15px 30px;
+            padding: 12px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -91,40 +98,41 @@
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             animation: pulse 4s infinite;
         }
 
         .logo-icon {
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             position: relative;
-            filter: drop-shadow(0 0 10px var(--gold-glow));
+            filter: drop-shadow(0 0 15px rgba(201, 162, 39, 0.5));
         }
 
         .brand-name {
             font-family: 'Cinzel', serif;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            color: var(--gold);
+            color: var(--accent-gold);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             line-height: 1.1;
         }
 
         .brand-sub {
-            font-size: 0.6rem;
-            color: var(--gold-light);
-            letter-spacing: 4px;
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 5px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            margin-top: 3px;
         }
 
         /* Navigation */
         nav {
             display: flex;
-            gap: 25px;
+            gap: 20px;
             align-items: center;
         }
 
@@ -132,79 +140,117 @@
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+            padding: 10px;
+            border-radius: 50%;
         }
 
         .nav-icon:hover {
-            transform: scale(1.2);
-            color: var(--gold);
+            background: rgba(201, 162, 39, 0.1);
+            transform: scale(1.1);
         }
 
         .nav-icon svg {
             width: 24px;
             height: 24px;
-            fill: var(--gold-light);
+            fill: var(--text-light);
             transition: fill 0.3s;
         }
 
         .nav-icon:hover svg {
-            fill: var(--gold);
+            fill: var(--accent-gold);
         }
 
-        /* Fashion Dropdown */
-        .fashion-menu {
+        .nav-icon .badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            font-size: 0.7rem;
+            font-weight: bold;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
             position: relative;
         }
 
-        .fashion-dropdown {
+        .dropdown-trigger {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 25px;
+        }
+
+        .dropdown-trigger:hover {
+            background: rgba(201, 162, 39, 0.1);
+            color: var(--accent-gold);
+        }
+
+        .dropdown-content {
             position: absolute;
-            top: 40px;
+            top: 100%;
             right: 0;
-            background: rgba(26, 60, 52, 0.98);
-            border: 1px solid var(--gold);
-            border-radius: 10px;
+            background: rgba(26, 26, 46, 0.98);
+            border: 1px solid var(--accent-gold);
+            border-radius: 15px;
             padding: 15px;
-            min-width: 200px;
+            min-width: 220px;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            margin-top: 10px;
         }
 
-        .fashion-menu:hover .fashion-dropdown {
+        .dropdown-menu:hover .dropdown-content {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
 
-        .fashion-item {
+        .dropdown-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px;
+            gap: 12px;
+            padding: 12px 15px;
             cursor: pointer;
             transition: all 0.3s;
-            border-radius: 5px;
+            border-radius: 10px;
+            color: var(--text-light);
         }
 
-        .fashion-item:hover {
-            background: var(--light-green);
+        .dropdown-item:hover {
+            background: rgba(201, 162, 39, 0.15);
             transform: translateX(5px);
+            color: var(--accent-gold);
         }
 
-        .fashion-item svg {
+        .dropdown-item svg {
             width: 20px;
             height: 20px;
-            fill: var(--gold);
+            fill: var(--accent-gold);
         }
 
         /* Hero Section */
         .hero {
-            margin-top: 90px;
-            height: 90vh;
-            background: linear-gradient(rgba(10, 31, 28, 0.7), rgba(10, 31, 28, 0.7)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%230a1f1c" width="100" height="100"/><path fill="%231a3c34" d="M0 50 Q25 30 50 50 T100 50 V100 H0 Z"/></svg>');
+            margin-top: 85px;
+            height: 85vh;
+            background: linear-gradient(rgba(26, 26, 46, 0.75), rgba(22, 33, 62, 0.85)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%231a1a2e" width="100" height="100"/><circle fill="%2316223e" cx="30" cy="40" r="20" opacity="0.5"/><circle fill="%2316223e" cx="70" cy="60" r="25" opacity="0.3"/></svg>');
             background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -220,207 +266,212 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
-            animation: float 6s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(201, 162, 39, 0.1) 0%, transparent 70%);
+            animation: float 8s ease-in-out infinite;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
             animation: fadeInUp 1s ease-out;
+            max-width: 800px;
+            padding: 20px;
         }
 
         .hero h1 {
             font-family: 'Cinzel', serif;
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            color: var(--gold);
+            color: var(--accent-gold);
             margin-bottom: 20px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.7), 0 0 30px var(--gold-glow);
-            letter-spacing: 8px;
-            filter: brightness(1.1);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7), 0 0 40px rgba(201, 162, 39, 0.3);
+            letter-spacing: 5px;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            color: var(--gold-light);
-            margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--text-light);
+            margin-bottom: 35px;
             font-style: italic;
+            opacity: 0.9;
         }
 
         .cta-button {
-            background: linear-gradient(45deg, var(--gold), var(--gold-dark));
-            color: var(--dark-green);
-            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+            color: var(--primary-dark);
+            padding: 16px 45px;
             border: none;
             border-radius: 50px;
             font-family: 'Cinzel', serif;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s;
             text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(201, 162, 39, 0.5);
             filter: brightness(1.1);
         }
 
-        /* History Section */
-        .history-section {
-            padding: 80px 20px;
-            background: var(--medium-green);
-            position: relative;
+        /* Section Styles */
+        .section {
+            padding: 80px 30px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
         .section-title {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            color: var(--gold);
+            font-size: 2.2rem;
+            color: var(--accent-gold);
             text-align: center;
             margin-bottom: 50px;
             position: relative;
             display: inline-block;
             left: 50%;
             transform: translateX(-50%);
-            filter: brightness(1.1);
         }
 
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 25%;
-            width: 50%;
+            bottom: -12px;
+            left: 20%;
+            width: 60%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
-
-        .history-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .history-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--gold-light);
-        }
-
-        .history-text p {
-            margin-bottom: 20px;
-        }
-
-        .history-image {
-            border: 3px solid var(--gold);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px var(--gold-glow);
-        }
-
-        .history-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            filter: brightness(1.1);
-        }
-
-        .history-image::after {
-            content: 'Est. 1920';
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: var(--gold);
-            color: var(--dark-green);
-            padding: 10px 20px;
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
         }
 
         /* Products Section */
         .products-section {
-            padding: 80px 20px;
-            background: var(--dark-green);
+            background: var(--secondary-dark);
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
             margin-top: 50px;
         }
 
         .product-card {
-            background: linear-gradient(145deg, var(--medium-green), var(--light-green));
-            border: 1px solid var(--gold);
-            border-radius: 15px;
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.8));
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            border-radius: 20px;
             overflow: hidden;
             transition: all 0.4s ease;
             cursor: pointer;
             position: relative;
             animation: fadeInUp 0.8s ease-out;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .product-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3), 0 0 30px var(--gold-glow);
-            border-color: var(--gold-light);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 30px rgba(201, 162, 39, 0.2);
+            border-color: var(--accent-gold);
         }
 
-        .product-image {
-            height: 250px;
-            background: linear-gradient(135deg, #1a3c34 0%, #0a1f1c 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
+        .product-image-container {
             position: relative;
+            height: 280px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
             overflow: hidden;
         }
 
-        .product-image img {
-            width: 100%;
+        .product-image-slider {
+            display: flex;
             height: 100%;
-            object-fit: cover;
             transition: transform 0.5s ease;
-            filter: brightness(1.05);
         }
 
-        .product-card:hover .product-image img {
+        .product-image-slider img {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(201, 162, 39, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-dot.active {
+            background: var(--accent-gold);
+            transform: scale(1.3);
+        }
+
+        .slider-arrows {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover .slider-arrows {
+            opacity: 1;
+        }
+
+        .slider-arrow {
+            width: 35px;
+            height: 35px;
+            background: rgba(201, 162, 39, 0.9);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+        }
+
+        .slider-arrow:hover {
+            background: var(--accent-gold-light);
             transform: scale(1.1);
         }
 
-        .product-image::before {
-            content: '';
+        .product-badge {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s;
-            z-index: 1;
-        }
-
-        .product-card:hover .product-image::before {
-            left: 100%;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
         }
 
         .product-info {
@@ -429,29 +480,37 @@
 
         .product-name {
             font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            color: var(--gold);
-            margin-bottom: 10px;
+            font-size: 1.25rem;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
+        .product-description {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
         .product-price {
-            font-size: 1.5rem;
-            color: var(--gold-light);
+            font-size: 1.6rem;
+            color: var(--text-light);
             font-weight: 700;
+            margin-bottom: 15px;
         }
 
         .product-price span {
             font-size: 0.9rem;
-            color: var(--gold);
+            color: var(--accent-gold);
         }
 
-        /* Order/Stock Counter Styles - Enhanced */
+        /* Stock Info Styles */
         .stock-info {
-            background: rgba(10, 31, 28, 0.8);
-            border: 1px solid var(--gold);
-            border-radius: 10px;
-            padding: 12px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            border-radius: 12px;
+            padding: 15px;
             margin: 15px 0;
             position: relative;
             overflow: hidden;
@@ -464,81 +523,136 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.15), transparent);
             animation: shimmer 3s infinite;
         }
 
-        .order-stat {
+        .stock-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
             margin-bottom: 8px;
         }
 
-        .order-stat:last-child {
+        .stock-row:last-child {
             margin-bottom: 0;
         }
 
-        .order-stat strong {
-            color: var(--gold);
-            font-family: 'Cinzel', serif;
+        .stock-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .stock-value {
+            font-weight: 600;
+            color: var(--text-light);
             font-size: 0.9rem;
         }
 
-        .order-value {
-            font-weight: 700;
-            color: var(--gold-light);
-            font-size: 1rem;
-        }
-
-        .fire-icon {
-            font-size: 1.2rem;
-            animation: pulse 1s infinite;
+        .stock-value.highlight {
+            color: var(--accent-gold);
         }
 
         .stock-badge {
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.2);
-            color: var(--gold);
-            padding: 4px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(201, 162, 39, 0.15);
+            color: var(--accent-gold);
+            padding: 5px 12px;
             border-radius: 15px;
-            font-size: 0.8rem;
-            border: 1px solid var(--gold);
+            font-size: 0.75rem;
+            border: 1px solid var(--accent-gold);
+            margin-top: 10px;
+        }
+
+        /* Size Selection */
+        .size-selection {
+            margin: 15px 0;
+        }
+
+        .size-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .size-option {
+            flex: 1;
+            padding: 10px;
+            background: rgba(26, 26, 46, 0.6);
+            border: 2px solid rgba(201, 162, 39, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .size-option:hover {
+            border-color: var(--accent-gold);
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        .size-option.selected {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border-color: var(--accent-gold);
+        }
+
+        .size-option.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .order-btn {
             width: 100%;
             margin-top: 15px;
-            padding: 12px;
-            background: linear-gradient(45deg, var(--gold), var(--gold-dark));
-            color: var(--dark-green);
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+            color: var(--primary-dark);
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             font-family: 'Cinzel', serif;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-size: 0.95rem;
         }
 
         .order-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.4);
             filter: brightness(1.1);
+        }
+
+        .order-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         /* Reviews Section */
         .reviews-section {
-            padding: 80px 20px;
-            background: linear-gradient(180deg, var(--dark-green) 0%, var(--medium-green) 50%, var(--dark-green) 100%);
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--primary-dark) 100%);
+            padding: 60px 30px;
         }
 
         .reviews-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto 40px;
             flex-wrap: wrap;
             gap: 20px;
@@ -550,66 +664,66 @@
 
         .review-count-badge {
             display: inline-block;
-            background: var(--gold);
-            color: var(--dark-green);
-            padding: 5px 15px;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 6px 18px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
             margin-top: 10px;
             font-family: 'Cinzel', serif;
-            box-shadow: 0 5px 15px var(--gold-glow);
+            box-shadow: 0 5px 15px rgba(201, 162, 39, 0.4);
         }
 
         .write-review-btn {
             background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            padding: 10px 25px;
+            border: 2px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 12px 28px;
             border-radius: 30px;
             font-family: 'Cinzel', serif;
             cursor: pointer;
             transition: all 0.3s;
+            font-weight: 600;
         }
 
         .write-review-btn:hover {
-            background: var(--gold);
-            color: var(--dark-green);
-            box-shadow: 0 5px 20px var(--gold-glow);
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            box-shadow: 0 5px 20px rgba(201, 162, 39, 0.4);
         }
 
         .reviews-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+            max-width: 1300px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .review-card {
-            background: rgba(26, 60, 52, 0.9);
-            border: 1px solid var(--gold);
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(201, 162, 39, 0.2);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             position: relative;
             animation: fadeInUp 0.8s ease-out;
             transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .review-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
-            border-color: var(--gold-light);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(201, 162, 39, 0.1);
+            border-color: var(--accent-gold);
         }
 
         .review-card::before {
             content: '"';
-            font-size: 5rem;
-            color: var(--gold);
-            opacity: 0.15;
+            font-size: 4rem;
+            color: var(--accent-gold);
+            opacity: 0.1;
             position: absolute;
             top: 5px;
             left: 15px;
@@ -620,17 +734,16 @@
         .review-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
-        .reviewed-product-thumb {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
+        .reviewer-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--gold);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            border: 2px solid var(--accent-gold);
         }
 
         .reviewer-info {
@@ -638,9 +751,9 @@
         }
 
         .reviewer-info h4 {
-            color: var(--gold);
+            color: var(--accent-gold);
             font-family: 'Cinzel', serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             margin-bottom: 3px;
         }
 
@@ -648,49 +761,51 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            font-size: 0.75rem;
-            color: #4ade80;
-            background: rgba(74, 222, 128, 0.1);
-            padding: 2px 8px;
+            font-size: 0.65rem;
+            color: var(--success-green);
+            background: rgba(46, 204, 113, 0.1);
+            padding: 3px 10px;
             border-radius: 10px;
         }
 
         .verified-badge svg {
             width: 12px;
             height: 12px;
-            fill: #4ade80;
+            fill: var(--success-green);
         }
 
         .stars {
-            color: var(--gold);
+            color: var(--accent-gold);
             letter-spacing: 2px;
-            font-size: 0.9rem;
-            margin-top: 5px;
+            font-size: 0.8rem;
+            margin-top: 4px;
         }
 
         .review-text {
             font-style: italic;
-            margin-bottom: 15px;
-            line-height: 1.7;
-            color: var(--gold-light);
+            margin-bottom: 12px;
+            line-height: 1.6;
+            color: var(--text-muted);
             position: relative;
             z-index: 1;
+            font-size: 0.85rem;
         }
 
-        .review-product-name {
-            font-size: 0.85rem;
-            color: var(--gold);
+        .review-product-tag {
+            font-size: 0.75rem;
+            color: var(--accent-gold);
             font-family: 'Cinzel', serif;
-            padding: 5px 10px;
-            background: rgba(212, 175, 55, 0.1);
+            padding: 4px 10px;
+            background: rgba(201, 162, 39, 0.1);
             border-radius: 5px;
             display: inline-block;
+            border: 1px solid rgba(201, 162, 39, 0.3);
         }
 
         /* FAQ Section */
         .faq-section {
-            padding: 80px 20px;
-            background: var(--dark-green);
+            background: var(--primary-dark);
+            padding: 60px 30px;
         }
 
         .faq-container {
@@ -699,39 +814,40 @@
         }
 
         .faq-item {
-            background: linear-gradient(145deg, var(--medium-green), var(--light-green));
-            border: 1px solid var(--gold);
-            border-radius: 10px;
-            margin-bottom: 20px;
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.7));
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            border-radius: 12px;
+            margin-bottom: 15px;
             overflow: hidden;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .faq-item:hover {
-            border-color: var(--gold-light);
+            border-color: rgba(201, 162, 39, 0.5);
         }
 
         .faq-question {
-            padding: 20px 30px;
+            padding: 18px 22px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-family: 'Cinzel', serif;
-            color: var(--gold);
+            color: var(--accent-gold);
             font-weight: 600;
             transition: all 0.3s;
+            font-size: 0.95rem;
         }
 
         .faq-question:hover {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(201, 162, 39, 0.08);
         }
 
         .faq-icon {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             transition: transform 0.3s;
-            color: var(--gold);
+            color: var(--accent-gold);
+            font-weight: 300;
         }
 
         .faq-item.active .faq-icon {
@@ -742,18 +858,19 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s ease, padding 0.4s ease;
-            padding: 0 30px;
-            background: rgba(10, 31, 28, 0.5);
+            padding: 0 22px;
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .faq-item.active .faq-answer {
             max-height: 200px;
-            padding: 0 30px 20px;
+            padding: 0 22px 18px;
         }
 
         .faq-answer p {
-            color: var(--gold-light);
+            color: var(--text-muted);
             line-height: 1.7;
+            font-size: 0.9rem;
         }
 
         /* Order Modal */
@@ -764,28 +881,29 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.9);
             z-index: 2000;
             justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(8px);
+            align-items: flex-start;
+            backdrop-filter: blur(10px);
             overflow-y: auto;
+            padding: 20px;
         }
 
         .modal.active {
             display: flex;
-            animation: fadeInUp 0.3s;
+            animation: fadeIn 0.3s;
         }
 
         .modal-content {
-            background: linear-gradient(145deg, var(--medium-green), var(--dark-green));
-            border: 2px solid var(--gold);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
-            width: 90%;
+            background: linear-gradient(145deg, var(--secondary-dark), var(--primary-dark));
+            border: 2px solid var(--accent-gold);
+            border-radius: 25px;
+            padding: 35px;
+            max-width: 550px;
+            width: 100%;
             position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px var(--gold-glow);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6), 0 0 40px rgba(201, 162, 39, 0.2);
             margin: 20px auto;
             max-height: 90vh;
             overflow-y: auto;
@@ -793,52 +911,134 @@
 
         .close-modal {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5rem;
-            color: var(--gold);
+            top: 18px;
+            right: 22px;
+            font-size: 1.8rem;
+            color: var(--accent-gold);
             cursor: pointer;
             transition: transform 0.3s;
             background: none;
             border: none;
+            line-height: 1;
         }
 
         .close-modal:hover {
             transform: rotate(90deg);
         }
 
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
         .modal-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            color: var(--gold);
-            margin-bottom: 25px;
-            text-align: center;
-            filter: brightness(1.1);
+            font-size: 1.4rem;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Product Gallery in Modal */
+        .modal-product-gallery {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(201, 162, 39, 0.3);
+        }
+
+        .modal-product-gallery img {
+            width: 33.33%;
+            height: 100px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .modal-product-gallery img:hover {
+            opacity: 0.8;
+        }
+
+        .modal-product-gallery img.active {
+            border: 2px solid var(--accent-gold);
+        }
+
+        .modal-product-details {
+            background: rgba(0,0,0,0.2);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .modal-product-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        .modal-product-price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .modal-product-price span {
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+        }
+
+        .modal-product-description {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .form-section-title {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: var(--gold);
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.85rem;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            background: rgba(10, 31, 28, 0.8);
-            border: 1px solid var(--gold);
-            border-radius: 8px;
-            color: var(--gold-light);
-            font-family: 'Playfair Display', serif;
-            font-size: 1rem;
+            padding: 12px 16px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
             transition: all 0.3s;
         }
 
@@ -846,32 +1046,105 @@
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: var(--gold-light);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(201, 162, 39, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Age Verification */
+        .age-verification {
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .age-question {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .age-options {
+            display: flex;
             gap: 15px;
         }
 
+        .age-option {
+            flex: 1;
+            padding: 12px;
+            background: rgba(26, 26, 46, 0.6);
+            border: 2px solid rgba(201, 162, 39, 0.3);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .age-option:hover {
+            border-color: var(--accent-gold);
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        .age-option.selected {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border-color: var(--accent-gold);
+        }
+
+        .age-option.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .age-error {
+            color: var(--error-red);
+            font-size: 0.8rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .age-error.show {
+            display: block;
+        }
+
+        /* Quantity Selector */
         .quantity-wrapper {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .quantity-btn {
-            background: var(--gold);
-            color: var(--dark-green);
+            background: var(--accent-gold);
+            color: var(--primary-dark);
             border: none;
             width: 40px;
             height: 40px;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             transition: all 0.3s;
             display: flex;
             align-items: center;
@@ -879,38 +1152,137 @@
         }
 
         .quantity-btn:hover {
-            background: var(--gold-light);
+            background: var(--accent-gold-light);
             transform: scale(1.1);
+        }
+
+        .quantity-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
         }
 
         #quantity {
             text-align: center;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1.2rem;
             min-width: 50px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+        }
+
+        /* Size Selection in Modal */
+        .size-selection-modal {
+            margin: 12px 0;
+        }
+
+        .size-options-modal {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .size-option-modal {
+            padding: 10px 18px;
+            background: rgba(26, 26, 46, 0.6);
+            border: 2px solid rgba(201, 162, 39, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 65px;
+            text-align: center;
+        }
+
+        .size-option-modal:hover {
+            border-color: var(--accent-gold);
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        .size-option-modal.selected {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border-color: var(--accent-gold);
+        }
+
+        .size-error {
+            color: var(--error-red);
+            font-size: 0.8rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .size-error.show {
+            display: block;
         }
 
         .submit-order {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, var(--gold), var(--gold-dark));
-            color: var(--dark-green);
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+            color: var(--primary-dark);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-family: 'Cinzel', serif;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
         .submit-order:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 15px 40px rgba(201, 162, 39, 0.5);
             filter: brightness(1.1);
+        }
+
+        .submit-order:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(145deg, var(--secondary-dark), var(--primary-dark));
+            border: 2px solid var(--accent-gold);
+            border-radius: 15px;
+            padding: 16px 30px;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--success-green);
+        }
+
+        .toast-message {
+            color: var(--accent-gold);
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
         /* WhatsApp Float */
@@ -918,58 +1290,57 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 65px;
-                        height: 65px;
+            width: 60px;
+            height: 60px;
             background: #25D366;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
             z-index: 1000;
             cursor: pointer;
             transition: all 0.3s ease;
-            animation: pulse 2s infinite;
+            animation: pulse 2.5s infinite;
         }
 
         .whatsapp-float:hover {
-            transform: scale(1.15) translateY(-5px);
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
+            transform: scale(1.15) translateY(-8px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
         }
 
         .whatsapp-float svg {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             fill: white;
         }
 
         /* Footer */
         footer {
-            background: rgba(10, 31, 28, 0.98);
-            border-top: 2px solid var(--gold);
-            padding: 60px 20px 30px;
+            background: rgba(22, 33, 62, 0.98);
+            border-top: 2px solid var(--accent-gold);
+            padding: 50px 25px 25px;
         }
 
         .footer-container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 35px;
         }
 
         .footer-section h3 {
             font-family: 'Cinzel', serif;
-            color: var(--gold);
-            margin-bottom: 25px;
-            font-size: 1.2rem;
-            filter: brightness(1.1);
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: 1rem;
         }
 
         .footer-section p {
-            color: var(--gold-light);
-            line-height: 1.8;
-            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 0.85rem;
         }
 
         .footer-links {
@@ -977,52 +1348,58 @@
         }
 
         .footer-links li {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .footer-links a {
-            color: var(--gold-light);
+            color: var(--text-muted);
             text-decoration: none;
             transition: all 0.3s;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             display: inline-block;
         }
 
         .footer-links a:hover {
-            color: var(--gold);
+            color: var(--accent-gold);
             transform: translateX(5px);
         }
 
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .contact-item {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--gold-light);
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-muted);
         }
 
         .contact-item svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--gold);
+            width: 18px;
+            height: 18px;
+            fill: var(--accent-gold);
             flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .contact-item span {
+            line-height: 1.5;
+            font-size: 0.85rem;
         }
 
         .social-links {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 18px;
         }
 
         .social-link {
-            width: 45px;
-            height: 45px;
-            border: 2px solid var(--gold);
+            width: 38px;
+            height: 38px;
+            border: 2px solid var(--accent-gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1032,129 +1409,143 @@
         }
 
         .social-link:hover {
-            background: var(--gold);
+            background: var(--accent-gold);
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--gold-glow);
+            box-shadow: 0 10px 25px rgba(201, 162, 39, 0.4);
         }
 
         .social-link svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--gold);
+            width: 16px;
+            height: 16px;
+            fill: var(--accent-gold);
             transition: fill 0.3s;
         }
 
         .social-link:hover svg {
-            fill: var(--dark-green);
+            fill: var(--primary-dark);
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 40px;
-            margin-top: 40px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 35px;
+            margin-top: 35px;
+            border-top: 1px solid rgba(201, 162, 39, 0.15);
         }
 
         .footer-bottom p {
-            color: var(--gold-light);
+            color: var(--text-muted);
             opacity: 0.7;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .footer-bottom span {
-            color: var(--gold);
+            color: var(--accent-gold);
             font-family: 'Cinzel', serif;
         }
 
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: linear-gradient(145deg, var(--medium-green), var(--dark-green));
-            border: 2px solid var(--gold);
-            border-radius: 10px;
-            padding: 15px 30px;
-            z-index: 3000;
-            opacity: 0;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .footer-bottom a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: opacity 0.3s;
         }
 
-        .toast.active {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .toast-message {
-            color: var(--gold);
-            font-family: 'Cinzel', serif;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .toast-message svg {
-            width: 24px;
-            height: 24px;
-            fill: #4ade80;
+        .footer-bottom a:hover {
+            opacity: 0.8;
         }
 
         /* Responsive Design */
-        @media (max-width: 992px) {
+        @media (max-width: 1024px) {
             .hero h1 {
-                font-size: 3rem;
+                font-size: 2.8rem;
             }
             
-            .history-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .history-image {
-                order: -1;
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
             .header-container {
-                padding: 15px 20px;
+                padding: 12px 20px;
             }
             
             .brand-name {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
+            }
+            
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .hero {
+                margin-top: 75px;
+                height: 75vh;
             }
             
             .hero h1 {
                 font-size: 2.2rem;
-                letter-spacing: 4px;
+                letter-spacing: 3px;
             }
             
             .hero p {
                 font-size: 1.1rem;
             }
             
-            .nav-links {
-                display: none;
+            .section {
+                padding: 50px 20px;
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
-            .form-row {
+            .products-grid {
                 grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .form-row, .form-row-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 22px;
+            }
+            
+            .modal-product-gallery img {
+                height: 70px;
             }
             
             .footer-container {
                 grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .contact-item {
+                justify-content: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            .reviews-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .reviews-title-wrapper {
+                text-align: center;
             }
         }
 
         @media (max-width: 480px) {
             .hero {
                 margin-top: 70px;
-                height: 80vh;
+                height: 70vh;
             }
             
             .hero h1 {
@@ -1163,12 +1554,28 @@
             }
             
             .cta-button {
-                padding: 12px 30px;
+                padding: 14px 35px;
                 font-size: 0.9rem;
             }
             
             .modal-content {
-                padding: 25px;
+                padding: 18px;
+            }
+            
+            .modal-title {
+                font-size: 1.2rem;
+            }
+            
+            .whatsapp-float {
+                width: 52px;
+                height: 52px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .whatsapp-float svg {
+                width: 24px;
+                height: 24px;
             }
         }
     </style>
@@ -1183,45 +1590,49 @@
                         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#d4af37"/>
-                                    <stop offset="50%" style="stop-color:#f4e4bc"/>
-                                    <stop offset="100%" style="stop-color:#b8941f"/>
+                                    <stop offset="0%" style="stop-color:#c9a227"/>
+                                    <stop offset="50%" style="stop-color:#e8d5a3"/>
+                                    <stop offset="100%" style="stop-color:#9a7b1a"/>
                                 </linearGradient>
                             </defs>
                             <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGrad)" stroke-width="3"/>
-                            <polygon points="50,15 85,80 15,80" fill="none" stroke="url(#logoGrad)" stroke-width="2"/>
-                            <circle cx="50" cy="52" r="15" fill="url(#logoGrad)"/>
-                            <polygon points="50,35 65,70 35,70" fill="#0a1f1c"/>
+                            <path d="M50 20 L65 40 L85 40 L70 55 L77 75 L50 62 L23 75 L30 55 L15 40 L35 40 Z" fill="url(#logoGrad)"/>
+                            <circle cx="50" cy="50" r="12" fill="#1a1a2e"/>
+                            <circle cx="50" cy="50" r="6" fill="url(#logoGrad)"/>
                         </svg>
                     </div>
                     <div class="brand-text">
-                        <div class="brand-name">OPAL</div>
-                        <div class="brand-sub">Outfitter</div>
+                        <div class="brand-name">LUXE</div>
+                        <div class="brand-sub">Boutique</div>
                     </div>
                 </div>
             </div>
             
             <nav>
-                <div class="fashion-menu">
-                    <div class="nav-icon">
-                        <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+                <div class="dropdown-menu">
+                    <div class="dropdown-trigger">
+                        <svg style="width:24px;height:24px;fill:var(--text-light)" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
                     </div>
-                    <div class="fashion-dropdown">
-                        <div class="fashion-item">
+                    <div class="dropdown-content">
+                        <div class="dropdown-item" onclick="filterProducts('all')">
                             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                            <span>New Arrivals</span>
+                            <span>All Products</span>
                         </div>
-                        <div class="fashion-item">
+                        <div class="dropdown-item" onclick="filterProducts('shoes')">
+                            <svg viewBox="0 0 24 24"><path d="M18 17H6a2 2 0 01-2-2V8a2 2 0 012-2h12a2 2 0 012 2v7a2 2 0 01-2 2zm-6-5l-3 2.5L8 12h8l-3-2.5z"/></svg>
+                            <span>Shoes</span>
+                        </div>
+                        <div class="dropdown-item" onclick="filterProducts('clothing')">
                             <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
-                            <span>Collections</span>
+                            <span>Clothing</span>
                         </div>
-                        <div class="fashion-item">
+                        <div class="dropdown-item" onclick="filterProducts('accessories')">
                             <svg viewBox="0 0 24 24"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm6 9.09c0 4-2.55 7.7-6 8.83-3.45-1.13-6-4.82-6-8.83V6.31l6-2.12 6 2.12v4.78z"/></svg>
                             <span>Accessories</span>
                         </div>
-                        <div class="fashion-item">
-                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z"/></svg>
-                            <span>Sale</span>
+                        <div class="dropdown-item" onclick="filterProducts('watches')">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            <span>Watches</span>
                         </div>
                     </div>
                 </div>
@@ -1236,6 +1647,7 @@
                 
                 <div class="nav-icon" id="cartBtn" title="Shopping Bag">
                     <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <span class="badge" id="cartBadge">0</span>
                 </div>
             </nav>
         </div>
@@ -1245,626 +1657,201 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Timeless Elegance</h1>
-            <p>Crafting sophistication since 1920</p>
+            <p>Discover our exclusive collection of premium fashion</p>
             <button class="cta-button" onclick="scrollToProducts()">Explore Collection</button>
         </div>
     </section>
 
-    <!-- History Section -->
-    <section class="history-section">
-        <div class="container">
-            <h2 class="section-title">Our Heritage</h2>
-            <div class="history-content">
-                <div class="history-text">
-                    <p>For over a century, OPAL OUTFITTER has been the epitome of refined luxury and impeccable craftsmanship. Founded in 1920, our legacy began with a simple vision: to create garments that transcend trends and stand the test of time.</p>
-                    <p>Each piece in our collection is a testament to the artistry of our master craftsmen, who blend traditional techniques with contemporary sensibilities. We believe that true luxury lies in the details – from the selection of the finest fabrics to the precision of every stitch.</p>
-                    <p>Today, OPAL OUTFITTER continues to set the standard for sophisticated fashion, serving discerning individuals who appreciate the finer things in life. Our commitment to excellence remains as unwavering as it was a century ago.</p>
-                </div>
-                <div class="history-image">
-                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="400" height="300" fill="#1a3c34"/>
-                        <rect x="50" y="30" width="300" height="200" fill="#0a1f1c" stroke="#d4af37" stroke-width="2"/>
-                        <text x="200" y="130" text-anchor="middle" fill="#d4af37" font-family="Cinzel" font-size="24">Since 1920</text>
-                        <line x1="100" y1="160" x2="300" y2="160" stroke="#d4af37" stroke-width="1"/>
-                        <circle cx="200" cy="200" r="30" fill="none" stroke="#d4af37" stroke-width="2"/>
-                        <polygon points="200,175 215,210 185,210" fill="#d4af37"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Products Section -->
-    <section class="products-section" id="products">
+    <section class="section products-section" id="products">
         <div class="container">
             <h2 class="section-title">Featured Collection</h2>
-            <div class="products-grid">
-                <!-- Product 1 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="200" height="200" fill="#1a3c34"/>
-                            <path d="M50 180 L70 60 L90 100 L110 50 L130 120 L150 180 Z" fill="#0a1f1c" stroke="#d4af37" stroke-width="2"/>
-                            <circle cx="100" cy="40" r="15" fill="#d4af37"/>
-                        </svg>
+            <div class="products-grid" id="productsGrid">
+                
+                <!-- Product 1: Samba Classic Shoes -->
+                <div class="product-card" data-category="shoes" onclick="openOrderModal('samba')">
+                    <div class="product-image-container">
+                        <div class="product-image-slider" id="slider-samba">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a1a2e' width='400' height='300'/><ellipse cx='200' cy='230' rx='160' ry='25' fill='%23c9a227' opacity='0.3'/><path d='M70 175 Q90 110 200 110 Q310 110 330 175 L330 230 L70 230 Z' fill='%23e8d5a3'/><path d='M90 175 L110 130 Q200 120 290 130 L310 175' fill='%23c9a227'/><rect x='80' y='165' width='240' height='15' fill='%23c9a227' rx='5'/><circle cx='140' cy='155' r='10' fill='%231a1a2e'/><circle cx='175' cy='155' r='10' fill='%231a1a2e'/><circle cx='210' cy='155' r='10' fill='%231a1a2e'/><circle cx='245' cy='155' r='10' fill='%231a1a2e'/><text x='200' y='70' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='28'>SAMBA</text></svg>" alt="Samba Classic Shoes Front">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg
+                                ' viewBox='0 0 400 300'><rect fill='%2316223e' width='400' height='300'/><ellipse cx='200' cy='240' rx='150' ry='20' fill='%23c9a227' opacity='0.4'/><path d='M60 165 Q85 100 200 100 Q315 100 340 165 L340 230 L60 230 Z' fill='%23f5f5f5'/><path d='M85 165 L105 125 Q200 115 295 125 L315 165' fill='%23c9a227'/><rect x='70' y='155' width='260' height='12' fill='%23c9a227' rx='4'/><path d='M125 145 L125 165 M160 140 L160 165 M195 145 L195 165 M230 140 L230 165' stroke='%231a1a2e' stroke-width='4'/><text x='200' y='60' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='24'>SIDE VIEW</text></svg>" alt="Samba Classic Shoes Side">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a1a2e' width='400' height='300'/><ellipse cx='200' cy='260' rx='110' ry='18' fill='%23c9a227' opacity='0.3'/><ellipse cx='200' cy='180' rx='85' ry='110' fill='%23e8d5a3'/><path d='M115 70 Q200 50 285 70' stroke='%23c9a227' stroke-width='10' fill='none'/><ellipse cx='200' cy='200' rx='65' ry='22' fill='%23c9a227'/><text x='200' y='45' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='22'>TOP VIEW</text></svg>" alt="Samba Classic Shoes Top">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%230f0f1a' width='400' height='300'/><ellipse cx='200' cy='245' rx='140' ry='22' fill='%23c9a227' opacity='0.35'/><path d='M80 180 Q100 130 200 130 Q300 130 320 180 L320 220 L80 220 Z' fill='%23e8d5a3'/><path d='M100 180 L120 145 Q200 135 280 145 L300 180' fill='%23c9a227'/><ellipse cx='200' cy='200' rx='100' ry='8' fill='%23c9a227' opacity='0.5'/><text x='200' y='80' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='20'>BACK VIEW</text></svg>" alt="Samba Classic Shoes Back">
+                        </div>
+                        <span class="product-badge">Best Seller</span>
+                        <div class="slider-arrows">
+                            <button class="slider-arrow" onclick="event.stopPropagation(); prevSlide('samba')">&#8249;</button>
+                            <button class="slider-arrow" onclick="event.stopPropagation(); nextSlide('samba')">&#8250;</button>
+                        </div>
+                        <div class="slider-nav" id="nav-samba">
+                            <div class="slider-dot active" onclick="event.stopPropagation(); goToSlide('samba', 0)"></div>
+                            <div class="slider-dot" onclick="event.stopPropagation(); goToSlide('samba', 1)"></div>
+                            <div class="slider-dot" onclick="event.stopPropagation(); goToSlide('samba', 2)"></div>
+                            <div class="slider-dot" onclick="event.stopPropagation(); goToSlide('samba', 3)"></div>
+                        </div>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Royal Heritage Coat</h3>
-                        <div class="product-price">$2,450 <span>USD</span></div>
+                        <h3 class="product-name">Samba Classic Shoes</h3>
+                        <p class="product-description">Premium leather samba shoes with iconic three-stripe design. Perfect for casual and semi-formal occasions.</p>
+                        <div class="product-price">PKR 8,000 <span>/ pair</span></div>
+                        
                         <div class="stock-info">
-                            <div class="order-stat">
-                                <span class="fire-icon">🔥</span>
-                                <strong>Orders Today:</strong>
-                                <span class="order-value">47</span>
+                            <div class="stock-row">
+                                <span class="stock-label">Availability:</span>
+                                <span class="stock-value highlight">In Stock</span>
                             </div>
-                            <div class="order-stat">
-                                <strong>Stock Available:</strong>
-                                <span class="order-value">12 units</span>
+                            <div class="stock-row">
+                                <span class="stock-label">Stock Quantity:</span>
+                                <span class="stock-value">45 pairs</span>
                             </div>
-                            <span class="stock-badge">Low Stock</span>
+                            <div class="stock-row">
+                                <span class="stock-label">Delivery:</span>
+                                <span class="stock-value">2-3 days</span>
+                            </div>
+                            <span class="stock-badge">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                Free Shipping
+                            </span>
                         </div>
-                        <button class="order-btn" onclick="openOrderModal('Royal Heritage Coat', 2450)">Place Order</button>
+                        
+                        <div class="size-selection">
+                            <span class="size-label">Select Size:</span>
+                            <div class="size-options">
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'samba', 6)">6</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'samba', 7)">7</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'samba', 8)">8</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'samba', 9)">9</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'samba', 10)">10</div>
+                                <div class="size-option disabled" onclick="event.stopPropagation();">11</div>
+                            </div>
+                        </div>
+                        
+                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('samba')">Order Now</button>
                     </div>
                 </div>
 
-                <!-- Product 2 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="200" height="200" fill="#1a3c34"/>
-                            <ellipse cx="100" cy="100" rx="60" ry="80" fill="#0a1f1c" stroke="#d4af37" stroke-width="2"/>
-                            <path d="M70 30 L70 170 M130 30 L130 170" stroke="#d4af37" stroke-width="1"/>
-                            <circle cx="100" cy="50" r="10" fill="#d4af37"/>
-                            <circle cx="100" cy="150" r="10" fill="#d4af37"/>
-                        </svg>
+                <!-- Product 2: Chelsea Boots -->
+                <div class="product-card" data-category="shoes" onclick="openOrderModal('chelsea')">
+                    <div class="product-image-container">
+                        <div class="product-image-slider" id="slider-chelsea">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a1a2e' width='400' height='300'/><ellipse cx='200' cy='240' rx='150' ry='20' fill='%23c9a227' opacity='0.3'/><path d='M90 140 L90 220 L310 220 L310 140 Q280 120 200 120 Q120 120 90 140' fill='%23333'/><ellipse cx='200' cy='220' rx='110' ry='15' fill='%23222'/><path d='M100 150 L100 200 M120 145 L120 200 M140 150 L140 200 M160 145 L160 200 M180 150 L180 200 M200 145 L200 200 M220 150 L220 200 M240 145 L240 200 M260 150 L260 200' stroke='%23c9a227' stroke-width='2'/><ellipse cx='200' cy='135' rx='60' ry='8' fill='%23c9a227' opacity='0.5'/><text x='200' y='80' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='26'>CHELSEA</text></svg>" alt="Chelsea Boots Front">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%2316223e' width='400' height='300'/><ellipse cx='200' cy='250' rx='130' ry='18' fill='%23c9a227' opacity='0.4'/><path d='M80 130 Q100 90 200 90 Q300 90 320 130 L320 240 L80 240 Z' fill='%23444'/><ellipse cx='200' cy='240' rx='100' ry='12' fill='%23333'/><path d='M110 140 L110 200 M130 135 L130 200 M150 140 L150 200 M170 135 L170 200 M190 140 L190 200 M210 135 L210 200 M230 140 L230 200 M250 135 L250 200 M270 140 L270 200' stroke='%23c9a227' stroke-width='2'/><text x='200' y='55' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='22'>SIDE VIEW</text></svg>" alt="Chelsea Boots Side">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a1a2e' width='400' height='300'/><ellipse cx='200' cy='260' rx='100' ry='15' fill='%23c9a227' opacity='0.3'/><ellipse cx='200' cy='170' rx='80' ry='100' fill='%23333'/><ellipse cx='200' cy='190' rx='70' ry='15' fill='%23222'/><ellipse cx='200' cy='130' rx='50' ry='8' fill='%23c9a227' opacity='0.6'/><text x='200' y='45' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='20'>TOP VIEW</text></svg>" alt="Chelsea Boots Top">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%230f0f1a' width='400' height='300'/><ellipse cx='200' cy='245' rx='140' ry='20' fill='%23c9a227' opacity='0.35'/><path d='M85 150 L85 220 L315 220 L315 150 Q285 130 200 130 Q115 130 85 150' fill='%23444'/><ellipse cx='200' cy='220' rx='105' ry='14' fill='%23222'/><path d='M95 160 L95 195 M115 155 L115 195 M135 160 L135 195 M155 155 L155 195 M175 160 L175 195 M195 155 L195 195 M215 160 L215 195 M235 155 L235 195 M255 160 L255 195 M275 155 L275 195 M295 160 L295 195' stroke='%23c9a227' stroke-width='2'/><text x='200' y='85' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='20'>BACK VIEW</text></svg>" alt="Chelsea Boots Back">
+                        </div>
+                        <span class="product-badge">Premium</span>
+                        <div class="slider-arrows">
+                            <button class="slider-arrow" onclick="event.stopPropagation(); prevSlide('chelsea')">&#8249;</button>
+                            <button class="slider-arrow" onclick="event.stopPropagation(); nextSlide('chelsea')">&#8250;</button>
+                        </div>
+                        <div class="slider-nav" id="nav-chelsea">
+                            <div class="slider-dot active" onclick="event.stopPropagation(); goToSlide('chelsea', 0)"></div>
+                            <div class="slider-dot" onclick="event.stopPropagation(); goToSlide('chelsea', 1)"></div>
+                            <div class="slider-dot" onclick="event.stopPropagation(); goToSlide('chelsea', 2)"></div>
+                            <div class="slider-dot" onclick="event.stopPropagation(); goToSlide('chelsea', 3)"></div>
+                        </div>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Opal Evening Gown</h3>
-                        <div class="product-price">$3,890 <span>USD</span></div>
+                        <h3 class="product-name">Classic Chelsea Boots</h3>
+                        <p class="product-description">Elegant pull-on leather boots with elastic side panels. Timeless design for sophisticated style.</p>
+                        <div class="product-price">PKR 7,500 <span>/ pair</span></div>
+                        
                         <div class="stock-info">
-                            <div class="order-stat">
-                                <span class="fire-icon">🔥</span>
-                                <strong>Orders Today:</strong>
-                                <span class="order-value">28</span>
+                            <div class="stock-row">
+                                <span class="stock-label">Availability:</span>
+                                <span class="stock-value highlight">In Stock</span>
                             </div>
-                            <div class="order-stat">
-                                <strong>Stock Available:</strong>
-                                <span class="order-value">8 units</span>
+                            <div class="stock-row">
+                                <span class="stock-label">Stock Quantity:</span>
+                                <span class="stock-value">32 pairs</span>
                             </div>
-                            <span class="stock-badge">Limited Edition</span>
+                            <div class="stock-row">
+                                <span class="stock-label">Delivery:</span>
+                                <span class="stock-value">2-4 days</span>
+                            </div>
+                            <span class="stock-badge">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                Premium Quality
+                            </span>
                         </div>
-                        <button class="order-btn" onclick="openOrderModal('Opal Evening Gown', 3890)">Place Order</button>
+                        
+                        <div class="size-selection">
+                            <span class="size-label">Select Size:</span>
+                            <div class="size-options">
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'chelsea', 7)">7</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'chelsea', 8)">8</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'chelsea', 9)">9</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'chelsea', 10)">10</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'chelsea', 11)">11</div>
+                            </div>
+                        </div>
+                        
+                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('chelsea')">Order Now</button>
                     </div>
                 </div>
 
-                <!-- Product 3 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="200" height="200" fill="#1a3c34"/>
-                            <rect x="60" y="40" width="80" height="120" rx="10" fill="#0a1f1c" stroke="#d4af37" stroke-width="2"/>
-                            <circle cx="100" cy="70" r="8" fill="#d4af37"/>
-                            <circle cx="100" cy="100" r="8" fill="#d4af37"/>
-                            <circle cx="100" cy="130" r="8" fill="#d4af37"/>
-                        </svg>
+                <!-- Product 3: Girls Shalwar Qameez Unstitched -->
+                <div class="product-card" data-category="clothing" onclick="openOrderModal('shalwar')">
+                    <div class="product-image-container">
+                        <div class="product-image-slider" id="slider-shalwar">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a1a2e' width='400' height='300'/><rect x='100' y='40' width='200' height='180' fill='%23e8d5a3' rx='5'/><path d='M150 40 L150 220' stroke='%23c9a227' stroke-width='2'/><path d='M200 40 L200 220' stroke='%23c9a227' stroke-width='2'/><path d='M250 40 L250 220' stroke='%23c9a227' stroke-width='2'/><circle cx='200' cy='100' r='25' fill='%23c9a227' opacity='0.5'/><path d='M175 100 Q200 80 225 100' stroke='%23c9a227' stroke-width='2' fill='none'/><text x='200' y='250' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='18'>UNSTITCHED</text></svg>" alt="Shalwar Qameez Front">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%2316223e' width='400' height='300'/><rect x='80' y='50' width='240' height='200' fill='%23f5f5f5' rx='5'/><path d='M140 50 L140 250' stroke='%23c9a227' stroke-width='2'/><path d='M200 50 L200 250' stroke='%23c9a227' stroke-width='2'/><path d='M260 50 L260 250' stroke='%23c9a227' stroke-width='2'/><rect x='170' y='80' width='60' height='40' fill='%23c9a227' opacity='0.4' rx='3'/><text x='200' y='270' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='18'>FABRIC DETAIL</text></svg>" alt="Shalwar Qameez Fabric">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a1a2e' width='400' height='300'/><ellipse cx='200' cy='250' rx='120' ry='15' fill='%23c9a227' opacity='0.3'/><path d='M120 100 L120 200 L280 200 L280 100 Q240 80 200 80 Q160 80 120 100' fill='%23e8d5a3'/><path d='M140 100 L140 180 M160 95 L160 180 M180 100 L180 180 M200 95 L200 180 M220 100 L220 180 M240 95 L240 180 M260 100 L260 180' stroke='%23c9a227' stroke-width='1.5'/><path d='M100 180 L100 250 Q150 260 200 260 Q250 260 300 250 L300 180' fill='%23e8d5a3'/><path d='M130 200 L130 250 M170 195 L170 250 M210 200 L210 250 M250 195 L250 250' stroke='%23c9a227' stroke-width='2'/><text x='200' y='50' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='20'>STITCHED VIEW</text></svg>" alt="Shalwar Qameez Stitched">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%230f0f1a' width='400' height='300'/><rect x='100' y='60' width='200' height='180' fill='%23e8d5a3' rx='3'/><path d='M150 60 L150 240' stroke='%23c9a227' stroke-width='1.5'/><path d='M200 60 L200 240' stroke='%23c9a227' stroke-width='1.5'/><path d='M250 60 L250 240' stroke='%23c9a227' stroke-width='1.5'/><circle cx='200' cy='120' r='20' fill='%23c9a227' opacity='0.3'/><text x='200' y='260' text-anchor='middle' fill='%23c9a227' font-family='Cinzel' font-size='16'>PREMIUM COTTON</text></svg>" alt="Shalwar Qameez Texture">
+                        </div>
+                        <span class="product-badge">New Arrival</span>
+                        <div class="slider-arrows">
+                            <button class="slider-arrow" onclick="event.stopPropagation(); prevSlide('shalwar')">&#8249;</button>
+                            <button class="slider-arrow" onclick="event.stopPropagation(); nextSlide('shalwar')">&#8250;</button>
+                        </div>
+                        <div class="slider-nav" id="nav-shalwar">
+                            <div class="slider-dot active" onclick="event.stopPropagation(); goToSlide('shalwar', 0)"></div>
+                            <div class="slider-dot" onclick="event.stopPropagation(); goToSlide('shalwar', 1)"></div>
+                            <div class="slider-dot" onclick="event.stopPropagation(); goToSlide('shalwar', 2)"></div>
+                            <div class="slider-dot" onclick="event.stopPropagation(); goToSlide('shalwar', 3)"></div>
+                        </div>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Noble Silk Suit</h3>
-                        <div class="product-price">$4,200 <span>USD</span></div>
+                        <h3 class="product-name">Girls Shalwar Qameez Unstitched</h3>
+                        <p class="product-description">Premium quality unstitched fabric with intricate embellishments. Create your perfect traditional look.</p>
+                        <div class="product-price">PKR 4,500 <span>/ suit</span></div>
+                        
                         <div class="stock-info">
-                            <div class="order-stat">
-                                <span class="fire-icon">🔥</span>
-                                <strong>Orders Today:</strong>
-                                <span class="order-value">35</span>
+                            <div class="stock-row">
+                                <span class="stock-label">Availability:</span>
+                                <span class="stock-value highlight">In Stock</span>
                             </div>
-                            <div class="order-stat">
-                                <strong>Stock Available:</strong>
-                                <span class="order-value">15 units</span>
+                            <div class="stock-row">
+                                <span class="stock-label">Stock Quantity:</span>
+                                <span class="stock-value">75 suits</span>
                             </div>
-                            <span class="stock-badge">Best Seller</span>
+                            <div class="stock-row">
+                                <span class="stock-label">Delivery:</span>
+                                <span class="stock-value">3-5 days</span>
+                            </div>
+                            <span class="stock-badge">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                Ready to Stitch
+                            </span>
                         </div>
-                        <button class="order-btn" onclick="openOrderModal('Noble Silk Suit', 4200)">Place Order</button>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="200" height="200" fill="#1a3c34"/>
-                            <path d="M100 30 L150 170 L50 170 Z" fill="#0a1f1c" stroke="#d4af37" stroke-width="2"/>
-                            <circle cx="100" cy="80" r="20" fill="none" stroke="#d4af37" stroke-width="2"/>
-                            <polygon points="100,55 115,95 85,95" fill="#d4af37"/>
-                        </svg>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Crown Diamond Tiara</h3>
-                        <div class="product-price">$12,500 <span>USD</span></div>
-                        <div class="stock-info">
-                            <div class="order-stat">
-                                <span class="fire-icon">🔥</span>
-                                <strong>Orders Today:</strong>
-                                <span class="order-value">12</span>
+                        
+                        <div class="size-selection">
+                            <span class="size-label">Select Size:</span>
+                            <div class="size-options">
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'shalwar', 'S')">S</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'shalwar', 'M')">M</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'shalwar', 'L')">L</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'shalwar', 'XL')">XL</div>
+                                <div class="size-option" onclick="event.stopPropagation(); selectSize(this, 'shalwar', 'XXL')">XXL</div>
                             </div>
-                            <div class="order-stat">
-                                <strong>Stock Available:</strong>
-                                <span class="order-value">3 units</span>
-                            </div>
-                            <span class="stock-badge">Exclusive</span>
                         </div>
-                        <button class="order-btn" onclick="openOrderModal('Crown Diamond Tiara', 12500)">Place Order</button>
+                        
+                        <button class="order-btn" onclick="event.stopPropagation(); openOrderModal('shalwar')">Order Now</button>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Reviews Section -->
-    <section class="reviews-section">
-        <div class="reviews-header">
-            <div class="reviews-title-wrapper">
-                <h2 class="section-title" style="position: relative; left: auto; transform: none;">Customer Reviews</h2>
-                <span class="review-count-badge">1,247 Verified Reviews</span>
-            </div>
-            <button class="write-review-btn">Write a Review</button>
-        </div>
-        
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="review-header">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><rect fill='%231a3c34' width='60' height='60'/><circle cx='30' cy='25' r='12' fill='%23d4af37'/><path d='M15 55 Q30 40 45 55' fill='%23d4af37'/></svg>" alt="Product" class="reviewed-product-thumb">
-                    <div class="reviewer-info">
-                        <h4>Victoria Ashworth</h4>
-                        <span class="verified-badge">
-                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                            Verified Purchase
-                        </span>
-                        <div class="stars">★★★★★</div>
-                    </div>
-                </div>
-                <p class="review-text">The Royal Heritage Coat exceeded all my expectations. The craftsmanship is absolutely magnificent, and I received countless compliments at the gala. OPAL OUTFITTER truly understands luxury.</p>
-                <span class="review-product-name">Royal Heritage Coat</span>
-            </div>
-
-            <div class="review-card">
-                <div class="review-header">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><rect fill='%231a3c34' width='60' height='60'/><circle cx='30' cy='25' r='12' fill='%23d4af37'/><path d='M15 55 Q30 40 45 55' fill='%23d4af37'/></svg>" alt="Product" class="reviewed-product-thumb">
-                    <div class="reviewer-info">
-                        <h4>James Worthington</h4>
-                        <span class="verified-badge">
-                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                            Verified Purchase
-                        </span>
-                        <div class="stars">★★★★★</div>
-                    </div>
-                </div>
-                <p class="review-text">A suit that makes you feel like royalty. The fit is impeccable, and the silk quality is unmatched. This is my third purchase from OPAL, and they never disappoint.</p>
-                <span class="review-product-name">Noble Silk Suit</span>
-            </div>
-
-            <div class="review-card">
-                <div class="review-header">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><rect fill='%231a3c34' width='60' height='60'/><circle cx='30' cy='25' r='12' fill='%23d4af37'/><path d='M15 55 Q30 40 45 55' fill='%23d4af37'/></svg>" alt="Product" class="reviewed-product-thumb">
-                    <div class="reviewer-info">
-                        <h4>Lady Margaret</h4>
-                        <span class="verified-badge">
-                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                            Verified Purchase
-                        </span>
-                        <div class="stars">★★★★★</div>
-                        <think>The user wants me to continue from line 533 of the HTML code. Let me first understand what's there before line 533 and what should come after.
-
-Looking at the context, I can see this is a luxury fashion website for "OPAL OUTFITTER" with sections like:
-- Header with logo and navigation
-- Hero section
-- History section
-- Products section with product cards
-- Reviews section
-
-The reviews section has review cards with verified badges and star ratings. Line 533 appears to be in the middle of a review card's stars div.
-
-I need to continue from where the review card for "Lady Margaret" is cut off and complete the reviews section, then add the FAQ section, Order Modal, WhatsApp float, Footer, and JavaScript functionality.
-
-Let me continue the code:
-</think>
-
-<div class="stars">★★★★★</div>
-                    </div>
-                </div>
-                <p class="review-text">The Opal Evening Gown is a masterpiece. The way it catches the light is simply magical. I felt like a queen at my daughter's wedding. Worth every penny for such an heirloom piece.</p>
-                <span class="review-product-name">Opal Evening Gown</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="faq-container">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>What makes OPAL OUTFITTER different from other luxury brands?</span>
-                    <span class="faq-icon">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Since 1920, we have maintained an unwavering commitment to exceptional craftsmanship and timeless design. Each piece is handcrafted by master artisans using the finest materials sourced from around the world. Our dedication to quality ensures that every garment becomes a lasting investment piece.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Do you offer international shipping?</span>
-                    <span class="faq-icon">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes, we provide worldwide shipping with full insurance and customs clearance assistance. Orders are typically delivered within 5-7 business days via our premium courier partners. All shipments are discreetly packaged to ensure privacy and protection.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>What is your return and exchange policy?</span>
-                    <span class="faq-icon">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>We offer a comprehensive 30-day return policy for all unworn items in original condition. Custom and personalized pieces are non-returnable but can be altered. Our concierge team is available to assist with any fitting concerns.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Can I request custom alterations or bespoke designs?</span>
-                    <span class="faq-icon">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Absolutely. Our atelier offers bespoke services for discerning clients seeking unique pieces. Schedule a consultation with our design team to discuss your vision. Custom orders typically require 4-6 weeks for completion.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Order Modal -->
-    <div class="modal" id="orderModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeOrderModal()">×</button>
-            <h3 class="modal-title">Place Your Order</h3>
-            <form id="orderForm" onsubmit="submitOrder(event)">
-                <div class="form-group">
-                    <label>Product</label>
-                    <input type="text" id="productName" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Price (USD)</label>
-                    <input type="text" id="productPrice" readonly>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" required placeholder="Enter your first name">
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" required placeholder="Enter your last name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" required placeholder="your@email.com">
-                </div>
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" required placeholder="+1 (555) 000-0000">
-                </div>
-                <div class="form-group">
-                    <label>Shipping Address</label>
-                    <textarea rows="3" required placeholder="Enter your full shipping address"></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>City</label>
-                        <input type="text" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Postal Code</label>
-                        <input type="text" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Country</label>
-                    <select required>
-                        <option value="">Select Country</option>
-                        <option value="US">United States</option>
-                        <option value="UK">United Kingdom</option>
-                        <option value="FR">France</option>
-                        <option value="DE">Germany</option>
-                        <option value="IT">Italy</option>
-                        <option value="ES">Spain</option>
-                        <option value="CA">Canada</option>
-                        <option value="AU">Australia</option>
-                        <option value="AE">United Arab Emirates</option>
-                        <option value="OTHER">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Quantity</label>
-                    <div class="quantity-wrapper">
-                        <button type="button" class="quantity-btn" onclick="updateQuantity(-1)">-</button>
-                        <input type="number" id="quantity" value="1" min="1" max="10" readonly>
-                        <button type="button" class="quantity-btn" onclick="updateQuantity(1)">+</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Special Instructions</label>
-                    <textarea rows="2" placeholder="Any special requests or notes..."></textarea>
-                </div>
-                <button type="submit" class="submit-order">Complete Order</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">
-        <div class="toast-message">
-            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            <span id="toastText">Order placed successfully!</span>
-        </div>
-    </div>
-
-    <!-- WhatsApp Float -->
-    <div class="whatsapp-float" onclick="openWhatsApp()">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>About OPAL OUTFITTER</h3>
-                <p>Since 1920, we have been crafting timeless luxury fashion that transcends generations. Our commitment to exceptional quality and sophisticated design has made us a trusted name among discerning clientele worldwide.</p>
-                <div class="social-links">
-                    <div class="social-link">
-                        <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
-                    </div>
-                    <div class="social-link">
-                        <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
-                    </div>
-                    <div class="social-link">
-                        <svg viewBox="0 0 24 24"><path d="M22.46 6c-.85.38-1.78.64-2.75.76 1-.6 1.76-1.55 2.12-2.68-.93.55-1.96.95-3.06 1.17-.88-.94-2.13-1.53-3.51-1.53-2.66 0-4.81 2.16-4.81 4.81 0 .38.04.75.13 1.1-4-.2-7.58-2.11-9.96-5.02-.42.72-.66 1.56-.66 2.46 0 1.68.85 3.16 2.14 4.02-.79-.02-1.53-.24-2.18-.6v.06c0 2.35 1.67 4.31 3.88 4.76-.4.1-.83.16-1.27.16-.31 0-.62-.03-.92-.08.63 1.96 2.45 3.39 4.61 3.43-1.69 1.32-3.83 2.1-6.15 2.1-.4 0-.8-.02-1.19-.07 2.19 1.4 4.78 2.22 7.57 2.22 9.07 0 14.02-7.52 14.02-14.02 0-.21 0-.43-.01-.64.96-.69 1.79-1.56 2.45-2.55z"/></svg>
-                    </div>
-                    <div class="social-link">
-                        <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">Collections</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Sale</a></li>
-                    <li><a href="#">Bespoke Services</a></li>
-                    <li><a href="#">Gift Cards</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Customer Care</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Shipping Information</a></li>
-                    <li><a href="#">Returns & Exchanges</a></li>
-                    <li><a href="#">Size Guide</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Track Order</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        <span>123 Luxury Avenue, Fifth Avenue, New York, NY 10022</span>
-                    </div>
-                    <div class="contact-item">
-                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                        <span>+1 (800) OPAL-LUX</span>
-                    </div>
-                    <div class="contact-item">
-                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        <span>concierge@opaloutfitter.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                        <span>Mon - Sat: 9:00 AM - 8:00 PM EST</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>© 2024 <span>OPAL OUTFITTER</span>. All rights reserved. | Est. 1920 | <a href="#" style="color: var(--gold);">Privacy Policy</a> | <a href="#" style="color: var(--gold);">Terms of Service</a></p>
-        </div>
-    </footer>
-
-    <script>
-        // Order Modal Functions
-        let currentProduct = '';
-        let currentPrice = 0;
-
-        function openOrderModal(productName, price) {
-            currentProduct = productName;
-            currentPrice = price;
-            
-            document.getElementById('productName').value = productName;
-            document.getElementById('productPrice').value = '$' + price.toLocaleString();
-            document.getElementById('orderModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeOrderModal() {
-            document.getElementById('orderModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function updateQuantity(change) {
-            const qtyInput = document.getElementById('quantity');
-            let newQty = parseInt(qtyInput.value) + change;
-            if (newQty >= 1 && newQty <= 10) {
-                qtyInput.value = newQty;
-            }
-        }
-
-        function submitOrder(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(event.target);
-            const orderDetails = {
-                product: currentProduct,
-                price: currentPrice,
-                quantity: document.getElementById('quantity').value,
-                customer: {
-                    name: formData.get(0) + ' ' + formData.get(1),
-                    email: formData.get(2),
-                    phone: formData.get(3),
-                    address: formData.get(4),
-                    city: formData.get(5),
-                    postalCode: formData.get(6),
-                    country: formData.get(7)
-                }
-            };
-            
-            console.log('Order submitted:', orderDetails);
-            
-            closeOrderModal();
-            showToast('Order placed successfully! Our concierge will contact you shortly.');
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const toastText = document.getElementById('toastText');
-            toastText.textContent = message;
-            toast.classList.add('active');
-            
-            setTimeout(() => {
-                toast.classList.remove('active');
-            }, 4000);
-        }
-
-        // FAQ Toggle
-        function toggleFaq(element) {
-            const faqItem = element.parentElement;
-            const wasActive = faqItem.classList.contains('active');
-            
-            // Close all FAQ items
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Toggle current item
-            if (!wasActive) {
-                faqItem.classList.add('active');
-            }
-        }
-
-        // Scroll to Products
-        function scrollToProducts() {
-            document.getElementById('products').scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-
-        // WhatsApp Contact
-        function openWhatsApp() {
-            const message = 'Hello OPAL OUTFITTER, I have a question about your luxury collection.';
-            const phoneNumber = '1800672589'; // Replace with actual number
-            window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-        }
-
-        // Cart Button (placeholder functionality)
-        document.getElementById('cartBtn').addEventListener('click', function() {
-            showToast('Shopping bag is empty');
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.boxShadow = '0 5px 30px rgba(0,0,0,0.5)';
-            } else {
-                header.style.boxShadow = 'none';
-            }
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.product-card, .review-card, .faq-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // Simulate dynamic order numbers (random increment)
-        function updateOrderNumbers() {
-            const orderElements = document.querySelectorAll('.order-value');
-            orderElements.forEach(el => {
-                if (el.textContent.includes(',')) {
-                    const currentValue = parseInt(el.textContent.replace(/,/g, ''));
-                    if (Math.random() > 0.7) {
-                        const increment = Math.floor(Math.random() * 3) + 1;
-                        el.textContent = (currentValue + increment).toLocaleString();
-                    }
-                }
-            });
-        }
-
-        setInterval(updateOrderNumbers, 5000);
-
-        // Close modal on outside click
-        document.getElementById('orderModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeOrderModal();
-            }
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeOrderModal();
-            }
-        });
-    </script>
-</body>
-</html>
-```
-            
+                <!-- Product 4: Men's Rolex Watch -->
+                <div class="product-card" data-category="watches" onclick="openOrderModal('rolex')">
+                    <div class="product-image-container">
+                        <div class="product-image-slider" id="slider-rolex">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a1a2e' width='400' height='300'/><circle cx='200' cy='150' r='80' fill='%23c9a227' stroke='%23e8d5a3' stroke-width='4'/><circle cx='200' cy='150' r='65' fill='%23f5f5f5'/><circle cx='200' cy='150' r='55' fill='%23fff'/><text x='200' y='115' text-anchor='middle' fill='%231a1a2e' font-family='Cinzel' font-size='12'>ROLEX</text><line x1='200' y1='150' x2='200' y2='110' stroke='%231a1a2e' stroke-width='3
