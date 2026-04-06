@@ -1350,13 +1350,57 @@
                         </div>
                     </div>
                     
-                    <button type="submit" class="submit-order-btn">
-                        <i class="fas fa-paper-plane"></i> Place Order
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
+                    <script>
+function sendToWhatsApp() {
+
+    // Get values
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let address = document.getElementById("address").value;
+    let clothSize = document.getElementById("cloth-size")?.value || "";
+    let shoeSize = document.getElementById("shoe-size")?.value || "";
+
+    let size = clothSize || shoeSize;
+
+    // Your WhatsApp number (CHANGE THIS)
+    let yourNumber = "923XXXXXXXXX";
+
+    // Message
+    let message = `New Order:%0A
+Name: ${name}%0A
+Phone: ${phone}%0A
+Address: ${address}%0A
+Size: ${size}`;
+
+    // Open WhatsApp
+    window.open(`https://wa.me/${yourNumber}?text=${message}`, "_blank");
+
+    // Show Thank You Page
+    showThankYou();
+}
+</script>
+                  <div id="thankYouPage" style="display:none; text-align:center; padding:40px;">
+    <h2>🎉 Thanks for your order!</h2>
+    <p>Your order has been sent successfully.</p>
+
+    <button onclick="continueShopping()" 
+        style="padding:10px 20px; background:black; color:white; border:none; cursor:pointer;">
+        Continue Shopping
+    </button>
+</div>
+                    <script>
+function showThankYou() {
+    document.querySelector("form").style.display = "none";
+    document.getElementById("thankYouPage").style.display = "block";
+}
+
+function continueShopping() {
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
 
     <!-- Cart Modal -->
     <div class="modal-overlay" id="cart-modal">
