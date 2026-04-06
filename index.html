@@ -908,6 +908,43 @@
             font-size: 16px;
         }
 
+        /* Thank You Page */
+        #thankYouPage {
+            text-align: center;
+            padding: 40px;
+        }
+
+        #thankYouPage h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+        }
+
+        #thankYouPage p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .continue-btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--gold-light));
+            color: var(--dark-green);
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .header-container {
@@ -947,7 +984,6 @@
             }
         }
     </style>
-<base target="_blank">
 </head>
 <body>
     <!-- Header -->
@@ -1229,7 +1265,7 @@
             <div class="footer-section">
                 <h3>Contact Info</h3>
                 <p><i class="fas fa-phone"></i> +92 348 335 1028</p>
-                <p><i class="fas fa-envelope"></i> info@opaloutfitters.pk</p>
+                <p><i class="fas fa-envelope"></i> opal.outfittersofficial@gmail.com</p>
                 <p><i class="fas fa-map-marker-alt"></i> Pakistan</p>
             </div>
             <div class="footer-section">
@@ -1261,146 +1297,118 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="order-product-preview" id="order-preview">
-                    <!-- Dynamic content -->
+                <!-- Order Form -->
+                <div id="order-form-container">
+                    <div class="order-product-preview" id="order-preview">
+                        <!-- Dynamic content -->
+                    </div>
+                    
+                    <form id="order-form" onsubmit="submitOrder(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <input type="text" id="customer-name" required placeholder="Enter your full name">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" id="customer-phone" required placeholder="03XX-XXXXXXX">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="customer-email" required placeholder="your@email.com">
+                        </div>
+                        
+                        <!-- Clothing Sizes -->
+                        <div class="form-group" id="clothing-size-group" style="display: none;">
+                            <label>Clothing Size *</label>
+                            <div class="size-options">
+                                <span class="size-option" onclick="selectClothingSize(this, 'Small')">Small</span>
+                                <span class="size-option" onclick="selectClothingSize(this, 'Medium')">Medium</span>
+                                <span class="size-option" onclick="selectClothingSize(this, 'Large')">Large</span>
+                                <span class="size-option" onclick="selectClothingSize(this, 'XL')">XL</span>
+                            </div>
+                            <input type="hidden" id="selected-clothing-size">
+                        </div>
+
+                        <!-- Shoe Sizes -->
+                        <div class="form-group" id="shoe-size-group" style="display: none;">
+                            <label>Shoe Size *</label>
+                            <div class="size-options">
+                                <span class="size-option" onclick="selectShoeSize(this, '7')">7</span>
+                                <span class="size-option" onclick="selectShoeSize(this, '8')">8</span>
+                                <span class="size-option" onclick="selectShoeSize(this, '9')">9</span>
+                                <span class="size-option" onclick="selectShoeSize(this, '10')">10</span>
+                                <span class="size-option" onclick="selectShoeSize(this, '11')">11</span>
+                            </div>
+                            <input type="hidden" id="selected-shoe-size">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Quantity *</label>
+                                <input type="number" id="quantity" min="1" value="1" required>
+                            </div>
+                            <div class="form-group" id="age-group" style="display: none;">
+                                <label>Age (for clothing) *</label>
+                                <input type="number" id="customer-age" min="1" max="100" placeholder="Enter age">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Complete Address *</label>
+                            <textarea id="customer-address" rows="3" required placeholder="House #, Street, Area, City"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>City *</label>
+                            <input type="text" id="customer-city" required placeholder="Enter your city">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Payment Method *</label>
+                            <select id="payment-method" required>
+                                <option value="">Select Payment Method</option>
+                                <option value="cod">Cash on Delivery</option>
+                                <option value="bank">Bank Transfer</option>
+                                <option value="easypaisa">Easypaisa</option>
+                                <option value="jazzcash">JazzCash</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Additional Notes</label>
+                            <textarea id="order-notes" rows="2" placeholder="Any special instructions..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="age-verify" required>
+                                <label for="age-verify">I confirm that I am 18 years or older *</label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="submit-order-btn">
+                            <i class="fas fa-paper-plane"></i> Place Order
+                        </button>
+                    </form>
                 </div>
-                
-                <form id="order-form" onsubmit="submitOrder(event)">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Full Name *</label>
-                            <input type="text" id="customer-name" required placeholder="Enter your full name">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number *</label>
-                            <input type="tel" id="customer-phone" required placeholder="03XX-XXXXXXX">
-                        </div>
+
+                <!-- Thank You Page -->
+                <div id="thank-you-page" style="display: none;">
+                    <div class="success-icon">
+                        <i class="fas fa-check"></i>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Email Address *</label>
-                        <input type="email" id="customer-email" required placeholder="your@email.com">
-                    </div>
-                    
-                  <!-- Clothing Sizes -->
-<div class="form-group">
-    <label>Clothing Size *</label>
-    <div class="size-options">
-        <span class="size-option" onclick="selectSize(this, 'S')">S</span>
-        <span class="size-option" onclick="selectSize(this, 'M')">M</span>
-        <span class="size-option" onclick="selectSize(this, 'L')">L</span>
-        <span class="size-option" onclick="selectSize(this, 'XL')">XL</span>
+                    <h2>Thanks for Your Order!</h2>
+                    <p>Your order has been received successfully. We've sent the details to WhatsApp and email. Our team will contact you shortly to confirm your order.</p>
+                    <button class="continue-btn" onclick="continueShopping()">
+                        <i class="fas fa-shopping-bag"></i> Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    <input type="hidden" id="cloth-size">
-</div>
-
-<!-- Shoe Sizes -->
-<div class="form-group">
-    <label>Shoe Size *</label>
-    <div class="size-options">
-        <span class="size-option" onclick="selectShoeSize(this, '7')">7</span>
-        <span class="size-option" onclick="selectShoeSize(this, '8')">8</span>
-        <span class="size-option" onclick="selectShoeSize(this, '9')">9</span>
-        <span class="size-option" onclick="selectShoeSize(this, '10')">10</span>
-    </div>
-    <input type="hidden" id="shoe-size">
-</div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Quantity *</label>
-                            <input type="number" id="quantity" min="1" value="1" required>
-                        </div>
-                        <div class="form-group" id="age-group" style="display: none;">
-                            <label>Age (for clothing) *</label>
-                            <input type="number" id="customer-age" min="1" max="100" placeholder="Enter age">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Complete Address *</label>
-                        <textarea id="customer-address" rows="3" required placeholder="House #, Street, Area, City"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>City *</label>
-                        <input type="text" id="customer-city" required placeholder="Enter your city">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Payment Method *</label>
-                        <select id="payment-method" required>
-                            <option value="">Select Payment Method</option>
-                            <option value="cod">Cash on Delivery</option>
-                            <option value="bank">Bank Transfer</option>
-                            <option value="easypaisa">Easypaisa</option>
-                            <option value="jazzcash">JazzCash</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Additional Notes</label>
-                        <textarea id="order-notes" rows="2" placeholder="Any special instructions..."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="age-verify" required>
-                            <label for="age-verify">I confirm that I am 18 years or older *</label>
-                        </div>
-                    </div>
-                    
-                    <script>
-function sendToWhatsApp() {
-
-    // Get values
-    let name = document.getElementById("name").value;
-    let phone = document.getElementById("phone").value;
-    let address = document.getElementById("address").value;
-    let clothSize = document.getElementById("cloth-size")?.value || "";
-    let shoeSize = document.getElementById("shoe-size")?.value || "";
-
-    let size = clothSize || shoeSize;
-
-    // Your WhatsApp number (CHANGE THIS)
-    let yourNumber = "923XXXXXXXXX";
-
-    // Message
-    let message = `New Order:%0A
-Name: ${name}%0A
-Phone: ${phone}%0A
-Address: ${address}%0A
-Size: ${size}`;
-
-    // Open WhatsApp
-    window.open(`https://wa.me/${yourNumber}?text=${message}`, "_blank");
-
-    // Show Thank You Page
-    showThankYou();
-}
-</script>
-                  <div id="thankYouPage" style="display:none; text-align:center; padding:40px;">
-    <h2>🎉 Thanks for your order!</h2>
-    <p>Your order has been sent successfully.</p>
-
-    <button onclick="continueShopping()" 
-        style="padding:10px 20px; background:black; color:white; border:none; cursor:pointer;">
-        Continue Shopping
-    </button>
-</div>
-                    <script>
-function showThankYou() {
-    document.querySelector("form").style.display = "none";
-    document.getElementById("thankYouPage").style.display = "block";
-}
-
-function continueShopping() {
-    window.location.href = "index.html";
-}
-</script>
-
-</body>
-</html>
 
     <!-- Cart Modal -->
     <div class="modal-overlay" id="cart-modal">
@@ -1483,22 +1491,6 @@ function continueShopping() {
         </div>
     </div>
 
-    <!-- Order Success Modal -->
-    <div class="modal-overlay" id="success-modal">
-        <div class="modal success-modal">
-            <div class="modal-body">
-                <div class="success-icon">
-                    <i class="fas fa-check"></i>
-                </div>
-                <h2>Thanks for Shopping!</h2>
-                <p>Your order has been received. We've sent the details to WhatsApp and email. Our team will contact you shortly to confirm your order.</p>
-                <button class="hero-btn" onclick="continueShopping()">
-                    <i class="fas fa-shopping-bag"></i> Continue Shopping
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
         // Product Data
         const products = {
@@ -1507,14 +1499,14 @@ function continueShopping() {
                 name: "Adidas Samba OG Shoes",
                 price: 8000,
                 image: "https://xcdn.next.co.uk/common/items/default/default/itemimages/3_4Ratio/product/lge/V28940s2.jpg",
-                category: "footwear"
+                category: "shoes"
             },
             2: {
                 id: 2,
                 name: "Premium Leather Chelsea Boots",
                 price: 7500,
                 image: "https://www.theroyalepeacock.com/cdn/shop/files/IMG_7371-NEW_420x_bb680117-fed1-4ff8-82fe-99dc6396b6db.jpg?v=1734167196&width=416",
-                category: "footwear"
+                category: "shoes"
             },
             3: {
                 id: 3,
@@ -1701,25 +1693,31 @@ function continueShopping() {
         function openOrderModal(productId) {
             currentProduct = products[productId];
             
-            // Show/hide size and age fields based on product
-            const sizeGroup = document.getElementById('size-group');
+            // Show/hide size fields based on product category
+            const clothingSizeGroup = document.getElementById('clothing-size-group');
+            const shoeSizeGroup = document.getElementById('shoe-size-group');
             const ageGroup = document.getElementById('age-group');
             
+            // Reset size selections
+            document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+            document.getElementById('selected-clothing-size').value = '';
+            document.getElementById('selected-shoe-size').value = '';
+            
             if (currentProduct.category === 'accessories') {
-                sizeGroup.style.display = 'none';
+                // Watch - no sizes needed
+                clothingSizeGroup.style.display = 'none';
+                shoeSizeGroup.style.display = 'none';
                 ageGroup.style.display = 'none';
-                document.getElementById('selected-size').required = false;
-                document.getElementById('customer-age').required = false;
             } else if (currentProduct.category === 'clothing') {
-                sizeGroup.style.display = 'block';
+                // Clothing - show clothing sizes and age
+                clothingSizeGroup.style.display = 'block';
+                shoeSizeGroup.style.display = 'none';
                 ageGroup.style.display = 'block';
-                document.getElementById('selected-size').required = true;
-                document.getElementById('customer-age').required = true;
-            } else {
-                sizeGroup.style.display = 'block';
+            } else if (currentProduct.category === 'shoes') {
+                // Shoes - show shoe sizes
+                clothingSizeGroup.style.display = 'none';
+                shoeSizeGroup.style.display = 'block';
                 ageGroup.style.display = 'none';
-                document.getElementById('selected-size').required = true;
-                document.getElementById('customer-age').required = false;
             }
             
             // Update preview
@@ -1731,17 +1729,24 @@ function continueShopping() {
                 </div>
             `;
             
-            // Reset form
+            // Reset form and show form, hide thank you
             document.getElementById('order-form').reset();
-            document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+            document.getElementById('order-form-container').style.display = 'block';
+            document.getElementById('thank-you-page').style.display = 'none';
             
             document.getElementById('order-modal').classList.add('active');
         }
 
-        function selectSize(element, size) {
-            document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+        function selectClothingSize(element, size) {
+            document.querySelectorAll('#clothing-size-group .size-option').forEach(opt => opt.classList.remove('selected'));
             element.classList.add('selected');
-            document.getElementById('selected-size').value = size;
+            document.getElementById('selected-clothing-size').value = size;
+        }
+
+        function selectShoeSize(element, size) {
+            document.querySelectorAll('#shoe-size-group .size-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('selected-shoe-size').value = size;
         }
 
         function submitOrder(event) {
@@ -1753,7 +1758,8 @@ function continueShopping() {
             const name = document.getElementById('customer-name').value;
             const phone = document.getElementById('customer-phone').value;
             const email = document.getElementById('customer-email').value;
-            const size = document.getElementById('selected-size').value;
+            const clothingSize = document.getElementById('selected-clothing-size').value;
+            const shoeSize = document.getElementById('selected-shoe-size').value;
             const quantity = document.getElementById('quantity').value;
             const age = document.getElementById('customer-age').value;
             const address = document.getElementById('customer-address').value;
@@ -1761,7 +1767,15 @@ function continueShopping() {
             const payment = document.getElementById('payment-method').value;
             const notes = document.getElementById('order-notes').value;
             
-            // Validation for clothing
+            // Validation based on product category
+            if (currentProduct.category === 'clothing' && !clothingSize) {
+                alert('Please select a clothing size');
+                return;
+            }
+            if (currentProduct.category === 'shoes' && !shoeSize) {
+                alert('Please select a shoe size');
+                return;
+            }
             if (currentProduct.category === 'clothing' && !age) {
                 alert('Please enter age for clothing items');
                 return;
@@ -1770,13 +1784,21 @@ function continueShopping() {
             // Calculate total
             const total = currentProduct.price * quantity;
             
-            // Construct order message
+            // Get the selected size
+            let selectedSize = '';
+            if (currentProduct.category === 'clothing') {
+                selectedSize = clothingSize;
+            } else if (currentProduct.category === 'shoes') {
+                selectedSize = shoeSize;
+            }
+            
+            // Construct order message for WhatsApp
             const orderMessage = `*NEW ORDER - OPAL OUTFITTERS*%0A%0A` +
                 `*Product:* ${currentProduct.name}%0A` +
                 `*Price:* PKR ${currentProduct.price.toLocaleString()}%0A` +
                 `*Quantity:* ${quantity}%0A` +
                 `*Total:* PKR ${total.toLocaleString()}%0A` +
-                `${currentProduct.category !== 'accessories' ? `*Size:* ${size}%0A` : ''}` +
+                `${selectedSize ? `*Size:* ${selectedSize}%0A` : ''}` +
                 `${currentProduct.category === 'clothing' ? `*Age:* ${age}%0A` : ''}` +
                 `%0A*Customer Details*%0A` +
                 `*Name:* ${name}%0A` +
@@ -1798,7 +1820,7 @@ function continueShopping() {
                 `Price: PKR ${currentProduct.price.toLocaleString()}\n` +
                 `Quantity: ${quantity}\n` +
                 `Total: PKR ${total.toLocaleString()}\n` +
-                `${currentProduct.category !== 'accessories' ? `Size: ${size}\n` : ''}` +
+                `${selectedSize ? `Size: ${selectedSize}\n` : ''}` +
                 `${currentProduct.category === 'clothing' ? `Age: ${age}\n` : ''}` +
                 `\nCustomer Details\n` +
                 `Name: ${name}\n` +
@@ -1816,22 +1838,25 @@ function continueShopping() {
             cart.push({
                 ...currentProduct,
                 quantity: parseInt(quantity),
-                size: size,
+                size: selectedSize,
                 customerName: name
             });
             updateCartBadge();
             
-            // Close order modal and show success
-            closeModal('order-modal');
-            setTimeout(() => {
-                document.getElementById('success-modal').classList.add('active');
-            }, 500);
+            // Show thank you page
+            document.getElementById('order-form-container').style.display = 'none';
+            document.getElementById('thank-you-page').style.display = 'block';
         }
 
         function continueShopping() {
-            closeModal('success-modal');
-            document.getElementById('order-form').reset();
-            document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+            closeModal('order-modal');
+            // Reset form for next time
+            setTimeout(() => {
+                document.getElementById('order-form').reset();
+                document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+                document.getElementById('order-form-container').style.display = 'block';
+                document.getElementById('thank-you-page').style.display = 'none';
+            }, 300);
         }
 
         // Review Modal Functions
@@ -1873,14 +1898,6 @@ function continueShopping() {
 
         function toggleMenu() {
             document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function scrollToProducts() {
-            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function showContact() {
-            window.open('https://wa.me/923483351028', '_blank');
         }
 
         // Notification
