@@ -1039,6 +1039,46 @@
         <p class="section-subtitle">Curated selection of premium fashion items</p>
         
         <div class="products-grid" id="products-grid">
+            <!-- Product 1: Body Wash -->
+<div class="product-card" data-product-id="1" data-name="yardile body wash" data-category="bodycare">
+    <div class="product-image-slider">
+        <div class="product-images" id="slider-1">
+            <img src="Screenshot 2026-04-18 102625.png" alt="Body Wash Front" class="product-image">
+            <img src="Screenshot 2026-04-18 102655.png" alt="Body Wash Side" class="product-image">
+            <img src="Screenshot 2026-04-18 102738.png" alt="Body Wash Lifestyle" class="product-image">
+            <img src="https://cdn.mall.adeptmind.ai/https%253A%252F%252Fscene7.zumiez.com%252Fis%252Fimage%252Fzumiez%252Fproduct_main_medium_2x%252Fadidas-Samba-ADV-White%25252C-Black-%252526-Gum-Skate-Shoes-_370723-alt1-US.jpg_small.webp" alt="Body Wash Top" class="product-image">
+        </div>
+        <button class="slider-arrow prev" onclick="changeSlide(1, -1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-arrow next" onclick="changeSlide(1, 1)"><i class="fas fa-chevron-right"></i></button>
+        <div class="slider-nav">
+            <span class="slider-dot active" onclick="goToSlide(1, 0)"></span>
+            <span class="slider-dot" onclick="goToSlide(1, 1)"></span>
+            <span class="slider-dot" onclick="goToSlide(1, 2)"></span>
+            <span class="slider-dot" onclick="goToSlide(1, 3)"></span>
+        </div>
+        <button class="wishlist-btn" onclick="toggleWishlist(1)" id="wishlist-btn-1">
+            <i class="fas fa-heart"></i>
+        </button>
+    </div>
+    <div class="product-info">
+        <div class="product-category">Body Care</div>
+        <h3 class="product-name">YARDILE BODY WASH</h3>
+        <p class="product-description">Premium body wash with refreshing fragrance. Gentle on skin and perfect for daily use. Cash on Delivery available.</p>
+        <div class="product-price">PKR 2,500 <span>incl. tax</span></div>
+        <div class="product-rating">
+            <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+            <span class="review-count">(128 reviews)</span>
+        </div>
+        <div class="product-actions">
+            <button class="btn btn-primary" onclick="openOrderModal(1)">
+                <i class="fas fa-shopping-cart"></i> Order Now
+            </button>
+            <button class="btn btn-secondary" onclick="openReviewModal(1)">
+                <i class="fas fa-star"></i> Review
+            </button>
+        </div>
+    </div>
+</div>
             <!-- Product 1: Samba Shoes -->
             <div class="product-card" data-product-id="1" data-name="samba" data-category="shoes">
                 <div class="product-image-slider">
